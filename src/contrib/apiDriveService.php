@@ -33,7 +33,7 @@
      * @param DriveFile $postBody
      * @return DriveFile
      */
-    public function insert(com.google.drive.model.DriveFile $postBody, $optParams = array()) {
+    public function insert(DriveFile $postBody, $optParams = array()) {
       $params = array('postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('insert', array($params));
@@ -55,7 +55,7 @@
      * @opt_param bool newRevision Whether a blob upload should create a new revision. If not set or false, the blob data in the current head revision will be replaced.
      * @return DriveFile
      */
-    public function patch($id, com.google.drive.model.DriveFile $postBody, $optParams = array()) {
+    public function patch($id, DriveFile $postBody, $optParams = array()) {
       $params = array('id' => $id, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('patch', array($params));
@@ -77,7 +77,7 @@
      * @opt_param bool newRevision Whether a blob upload should create a new revision. If not set or false, the blob data in the current head revision will be replaced.
      * @return DriveFile
      */
-    public function update($id, com.google.drive.model.DriveFile $postBody, $optParams = array()) {
+    public function update($id, DriveFile $postBody, $optParams = array()) {
       $params = array('id' => $id, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('update', array($params));
@@ -131,13 +131,12 @@ class apiDriveService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/drive/v1/';
     $this->version = 'v1';
     $this->serviceName = 'drive';
 
     $apiClient->addService($this->serviceName, $this->version);
-    $this->files = new FilesServiceResource($this, $this->serviceName, 'files', json_decode('{&quot;methods&quot;: {&quot;insert&quot;: {&quot;scopes&quot;: [&quot;https://www.googleapis.com/auth/drive.file&quot;], &quot;mediaUpload&quot;: {&quot;maxSize&quot;: &quot;10GB&quot;, &quot;accept&quot;: [&quot;*/*&quot;], &quot;protocols&quot;: {&quot;simple&quot;: {&quot;path&quot;: &quot;/upload/drive/v1/files&quot;, &quot;multipart&quot;: true}, &quot;resumable&quot;: {&quot;path&quot;: &quot;/resumable/upload/drive/v1/files&quot;, &quot;multipart&quot;: true}}}, &quot;request&quot;: {&quot;$ref&quot;: &quot;File&quot;}, &quot;response&quot;: {&quot;$ref&quot;: &quot;File&quot;}, &quot;httpMethod&quot;: &quot;POST&quot;, &quot;path&quot;: &quot;files&quot;, &quot;id&quot;: &quot;drive.files.insert&quot;}, &quot;get&quot;: {&quot;scopes&quot;: [&quot;https://www.googleapis.com/auth/drive.file&quot;], &quot;parameters&quot;: {&quot;updateViewedDate&quot;: {&quot;default&quot;: &quot;true&quot;, &quot;type&quot;: &quot;boolean&quot;, &quot;location&quot;: &quot;query&quot;}, &quot;id&quot;: {&quot;required&quot;: true, &quot;type&quot;: &quot;string&quot;, &quot;location&quot;: &quot;path&quot;}, &quot;projection&quot;: {&quot;enum&quot;: [&quot;BASIC&quot;, &quot;FULL&quot;], &quot;type&quot;: &quot;string&quot;, &quot;location&quot;: &quot;query&quot;}}, &quot;id&quot;: &quot;drive.files.get&quot;, &quot;httpMethod&quot;: &quot;GET&quot;, &quot;path&quot;: &quot;files/{id}&quot;, &quot;response&quot;: {&quot;$ref&quot;: &quot;File&quot;}}, &quot;update&quot;: {&quot;scopes&quot;: [&quot;https://www.googleapis.com/auth/drive.file&quot;], &quot;parameters&quot;: {&quot;updateViewedDate&quot;: {&quot;default&quot;: &quot;true&quot;, &quot;type&quot;: &quot;boolean&quot;, &quot;location&quot;: &quot;query&quot;}, &quot;updateModifiedDate&quot;: {&quot;default&quot;: &quot;false&quot;, &quot;type&quot;: &quot;boolean&quot;, &quot;location&quot;: &quot;query&quot;}, &quot;id&quot;: {&quot;required&quot;: true, &quot;type&quot;: &quot;string&quot;, &quot;location&quot;: &quot;path&quot;}, &quot;newRevision&quot;: {&quot;default&quot;: &quot;true&quot;, &quot;type&quot;: &quot;boolean&quot;, &quot;location&quot;: &quot;query&quot;}}, &quot;mediaUpload&quot;: {&quot;maxSize&quot;: &quot;10GB&quot;, &quot;accept&quot;: [&quot;*/*&quot;], &quot;protocols&quot;: {&quot;simple&quot;: {&quot;path&quot;: &quot;/upload/drive/v1/files/{id}&quot;, &quot;multipart&quot;: true}, &quot;resumable&quot;: {&quot;path&quot;: &quot;/resumable/upload/drive/v1/files/{id}&quot;, &quot;multipart&quot;: true}}}, &quot;request&quot;: {&quot;$ref&quot;: &quot;File&quot;}, &quot;id&quot;: &quot;drive.files.update&quot;, &quot;httpMethod&quot;: &quot;PUT&quot;, &quot;path&quot;: &quot;files/{id}&quot;, &quot;response&quot;: {&quot;$ref&quot;: &quot;File&quot;}}, &quot;patch&quot;: {&quot;scopes&quot;: [&quot;https://www.googleapis.com/auth/drive.file&quot;], &quot;parameters&quot;: {&quot;updateViewedDate&quot;: {&quot;default&quot;: &quot;true&quot;, &quot;type&quot;: &quot;boolean&quot;, &quot;location&quot;: &quot;query&quot;}, &quot;updateModifiedDate&quot;: {&quot;default&quot;: &quot;false&quot;, &quot;type&quot;: &quot;boolean&quot;, &quot;location&quot;: &quot;query&quot;}, &quot;id&quot;: {&quot;required&quot;: true, &quot;type&quot;: &quot;string&quot;, &quot;location&quot;: &quot;path&quot;}, &quot;newRevision&quot;: {&quot;default&quot;: &quot;true&quot;, &quot;type&quot;: &quot;boolean&quot;, &quot;location&quot;: &quot;query&quot;}}, &quot;request&quot;: {&quot;$ref&quot;: &quot;File&quot;}, &quot;id&quot;: &quot;drive.files.patch&quot;, &quot;httpMethod&quot;: &quot;PATCH&quot;, &quot;path&quot;: &quot;files/{id}&quot;, &quot;response&quot;: {&quot;$ref&quot;: &quot;File&quot;}}}}', true));
+    $this->files = new FilesServiceResource($this, $this->serviceName, 'files', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/drive.file"], "mediaUpload": {"maxSize": "10GB", "accept": ["*/*"], "protocols": {"simple": {"path": "/upload/drive/v1/files", "multipart": true}, "resumable": {"path": "/resumable/upload/drive/v1/files", "multipart": true}}}, "request": {"$ref": "File"}, "response": {"$ref": "File"}, "httpMethod": "POST", "path": "files", "id": "drive.files.insert"}, "get": {"scopes": ["https://www.googleapis.com/auth/drive.file"], "parameters": {"updateViewedDate": {"default": "true", "type": "boolean", "location": "query"}, "id": {"required": true, "type": "string", "location": "path"}, "projection": {"enum": ["BASIC", "FULL"], "type": "string", "location": "query"}}, "id": "drive.files.get", "httpMethod": "GET", "path": "files/{id}", "response": {"$ref": "File"}}, "update": {"scopes": ["https://www.googleapis.com/auth/drive.file"], "parameters": {"updateViewedDate": {"default": "true", "type": "boolean", "location": "query"}, "updateModifiedDate": {"default": "false", "type": "boolean", "location": "query"}, "id": {"required": true, "type": "string", "location": "path"}, "newRevision": {"default": "true", "type": "boolean", "location": "query"}}, "mediaUpload": {"maxSize": "10GB", "accept": ["*/*"], "protocols": {"simple": {"path": "/upload/drive/v1/files/{id}", "multipart": true}, "resumable": {"path": "/resumable/upload/drive/v1/files/{id}", "multipart": true}}}, "request": {"$ref": "File"}, "id": "drive.files.update", "httpMethod": "PUT", "path": "files/{id}", "response": {"$ref": "File"}}, "patch": {"scopes": ["https://www.googleapis.com/auth/drive.file"], "parameters": {"updateViewedDate": {"default": "true", "type": "boolean", "location": "query"}, "updateModifiedDate": {"default": "false", "type": "boolean", "location": "query"}, "id": {"required": true, "type": "string", "location": "path"}, "newRevision": {"default": "true", "type": "boolean", "location": "query"}}, "request": {"$ref": "File"}, "id": "drive.files.patch", "httpMethod": "PATCH", "path": "files/{id}", "response": {"$ref": "File"}}}}', true));
 
   }
 }
