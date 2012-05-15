@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,10 +14,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-require_once 'service/apiModel.php';
-require_once 'service/apiService.php';
-require_once 'service/apiServiceRequest.php';
 
 
   /**
@@ -55,8 +51,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
-
 /**
  * Service definition for Pagespeedonline (v1).
  *
@@ -79,13 +73,13 @@ class apiPagespeedonlineService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/pagespeedonline/v1/';
     $this->version = 'v1';
     $this->serviceName = 'pagespeedonline';
 
     $apiClient->addService($this->serviceName, $this->version);
     $this->pagespeedapi = new PagespeedapiServiceResource($this, $this->serviceName, 'pagespeedapi', json_decode('{"methods": {"runpagespeed": {"parameters": {"locale": {"type": "string", "location": "query"}, "url": {"required": true, "type": "string", "location": "query"}, "rule": {"repeated": true, "type": "string", "location": "query"}, "strategy": {"enum": ["desktop", "mobile"], "type": "string", "location": "query"}}, "id": "pagespeedonline.pagespeedapi.runpagespeed", "httpMethod": "GET", "path": "runPagespeed", "response": {"$ref": "Result"}}}}', true));
+
   }
 }
 
