@@ -34,4 +34,11 @@ class UrlShortenerTests extends BaseTest {
     $this->assertEquals('urlshortener#url', $shortUrl['kind']);
     $this->assertEquals('http://google.com/', $shortUrl['longUrl']);
   }
+
+  public function testEmptyJsonResponse() {
+    $optParams = array('fields' => '');
+    $resp = $this->service->url->get('http://goo.gl/KkHq8', $optParams);
+
+    $this->assertEquals(array(), $resp);
+  }
 }

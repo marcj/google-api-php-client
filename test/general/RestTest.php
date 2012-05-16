@@ -56,6 +56,18 @@ class RestTest extends BaseTest {
     $this->assertEquals(trim($error), "Error calling GET http://localhost: (500)");
   }
 
+
+  public function testDecodeEmptyResponse() {
+    $url = 'http://localhost';
+
+    $response = new apiHttpRequest($url, 'GET', array());
+    $response->setResponseBody('{}');
+
+    $response->setResponseHttpCode(200);
+    $decoded = $this->rest->decodeHttpResponse($response);
+    $this->assertEquals(array(), $decoded);
+  }
+
   public function testCreateRequestUri() {
     $basePath = "http://localhost";
     $restPath = "/plus/{u}";
