@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,10 +14,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-require_once 'service/apiModel.php';
-require_once 'service/apiService.php';
-require_once 'service/apiServiceRequest.php';
 
 
   /**
@@ -39,16 +35,36 @@ require_once 'service/apiServiceRequest.php';
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
      *
      * @opt_param string sort The sort expression to apply to the results
+     * @opt_param string orTerms Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional search terms
+     * @opt_param string highRange Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
      * @opt_param string num Number of search results to return
-     * @opt_param string googlehost The local Google domain to use to perform the search.
-     * @opt_param string safe Search safety level
-     * @opt_param string filter Controls turning on or off the duplicate content filter.
-     * @opt_param string start The index of the first result to return
-     * @opt_param string cx The custom search engine ID to scope this search query
-     * @opt_param string lr The language restriction for the search results
      * @opt_param string cr Country restrict(s).
+     * @opt_param string imgType Returns images of a type, which can be one of: clipart, face, lineart, news, and photo.
      * @opt_param string gl Geolocation of end user.
+     * @opt_param string relatedSite Specifies that all search results should be pages that are related to the specified URL
+     * @opt_param string searchType Specifies the search type: image.
+     * @opt_param string fileType Returns images of a specified type. Some of the allowed values are: bmp, gif, png, jpg, svg, pdf, ...
+     * @opt_param string start The index of the first result to return
+     * @opt_param string imgDominantColor Returns images of a specific dominant color: yellow, green, teal, blue, purple, pink, white, gray, black and brown.
+     * @opt_param string lr The language restriction for the search results
+     * @opt_param string siteSearch Specifies all search results should be pages from a given site
      * @opt_param string cref The URL of a linked custom search engine
+     * @opt_param string dateRestrict Specifies all search results are from a time period
+     * @opt_param string safe Search safety level
+     * @opt_param string c2coff Turns off the translation between zh-CN and zh-TW.
+     * @opt_param string googlehost The local Google domain to use to perform the search.
+     * @opt_param string hq Appends the extra query terms to the query.
+     * @opt_param string exactTerms Identifies a phrase that all documents in the search results must contain
+     * @opt_param string hl Sets the user interface language.
+     * @opt_param string lowRange Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
+     * @opt_param string imgSize Returns images of a specified size, where size can be one of: icon, small, medium, large, xlarge, xxlarge, and huge.
+     * @opt_param string imgColorType Returns black and white, grayscale, or color images: mono, gray, and color.
+     * @opt_param string rights Filters based on licensing. Supported values include: cc_publicdomain, cc_attribute, cc_sharealike, cc_noncommercial, cc_nonderived and combinations of these.
+     * @opt_param string excludeTerms Identifies a word or phrase that should not appear in any documents in the search results
+     * @opt_param string filter Controls turning on or off the duplicate content filter.
+     * @opt_param string linkSite Specifies that all search results should contain a link to a particular URL
+     * @opt_param string cx The custom search engine ID to scope this search query
+     * @opt_param string siteSearchFilter Controls whether to include or exclude results from the site named in the as_sitesearch parameter
      * @return Search
      */
     public function listCse($q, $optParams = array()) {
@@ -62,8 +78,6 @@ require_once 'service/apiServiceRequest.php';
       }
     }
   }
-
-
 
 /**
  * Service definition for Customsearch (v1).
@@ -87,13 +101,13 @@ class apiCustomsearchService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/customsearch/';
     $this->version = 'v1';
     $this->serviceName = 'customsearch';
 
     $apiClient->addService($this->serviceName, $this->version);
-    $this->cse = new CseServiceResource($this, $this->serviceName, 'cse', json_decode('{"methods": {"list": {"parameters": {"sort": {"type": "string", "location": "query"}, "filter": {"enum": ["0", "1"], "type": "string", "location": "query"}, "cx": {"type": "string", "location": "query"}, "googlehost": {"type": "string", "location": "query"}, "safe": {"default": "off", "enum": ["high", "medium", "off"], "location": "query", "type": "string"}, "q": {"required": true, "type": "string", "location": "query"}, "start": {"type": "string", "location": "query"}, "num": {"default": "10", "type": "string", "location": "query"}, "lr": {"enum": ["lang_ar", "lang_bg", "lang_ca", "lang_cs", "lang_da", "lang_de", "lang_el", "lang_en", "lang_es", "lang_et", "lang_fi", "lang_fr", "lang_hr", "lang_hu", "lang_id", "lang_is", "lang_it", "lang_iw", "lang_ja", "lang_ko", "lang_lt", "lang_lv", "lang_nl", "lang_no", "lang_pl", "lang_pt", "lang_ro", "lang_ru", "lang_sk", "lang_sl", "lang_sr", "lang_sv", "lang_tr", "lang_zh-CN", "lang_zh-TW"], "type": "string", "location": "query"}, "cr": {"type": "string", "location": "query"}, "gl": {"type": "string", "location": "query"}, "cref": {"type": "string", "location": "query"}}, "id": "search.cse.list", "httpMethod": "GET", "path": "v1", "response": {"$ref": "Search"}}}}', true));
+    $this->cse = new CseServiceResource($this, $this->serviceName, 'cse', json_decode('{"methods": {"list": {"parameters": {"dateRestrict": {"type": "string", "location": "query"}, "orTerms": {"type": "string", "location": "query"}, "highRange": {"type": "string", "location": "query"}, "num": {"default": "10", "format": "uint32", "type": "integer", "location": "query"}, "cr": {"type": "string", "location": "query"}, "imgType": {"enum": ["clipart", "face", "lineart", "news", "photo"], "type": "string", "location": "query"}, "relatedSite": {"type": "string", "location": "query"}, "filter": {"enum": ["0", "1"], "type": "string", "location": "query"}, "gl": {"type": "string", "location": "query"}, "searchType": {"enum": ["image"], "type": "string", "location": "query"}, "fileType": {"type": "string", "location": "query"}, "start": {"format": "uint32", "type": "integer", "location": "query"}, "imgDominantColor": {"enum": ["black", "blue", "brown", "gray", "green", "pink", "purple", "teal", "white", "yellow"], "type": "string", "location": "query"}, "lr": {"enum": ["lang_ar", "lang_bg", "lang_ca", "lang_cs", "lang_da", "lang_de", "lang_el", "lang_en", "lang_es", "lang_et", "lang_fi", "lang_fr", "lang_hr", "lang_hu", "lang_id", "lang_is", "lang_it", "lang_iw", "lang_ja", "lang_ko", "lang_lt", "lang_lv", "lang_nl", "lang_no", "lang_pl", "lang_pt", "lang_ro", "lang_ru", "lang_sk", "lang_sl", "lang_sr", "lang_sv", "lang_tr", "lang_zh-CN", "lang_zh-TW"], "type": "string", "location": "query"}, "siteSearch": {"type": "string", "location": "query"}, "cref": {"type": "string", "location": "query"}, "sort": {"type": "string", "location": "query"}, "hq": {"type": "string", "location": "query"}, "c2coff": {"type": "string", "location": "query"}, "googlehost": {"type": "string", "location": "query"}, "safe": {"default": "off", "enum": ["high", "medium", "off"], "location": "query", "type": "string"}, "exactTerms": {"type": "string", "location": "query"}, "hl": {"type": "string", "location": "query"}, "lowRange": {"type": "string", "location": "query"}, "imgSize": {"enum": ["huge", "icon", "large", "medium", "small", "xlarge", "xxlarge"], "type": "string", "location": "query"}, "imgColorType": {"enum": ["color", "gray", "mono"], "type": "string", "location": "query"}, "rights": {"type": "string", "location": "query"}, "excludeTerms": {"type": "string", "location": "query"}, "q": {"required": true, "type": "string", "location": "query"}, "linkSite": {"type": "string", "location": "query"}, "cx": {"type": "string", "location": "query"}, "siteSearchFilter": {"enum": ["e", "i"], "type": "string", "location": "query"}}, "id": "search.cse.list", "httpMethod": "GET", "path": "v1", "response": {"$ref": "Search"}}}}', true));
+
   }
 }
 
@@ -226,82 +240,66 @@ class PromotionImage extends apiModel {
 }
 
 class Query extends apiModel {
-  public $count;
   public $sort;
-  public $outputEncoding;
-  public $language;
-  public $title;
-  public $googleHost;
-  public $safe;
-  public $searchTerms;
-  public $filter;
-  public $startIndex;
+  public $inputEncoding;
+  public $orTerms;
+  public $highRange;
   public $cx;
   public $startPage;
-  public $inputEncoding;
+  public $disableCnTwTranslation;
   public $cr;
+  public $imgType;
   public $gl;
-  public $totalResults;
+  public $relatedSite;
+  public $searchType;
+  public $title;
+  public $googleHost;
+  public $fileType;
+  public $imgDominantColor;
+  public $siteSearch;
   public $cref;
-  public function setCount($count) {
-    $this->count = $count;
-  }
-  public function getCount() {
-    return $this->count;
-  }
+  public $dateRestrict;
+  public $safe;
+  public $outputEncoding;
+  public $hq;
+  public $searchTerms;
+  public $exactTerms;
+  public $language;
+  public $hl;
+  public $totalResults;
+  public $lowRange;
+  public $count;
+  public $imgSize;
+  public $imgColorType;
+  public $rights;
+  public $startIndex;
+  public $excludeTerms;
+  public $filter;
+  public $linkSite;
+  public $siteSearchFilter;
   public function setSort($sort) {
     $this->sort = $sort;
   }
   public function getSort() {
     return $this->sort;
   }
-  public function setOutputEncoding($outputEncoding) {
-    $this->outputEncoding = $outputEncoding;
+  public function setInputEncoding($inputEncoding) {
+    $this->inputEncoding = $inputEncoding;
   }
-  public function getOutputEncoding() {
-    return $this->outputEncoding;
+  public function getInputEncoding() {
+    return $this->inputEncoding;
   }
-  public function setLanguage($language) {
-    $this->language = $language;
+  public function setOrTerms($orTerms) {
+    $this->orTerms = $orTerms;
   }
-  public function getLanguage() {
-    return $this->language;
+  public function getOrTerms() {
+    return $this->orTerms;
   }
-  public function setTitle($title) {
-    $this->title = $title;
+  public function setHighRange($highRange) {
+    $this->highRange = $highRange;
   }
-  public function getTitle() {
-    return $this->title;
-  }
-  public function setGoogleHost($googleHost) {
-    $this->googleHost = $googleHost;
-  }
-  public function getGoogleHost() {
-    return $this->googleHost;
-  }
-  public function setSafe($safe) {
-    $this->safe = $safe;
-  }
-  public function getSafe() {
-    return $this->safe;
-  }
-  public function setSearchTerms($searchTerms) {
-    $this->searchTerms = $searchTerms;
-  }
-  public function getSearchTerms() {
-    return $this->searchTerms;
-  }
-  public function setFilter($filter) {
-    $this->filter = $filter;
-  }
-  public function getFilter() {
-    return $this->filter;
-  }
-  public function setStartIndex($startIndex) {
-    $this->startIndex = $startIndex;
-  }
-  public function getStartIndex() {
-    return $this->startIndex;
+  public function getHighRange() {
+    return $this->highRange;
   }
   public function setCx($cx) {
     $this->cx = $cx;
@@ -315,11 +313,11 @@ class Query extends apiModel {
   public function getStartPage() {
     return $this->startPage;
   }
-  public function setInputEncoding($inputEncoding) {
-    $this->inputEncoding = $inputEncoding;
+  public function setDisableCnTwTranslation($disableCnTwTranslation) {
+    $this->disableCnTwTranslation = $disableCnTwTranslation;
   }
-  public function getInputEncoding() {
-    return $this->inputEncoding;
+  public function getDisableCnTwTranslation() {
+    return $this->disableCnTwTranslation;
   }
   public function setCr($cr) {
     $this->cr = $cr;
@@ -327,17 +325,59 @@ class Query extends apiModel {
   public function getCr() {
     return $this->cr;
   }
+  public function setImgType($imgType) {
+    $this->imgType = $imgType;
+  }
+  public function getImgType() {
+    return $this->imgType;
+  }
   public function setGl($gl) {
     $this->gl = $gl;
   }
   public function getGl() {
     return $this->gl;
   }
-  public function setTotalResults($totalResults) {
-    $this->totalResults = $totalResults;
+  public function setRelatedSite($relatedSite) {
+    $this->relatedSite = $relatedSite;
   }
-  public function getTotalResults() {
-    return $this->totalResults;
+  public function getRelatedSite() {
+    return $this->relatedSite;
+  }
+  public function setSearchType($searchType) {
+    $this->searchType = $searchType;
+  }
+  public function getSearchType() {
+    return $this->searchType;
+  }
+  public function setTitle($title) {
+    $this->title = $title;
+  }
+  public function getTitle() {
+    return $this->title;
+  }
+  public function setGoogleHost($googleHost) {
+    $this->googleHost = $googleHost;
+  }
+  public function getGoogleHost() {
+    return $this->googleHost;
+  }
+  public function setFileType($fileType) {
+    $this->fileType = $fileType;
+  }
+  public function getFileType() {
+    return $this->fileType;
+  }
+  public function setImgDominantColor($imgDominantColor) {
+    $this->imgDominantColor = $imgDominantColor;
+  }
+  public function getImgDominantColor() {
+    return $this->imgDominantColor;
+  }
+  public function setSiteSearch($siteSearch) {
+    $this->siteSearch = $siteSearch;
+  }
+  public function getSiteSearch() {
+    return $this->siteSearch;
   }
   public function setCref($cref) {
     $this->cref = $cref;
@@ -345,23 +385,160 @@ class Query extends apiModel {
   public function getCref() {
     return $this->cref;
   }
+  public function setDateRestrict($dateRestrict) {
+    $this->dateRestrict = $dateRestrict;
+  }
+  public function getDateRestrict() {
+    return $this->dateRestrict;
+  }
+  public function setSafe($safe) {
+    $this->safe = $safe;
+  }
+  public function getSafe() {
+    return $this->safe;
+  }
+  public function setOutputEncoding($outputEncoding) {
+    $this->outputEncoding = $outputEncoding;
+  }
+  public function getOutputEncoding() {
+    return $this->outputEncoding;
+  }
+  public function setHq($hq) {
+    $this->hq = $hq;
+  }
+  public function getHq() {
+    return $this->hq;
+  }
+  public function setSearchTerms($searchTerms) {
+    $this->searchTerms = $searchTerms;
+  }
+  public function getSearchTerms() {
+    return $this->searchTerms;
+  }
+  public function setExactTerms($exactTerms) {
+    $this->exactTerms = $exactTerms;
+  }
+  public function getExactTerms() {
+    return $this->exactTerms;
+  }
+  public function setLanguage($language) {
+    $this->language = $language;
+  }
+  public function getLanguage() {
+    return $this->language;
+  }
+  public function setHl($hl) {
+    $this->hl = $hl;
+  }
+  public function getHl() {
+    return $this->hl;
+  }
+  public function setTotalResults($totalResults) {
+    $this->totalResults = $totalResults;
+  }
+  public function getTotalResults() {
+    return $this->totalResults;
+  }
+  public function setLowRange($lowRange) {
+    $this->lowRange = $lowRange;
+  }
+  public function getLowRange() {
+    return $this->lowRange;
+  }
+  public function setCount($count) {
+    $this->count = $count;
+  }
+  public function getCount() {
+    return $this->count;
+  }
+  public function setImgSize($imgSize) {
+    $this->imgSize = $imgSize;
+  }
+  public function getImgSize() {
+    return $this->imgSize;
+  }
+  public function setImgColorType($imgColorType) {
+    $this->imgColorType = $imgColorType;
+  }
+  public function getImgColorType() {
+    return $this->imgColorType;
+  }
+  public function setRights($rights) {
+    $this->rights = $rights;
+  }
+  public function getRights() {
+    return $this->rights;
+  }
+  public function setStartIndex($startIndex) {
+    $this->startIndex = $startIndex;
+  }
+  public function getStartIndex() {
+    return $this->startIndex;
+  }
+  public function setExcludeTerms($excludeTerms) {
+    $this->excludeTerms = $excludeTerms;
+  }
+  public function getExcludeTerms() {
+    return $this->excludeTerms;
+  }
+  public function setFilter($filter) {
+    $this->filter = $filter;
+  }
+  public function getFilter() {
+    return $this->filter;
+  }
+  public function setLinkSite($linkSite) {
+    $this->linkSite = $linkSite;
+  }
+  public function getLinkSite() {
+    return $this->linkSite;
+  }
+  public function setSiteSearchFilter($siteSearchFilter) {
+    $this->siteSearchFilter = $siteSearchFilter;
+  }
+  public function getSiteSearchFilter() {
+    return $this->siteSearchFilter;
+  }
 }
 
 class Result extends apiModel {
+  public $snippet;
   public $kind;
+  protected $__labelsType = 'ResultLabels';
+  protected $__labelsDataType = 'array';
+  public $labels;
   public $title;
   public $displayLink;
   public $cacheId;
+  public $formattedUrl;
+  public $htmlFormattedUrl;
   public $pagemap;
-  public $snippet;
+  public $htmlTitle;
   public $htmlSnippet;
   public $link;
-  public $htmlTitle;
+  protected $__imageType = 'ResultImage';
+  protected $__imageDataType = '';
+  public $image;
+  public $mime;
+  public $fileFormat;
+  public function setSnippet($snippet) {
+    $this->snippet = $snippet;
+  }
+  public function getSnippet() {
+    return $this->snippet;
+  }
   public function setKind($kind) {
     $this->kind = $kind;
   }
   public function getKind() {
     return $this->kind;
+  }
+  public function setLabels(/* array(ResultLabels) */ $labels) {
+    $this->assertIsArray($labels, 'ResultLabels', __METHOD__);
+    $this->labels = $labels;
+  }
+  public function getLabels() {
+    return $this->labels;
   }
   public function setTitle($title) {
     $this->title = $title;
@@ -381,17 +558,29 @@ class Result extends apiModel {
   public function getCacheId() {
     return $this->cacheId;
   }
+  public function setFormattedUrl($formattedUrl) {
+    $this->formattedUrl = $formattedUrl;
+  }
+  public function getFormattedUrl() {
+    return $this->formattedUrl;
+  }
+  public function setHtmlFormattedUrl($htmlFormattedUrl) {
+    $this->htmlFormattedUrl = $htmlFormattedUrl;
+  }
+  public function getHtmlFormattedUrl() {
+    return $this->htmlFormattedUrl;
+  }
   public function setPagemap($pagemap) {
     $this->pagemap = $pagemap;
   }
   public function getPagemap() {
     return $this->pagemap;
   }
-  public function setSnippet($snippet) {
-    $this->snippet = $snippet;
+  public function setHtmlTitle($htmlTitle) {
+    $this->htmlTitle = $htmlTitle;
   }
-  public function getSnippet() {
-    return $this->snippet;
+  public function getHtmlTitle() {
+    return $this->htmlTitle;
   }
   public function setHtmlSnippet($htmlSnippet) {
     $this->htmlSnippet = $htmlSnippet;
@@ -405,11 +594,92 @@ class Result extends apiModel {
   public function getLink() {
     return $this->link;
   }
-  public function setHtmlTitle($htmlTitle) {
-    $this->htmlTitle = $htmlTitle;
+  public function setImage(ResultImage $image) {
+    $this->image = $image;
   }
-  public function getHtmlTitle() {
-    return $this->htmlTitle;
+  public function getImage() {
+    return $this->image;
+  }
+  public function setMime($mime) {
+    $this->mime = $mime;
+  }
+  public function getMime() {
+    return $this->mime;
+  }
+  public function setFileFormat($fileFormat) {
+    $this->fileFormat = $fileFormat;
+  }
+  public function getFileFormat() {
+    return $this->fileFormat;
+  }
+}
+
+class ResultImage extends apiModel {
+  public $thumbnailWidth;
+  public $byteSize;
+  public $height;
+  public $width;
+  public $contextLink;
+  public $thumbnailLink;
+  public $thumbnailHeight;
+  public function setThumbnailWidth($thumbnailWidth) {
+    $this->thumbnailWidth = $thumbnailWidth;
+  }
+  public function getThumbnailWidth() {
+    return $this->thumbnailWidth;
+  }
+  public function setByteSize($byteSize) {
+    $this->byteSize = $byteSize;
+  }
+  public function getByteSize() {
+    return $this->byteSize;
+  }
+  public function setHeight($height) {
+    $this->height = $height;
+  }
+  public function getHeight() {
+    return $this->height;
+  }
+  public function setWidth($width) {
+    $this->width = $width;
+  }
+  public function getWidth() {
+    return $this->width;
+  }
+  public function setContextLink($contextLink) {
+    $this->contextLink = $contextLink;
+  }
+  public function getContextLink() {
+    return $this->contextLink;
+  }
+  public function setThumbnailLink($thumbnailLink) {
+    $this->thumbnailLink = $thumbnailLink;
+  }
+  public function getThumbnailLink() {
+    return $this->thumbnailLink;
+  }
+  public function setThumbnailHeight($thumbnailHeight) {
+    $this->thumbnailHeight = $thumbnailHeight;
+  }
+  public function getThumbnailHeight() {
+    return $this->thumbnailHeight;
+  }
+}
+
+class ResultLabels extends apiModel {
+  public $displayName;
+  public $name;
+  public function setDisplayName($displayName) {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName() {
+    return $this->displayName;
+  }
+  public function setName($name) {
+    $this->name = $name;
+  }
+  public function getName() {
+    return $this->name;
   }
 }
 
@@ -430,6 +700,12 @@ class Search extends apiModel {
   protected $__queriesType = 'Query';
   protected $__queriesDataType = 'map';
   public $queries;
+  protected $__spellingType = 'SearchSpelling';
+  protected $__spellingDataType = '';
+  public $spelling;
+  protected $__searchInformationType = 'SearchSearchInformation';
+  protected $__searchInformationDataType = '';
+  public $searchInformation;
   public function setPromotions(/* array(Promotion) */ $promotions) {
     $this->assertIsArray($promotions, 'Promotion', __METHOD__);
     $this->promotions = $promotions;
@@ -467,6 +743,66 @@ class Search extends apiModel {
   }
   public function getQueries() {
     return $this->queries;
+  }
+  public function setSpelling(SearchSpelling $spelling) {
+    $this->spelling = $spelling;
+  }
+  public function getSpelling() {
+    return $this->spelling;
+  }
+  public function setSearchInformation(SearchSearchInformation $searchInformation) {
+    $this->searchInformation = $searchInformation;
+  }
+  public function getSearchInformation() {
+    return $this->searchInformation;
+  }
+}
+
+class SearchSearchInformation extends apiModel {
+  public $formattedSearchTime;
+  public $formattedTotalResults;
+  public $totalResults;
+  public $searchTime;
+  public function setFormattedSearchTime($formattedSearchTime) {
+    $this->formattedSearchTime = $formattedSearchTime;
+  }
+  public function getFormattedSearchTime() {
+    return $this->formattedSearchTime;
+  }
+  public function setFormattedTotalResults($formattedTotalResults) {
+    $this->formattedTotalResults = $formattedTotalResults;
+  }
+  public function getFormattedTotalResults() {
+    return $this->formattedTotalResults;
+  }
+  public function setTotalResults($totalResults) {
+    $this->totalResults = $totalResults;
+  }
+  public function getTotalResults() {
+    return $this->totalResults;
+  }
+  public function setSearchTime($searchTime) {
+    $this->searchTime = $searchTime;
+  }
+  public function getSearchTime() {
+    return $this->searchTime;
+  }
+}
+
+class SearchSpelling extends apiModel {
+  public $correctedQuery;
+  public $htmlCorrectedQuery;
+  public function setCorrectedQuery($correctedQuery) {
+    $this->correctedQuery = $correctedQuery;
+  }
+  public function getCorrectedQuery() {
+    return $this->correctedQuery;
+  }
+  public function setHtmlCorrectedQuery($htmlCorrectedQuery) {
+    $this->htmlCorrectedQuery = $htmlCorrectedQuery;
+  }
+  public function getHtmlCorrectedQuery() {
+    return $this->htmlCorrectedQuery;
   }
 }
 

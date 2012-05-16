@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,10 +14,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-require_once 'service/apiModel.php';
-require_once 'service/apiService.php';
-require_once 'service/apiServiceRequest.php';
 
 
   /**
@@ -367,7 +363,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
   /**
    * The "submissions" collection of methods.
    * Typical usage is:
@@ -531,7 +526,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
   /**
    * The "submissions" collection of methods.
    * Typical usage is:
@@ -584,7 +578,6 @@ require_once 'service/apiServiceRequest.php';
 
 
   }
-
 
   /**
    * The "series" collection of methods.
@@ -693,7 +686,6 @@ require_once 'service/apiServiceRequest.php';
 
   }
 
-
   /**
    * The "series" collection of methods.
    * Typical usage is:
@@ -735,7 +727,6 @@ require_once 'service/apiServiceRequest.php';
 
   }
 
-
   /**
    * The "series" collection of methods.
    * Typical usage is:
@@ -776,7 +767,6 @@ require_once 'service/apiServiceRequest.php';
 
 
   }
-
 
   /**
    * The "series" collection of methods.
@@ -862,8 +852,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
-
 /**
  * Service definition for Moderator (v1).
  *
@@ -884,27 +872,14 @@ class apiModeratorService extends apiService {
   public $tags;
   public $series;
   public $series_submissions;
-  public $series_submissions_submissions;
-  public $series_submissions_responses;
   public $series_responses;
-  public $series_responses_submissions;
-  public $series_responses_responses;
   public $topics;
   public $topics_submissions;
-  public $topics_submissions_submissions;
-  public $global;
   public $global_series;
-  public $global_series_series;
   public $profiles;
-  public $featured;
   public $featured_series;
-  public $featured_series_series;
-  public $myrecent;
   public $myrecent_series;
-  public $myrecent_series_series;
-  public $my;
   public $my_series;
-  public $my_series_series;
   public $submissions;
   /**
    * Constructs the internal representation of the Moderator service.
@@ -912,7 +887,6 @@ class apiModeratorService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/moderator/v1/';
     $this->version = 'v1';
     $this->serviceName = 'moderator';
@@ -926,16 +900,13 @@ class apiModeratorService extends apiService {
     $this->series_responses = new SeriesResponsesServiceResource($this, $this->serviceName, 'responses', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/moderator"], "parameters": {"max-results": {"format": "uint32", "type": "integer", "location": "query"}, "sort": {"type": "string", "location": "query"}, "seriesId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "author": {"type": "string", "location": "query"}, "start-index": {"format": "uint32", "type": "integer", "location": "query"}, "q": {"type": "string", "location": "query"}, "hasAttachedVideo": {"type": "boolean", "location": "query"}}, "id": "moderator.series.responses.list", "httpMethod": "GET", "path": "series/{seriesId}/responses", "response": {"$ref": "SeriesList"}}}}', true));
     $this->topics = new TopicsServiceResource($this, $this->serviceName, 'topics', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/moderator"], "parameters": {"seriesId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "Topic"}, "id": "moderator.topics.insert", "httpMethod": "POST", "path": "series/{seriesId}/topics", "response": {"$ref": "Topic"}}, "list": {"scopes": ["https://www.googleapis.com/auth/moderator"], "parameters": {"max-results": {"format": "uint32", "type": "integer", "location": "query"}, "q": {"type": "string", "location": "query"}, "start-index": {"format": "uint32", "type": "integer", "location": "query"}, "mode": {"type": "string", "location": "query"}, "seriesId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}}, "id": "moderator.topics.list", "httpMethod": "GET", "path": "series/{seriesId}/topics", "response": {"$ref": "TopicList"}}, "update": {"scopes": ["https://www.googleapis.com/auth/moderator"], "parameters": {"seriesId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "topicId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "Topic"}, "id": "moderator.topics.update", "httpMethod": "PUT", "path": "series/{seriesId}/topics/{topicId}", "response": {"$ref": "Topic"}}, "get": {"scopes": ["https://www.googleapis.com/auth/moderator"], "parameters": {"seriesId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "topicId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}}, "id": "moderator.topics.get", "httpMethod": "GET", "path": "series/{seriesId}/topics/{topicId}", "response": {"$ref": "Topic"}}}}', true));
     $this->topics_submissions = new TopicsSubmissionsServiceResource($this, $this->serviceName, 'submissions', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/moderator"], "parameters": {"max-results": {"format": "uint32", "type": "integer", "location": "query"}, "seriesId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "includeVotes": {"type": "boolean", "location": "query"}, "topicId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "start-index": {"format": "uint32", "type": "integer", "location": "query"}, "author": {"type": "string", "location": "query"}, "sort": {"type": "string", "location": "query"}, "q": {"type": "string", "location": "query"}, "hasAttachedVideo": {"type": "boolean", "location": "query"}}, "id": "moderator.topics.submissions.list", "httpMethod": "GET", "path": "series/{seriesId}/topics/{topicId}/submissions", "response": {"$ref": "SubmissionList"}}}}', true));
-    $this->global = new ModeratorGlobalServiceResource($this, $this->serviceName, 'global', json_decode('{}', true));
     $this->global_series = new ModeratorGlobalSeriesServiceResource($this, $this->serviceName, 'series', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/moderator"], "parameters": {"max-results": {"format": "uint32", "type": "integer", "location": "query"}, "q": {"type": "string", "location": "query"}, "start-index": {"format": "uint32", "type": "integer", "location": "query"}}, "response": {"$ref": "SeriesList"}, "httpMethod": "GET", "path": "search", "id": "moderator.global.series.list"}}}', true));
     $this->profiles = new ProfilesServiceResource($this, $this->serviceName, 'profiles', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/moderator"], "id": "moderator.profiles.get", "httpMethod": "GET", "path": "profiles/@me", "response": {"$ref": "Profile"}}, "update": {"scopes": ["https://www.googleapis.com/auth/moderator"], "request": {"$ref": "Profile"}, "response": {"$ref": "Profile"}, "httpMethod": "PUT", "path": "profiles/@me", "id": "moderator.profiles.update"}, "patch": {"scopes": ["https://www.googleapis.com/auth/moderator"], "request": {"$ref": "Profile"}, "response": {"$ref": "Profile"}, "httpMethod": "PATCH", "path": "profiles/@me", "id": "moderator.profiles.patch"}}}', true));
-    $this->featured = new FeaturedServiceResource($this, $this->serviceName, 'featured', json_decode('{}', true));
     $this->featured_series = new FeaturedSeriesServiceResource($this, $this->serviceName, 'series', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/moderator"], "id": "moderator.featured.series.list", "httpMethod": "GET", "path": "series/featured", "response": {"$ref": "SeriesList"}}}}', true));
-    $this->myrecent = new MyrecentServiceResource($this, $this->serviceName, 'myrecent', json_decode('{}', true));
     $this->myrecent_series = new MyrecentSeriesServiceResource($this, $this->serviceName, 'series', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/moderator"], "id": "moderator.myrecent.series.list", "httpMethod": "GET", "path": "series/@me/recent", "response": {"$ref": "SeriesList"}}}}', true));
-    $this->my = new MyServiceResource($this, $this->serviceName, 'my', json_decode('{}', true));
     $this->my_series = new MySeriesServiceResource($this, $this->serviceName, 'series', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/moderator"], "id": "moderator.my.series.list", "httpMethod": "GET", "path": "series/@me/mine", "response": {"$ref": "SeriesList"}}}}', true));
     $this->submissions = new SubmissionsServiceResource($this, $this->serviceName, 'submissions', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/moderator"], "parameters": {"seriesId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "topicId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "unauthToken": {"type": "string", "location": "query"}, "anonymous": {"type": "boolean", "location": "query"}}, "request": {"$ref": "Submission"}, "id": "moderator.submissions.insert", "httpMethod": "POST", "path": "series/{seriesId}/topics/{topicId}/submissions", "response": {"$ref": "Submission"}}, "get": {"scopes": ["https://www.googleapis.com/auth/moderator"], "parameters": {"lang": {"type": "string", "location": "query"}, "seriesId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "includeVotes": {"type": "boolean", "location": "query"}, "submissionId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}}, "id": "moderator.submissions.get", "httpMethod": "GET", "path": "series/{seriesId}/submissions/{submissionId}", "response": {"$ref": "Submission"}}}}', true));
+
   }
 }
 
