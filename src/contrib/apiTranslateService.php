@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,10 +14,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-require_once 'service/apiModel.php';
-require_once 'service/apiService.php';
-require_once 'service/apiServiceRequest.php';
 
 
   /**
@@ -115,8 +111,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
-
 /**
  * Service definition for Translate (v2).
  *
@@ -141,7 +135,6 @@ class apiTranslateService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/language/translate/';
     $this->version = 'v2';
     $this->serviceName = 'translate';
@@ -150,6 +143,7 @@ class apiTranslateService extends apiService {
     $this->languages = new LanguagesServiceResource($this, $this->serviceName, 'languages', json_decode('{"methods": {"list": {"parameters": {"target": {"type": "string", "location": "query"}}, "id": "language.languages.list", "httpMethod": "GET", "path": "v2/languages", "response": {"$ref": "LanguagesListResponse"}}}}', true));
     $this->detections = new DetectionsServiceResource($this, $this->serviceName, 'detections', json_decode('{"methods": {"list": {"parameters": {"q": {"repeated": true, "required": true, "type": "string", "location": "query"}}, "id": "language.detections.list", "httpMethod": "GET", "path": "v2/detect", "response": {"$ref": "DetectionsListResponse"}}}}', true));
     $this->translations = new TranslationsServiceResource($this, $this->serviceName, 'translations', json_decode('{"methods": {"list": {"parameters": {"q": {"repeated": true, "required": true, "type": "string", "location": "query"}, "source": {"type": "string", "location": "query"}, "cid": {"repeated": true, "type": "string", "location": "query"}, "target": {"required": true, "type": "string", "location": "query"}, "format": {"enum": ["html", "text"], "type": "string", "location": "query"}}, "id": "language.translations.list", "httpMethod": "GET", "path": "v2", "response": {"$ref": "TranslationsListResponse"}}}}', true));
+
   }
 }
 

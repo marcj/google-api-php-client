@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,10 +14,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-require_once 'service/apiModel.php';
-require_once 'service/apiService.php';
-require_once 'service/apiServiceRequest.php';
 
 
   /**
@@ -103,7 +99,6 @@ require_once 'service/apiServiceRequest.php';
       }
     }
   }
-
 
   /**
    * The "customchannels" collection of methods.
@@ -265,7 +260,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
   /**
    * The "urlchannels" collection of methods.
    * Typical usage is:
@@ -352,7 +346,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
   /**
    * The "customchannels" collection of methods.
    * Typical usage is:
@@ -435,11 +428,11 @@ require_once 'service/apiServiceRequest.php';
      * result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
      * (reports.generate)
      *
+     * @param string $accountId Account upon which to report.
      * @param string $startDate Start of the date range to report on in "YYYY-MM-DD" format, inclusive.
      * @param string $endDate End of the date range to report on in "YYYY-MM-DD" format, inclusive.
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
      *
-     * @opt_param string accountId Account upon which to report.
      * @opt_param string sort The name of a dimension or metric to sort the resulting report on, optionally prefixed with "+" to sort ascending or "-" to sort descending. If no prefix is specified, the column is sorted ascending.
      * @opt_param string locale Optional locale to use for translating report output to a local language. Defaults to "en_US" if not specified.
      * @opt_param string metric Numeric columns to include in the report.
@@ -450,8 +443,8 @@ require_once 'service/apiServiceRequest.php';
      * @opt_param string dimension Dimensions to base the report on.
      * @return AdsenseReportsGenerateResponse
      */
-    public function generate($startDate, $endDate, $optParams = array()) {
-      $params = array('startDate' => $startDate, 'endDate' => $endDate);
+    public function generate($accountId, $startDate, $endDate, $optParams = array()) {
+      $params = array('accountId' => $accountId, 'startDate' => $startDate, 'endDate' => $endDate);
       $params = array_merge($params, $optParams);
       $data = $this->__call('generate', array($params));
       if ($this->useObjects()) {
@@ -514,7 +507,6 @@ require_once 'service/apiServiceRequest.php';
       }
     }
   }
-
 
   /**
    * The "adunits" collection of methods.
@@ -603,7 +595,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
   /**
    * The "adunits" collection of methods.
    * Typical usage is:
@@ -639,8 +630,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
-
 /**
  * Service definition for Adsense (v1.1).
  *
@@ -659,50 +648,24 @@ class apiAdsenseService extends apiService {
   public $urlchannels;
   public $adunits;
   public $adunits_customchannels;
-  public $adunits_customchannels_customchannels;
   public $adclients;
   public $reports;
   public $accounts;
   public $accounts_urlchannels;
-  public $accounts_urlchannels_urlchannels;
-  public $accounts_urlchannels_adunits;
-  public $accounts_urlchannels_adclients;
-  public $accounts_urlchannels_reports;
-  public $accounts_urlchannels_customchannels;
   public $accounts_adunits;
-  public $accounts_adunits_urlchannels;
-  public $accounts_adunits_adunits;
-  public $accounts_adunits_adclients;
-  public $accounts_adunits_reports;
   public $accounts_adunits_customchannels;
   public $accounts_adclients;
-  public $accounts_adclients_urlchannels;
-  public $accounts_adclients_adunits;
-  public $accounts_adclients_adclients;
-  public $accounts_adclients_reports;
-  public $accounts_adclients_customchannels;
   public $accounts_reports;
-  public $accounts_reports_urlchannels;
-  public $accounts_reports_adunits;
-  public $accounts_reports_adclients;
-  public $accounts_reports_reports;
-  public $accounts_reports_customchannels;
   public $accounts_customchannels;
-  public $accounts_customchannels_urlchannels;
   public $accounts_customchannels_adunits;
-  public $accounts_customchannels_adclients;
-  public $accounts_customchannels_reports;
-  public $accounts_customchannels_customchannels;
   public $customchannels;
   public $customchannels_adunits;
-  public $customchannels_adunits_adunits;
   /**
    * Constructs the internal representation of the Adsense service.
    *
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/adsense/v1.1/';
     $this->version = 'v1.1';
     $this->serviceName = 'adsense';
@@ -718,11 +681,12 @@ class apiAdsenseService extends apiService {
     $this->accounts_adunits = new AccountsAdunitsServiceResource($this, $this->serviceName, 'adunits', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"includeInactive": {"type": "boolean", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "adClientId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "int32", "maximum": "10000", "minimum": "0", "location": "query", "type": "integer"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "id": "adsense.accounts.adunits.list", "httpMethod": "GET", "path": "accounts/{accountId}/adclients/{adClientId}/adunits", "response": {"$ref": "AdUnits"}}, "get": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"adClientId": {"required": true, "type": "string", "location": "path"}, "adUnitId": {"required": true, "type": "string", "location": "path"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "id": "adsense.accounts.adunits.get", "httpMethod": "GET", "path": "accounts/{accountId}/adclients/{adClientId}/adunits/{adUnitId}", "response": {"$ref": "AdUnit"}}}}', true));
     $this->accounts_adunits_customchannels = new AccountsAdunitsCustomchannelsServiceResource($this, $this->serviceName, 'customchannels', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "adClientId": {"required": true, "type": "string", "location": "path"}, "adUnitId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "int32", "maximum": "10000", "minimum": "0", "location": "query", "type": "integer"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "id": "adsense.accounts.adunits.customchannels.list", "httpMethod": "GET", "path": "accounts/{accountId}/adclients/{adClientId}/adunits/{adUnitId}/customchannels", "response": {"$ref": "CustomChannels"}}}}', true));
     $this->accounts_adclients = new AccountsAdclientsServiceResource($this, $this->serviceName, 'adclients', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "maxResults": {"format": "int32", "maximum": "10000", "minimum": "0", "location": "query", "type": "integer"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "id": "adsense.accounts.adclients.list", "httpMethod": "GET", "path": "accounts/{accountId}/adclients", "response": {"$ref": "AdClients"}}}}', true));
-    $this->accounts_reports = new AccountsReportsServiceResource($this, $this->serviceName, 'reports', json_decode('{"methods": {"generate": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"sort": {"repeated": true, "type": "string", "location": "query"}, "startDate": {"required": true, "type": "string", "location": "query"}, "endDate": {"required": true, "type": "string", "location": "query"}, "locale": {"type": "string", "location": "query"}, "metric": {"repeated": true, "type": "string", "location": "query"}, "maxResults": {"format": "int32", "maximum": "50000", "minimum": "0", "location": "query", "type": "integer"}, "filter": {"repeated": true, "type": "string", "location": "query"}, "currency": {"type": "string", "location": "query"}, "startIndex": {"format": "int32", "maximum": "5000", "minimum": "0", "location": "query", "type": "integer"}, "dimension": {"repeated": true, "type": "string", "location": "query"}, "accountId": {"type": "string", "location": "path"}}, "id": "adsense.accounts.reports.generate", "httpMethod": "GET", "path": "accounts/{accountId}/reports", "response": {"$ref": "AdsenseReportsGenerateResponse"}}}}', true));
+    $this->accounts_reports = new AccountsReportsServiceResource($this, $this->serviceName, 'reports', json_decode('{"methods": {"generate": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"sort": {"repeated": true, "type": "string", "location": "query"}, "startDate": {"required": true, "type": "string", "location": "query"}, "endDate": {"required": true, "type": "string", "location": "query"}, "locale": {"type": "string", "location": "query"}, "metric": {"repeated": true, "type": "string", "location": "query"}, "maxResults": {"format": "int32", "maximum": "50000", "minimum": "0", "location": "query", "type": "integer"}, "filter": {"repeated": true, "type": "string", "location": "query"}, "currency": {"type": "string", "location": "query"}, "startIndex": {"format": "int32", "maximum": "5000", "minimum": "0", "location": "query", "type": "integer"}, "dimension": {"repeated": true, "type": "string", "location": "query"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "id": "adsense.accounts.reports.generate", "httpMethod": "GET", "path": "accounts/{accountId}/reports", "response": {"$ref": "AdsenseReportsGenerateResponse"}}}}', true));
     $this->accounts_customchannels = new AccountsCustomchannelsServiceResource($this, $this->serviceName, 'customchannels', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "adClientId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "int32", "maximum": "10000", "minimum": "0", "location": "query", "type": "integer"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "id": "adsense.accounts.customchannels.list", "httpMethod": "GET", "path": "accounts/{accountId}/adclients/{adClientId}/customchannels", "response": {"$ref": "CustomChannels"}}, "get": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"customChannelId": {"required": true, "type": "string", "location": "path"}, "adClientId": {"required": true, "type": "string", "location": "path"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "id": "adsense.accounts.customchannels.get", "httpMethod": "GET", "path": "accounts/{accountId}/adclients/{adClientId}/customchannels/{customChannelId}", "response": {"$ref": "CustomChannel"}}}}', true));
     $this->accounts_customchannels_adunits = new AccountsCustomchannelsAdunitsServiceResource($this, $this->serviceName, 'adunits', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"includeInactive": {"type": "boolean", "location": "query"}, "customChannelId": {"required": true, "type": "string", "location": "path"}, "adClientId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "int32", "maximum": "10000", "minimum": "0", "location": "query", "type": "integer"}, "pageToken": {"type": "string", "location": "query"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "id": "adsense.accounts.customchannels.adunits.list", "httpMethod": "GET", "path": "accounts/{accountId}/adclients/{adClientId}/customchannels/{customChannelId}/adunits", "response": {"$ref": "AdUnits"}}}}', true));
     $this->customchannels = new CustomchannelsServiceResource($this, $this->serviceName, 'customchannels', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "adClientId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "int32", "maximum": "10000", "minimum": "0", "location": "query", "type": "integer"}}, "id": "adsense.customchannels.list", "httpMethod": "GET", "path": "adclients/{adClientId}/customchannels", "response": {"$ref": "CustomChannels"}}, "get": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"customChannelId": {"required": true, "type": "string", "location": "path"}, "adClientId": {"required": true, "type": "string", "location": "path"}}, "id": "adsense.customchannels.get", "httpMethod": "GET", "path": "adclients/{adClientId}/customchannels/{customChannelId}", "response": {"$ref": "CustomChannel"}}}}', true));
     $this->customchannels_adunits = new CustomchannelsAdunitsServiceResource($this, $this->serviceName, 'adunits', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/adsense", "https://www.googleapis.com/auth/adsense.readonly"], "parameters": {"includeInactive": {"type": "boolean", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "customChannelId": {"required": true, "type": "string", "location": "path"}, "adClientId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "int32", "maximum": "10000", "minimum": "0", "location": "query", "type": "integer"}}, "id": "adsense.customchannels.adunits.list", "httpMethod": "GET", "path": "adclients/{adClientId}/customchannels/{customChannelId}/adunits", "response": {"$ref": "AdUnits"}}}}', true));
+
   }
 }
 
