@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,10 +14,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-require_once 'service/apiModel.php';
-require_once 'service/apiService.php';
-require_once 'service/apiServiceRequest.php';
 
 
   /**
@@ -111,6 +107,7 @@ require_once 'service/apiServiceRequest.php';
      *
      * @opt_param string pageToken The continuation token, used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response.
      * @opt_param string maxResults The maximum number of comments to include in the response, used for paging. For any response, the actual number returned may be less than the specified maxResults.
+     * @opt_param string sortOrder The order in which to sort the list of comments.
      * @return CommentFeed
      */
     public function listComments($activityId, $optParams = array()) {
@@ -213,8 +210,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
-
 /**
  * Service definition for Plus (v1).
  *
@@ -239,15 +234,15 @@ class apiPlusService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/plus/v1/';
     $this->version = 'v1';
     $this->serviceName = 'plus';
 
     $apiClient->addService($this->serviceName, $this->version);
     $this->activities = new ActivitiesServiceResource($this, $this->serviceName, 'activities', json_decode('{"methods": {"search": {"scopes": ["https://www.googleapis.com/auth/plus.me"], "parameters": {"orderBy": {"default": "recent", "enum": ["best", "recent"], "location": "query", "type": "string"}, "pageToken": {"type": "string", "location": "query"}, "language": {"default": "", "type": "string", "location": "query"}, "maxResults": {"format": "uint32", "default": "10", "maximum": "20", "minimum": "1", "location": "query", "type": "integer"}, "query": {"required": true, "type": "string", "location": "query"}}, "id": "plus.activities.search", "httpMethod": "GET", "path": "activities", "response": {"$ref": "ActivityFeed"}}, "list": {"scopes": ["https://www.googleapis.com/auth/plus.me"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "alt": {"default": "json", "enum": ["json"], "location": "query", "type": "string"}, "userId": {"required": true, "type": "string", "location": "path"}, "collection": {"required": true, "enum": ["public"], "location": "path", "type": "string"}, "maxResults": {"format": "uint32", "default": "20", "maximum": "100", "minimum": "1", "location": "query", "type": "integer"}}, "id": "plus.activities.list", "httpMethod": "GET", "path": "people/{userId}/activities/{collection}", "response": {"$ref": "ActivityFeed"}}, "get": {"scopes": ["https://www.googleapis.com/auth/plus.me"], "parameters": {"activityId": {"required": true, "type": "string", "location": "path"}, "alt": {"default": "json", "enum": ["json"], "location": "query", "type": "string"}}, "id": "plus.activities.get", "httpMethod": "GET", "path": "activities/{activityId}", "response": {"$ref": "Activity"}}}}', true));
-    $this->comments = new CommentsServiceResource($this, $this->serviceName, 'comments', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/plus.me"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "activityId": {"required": true, "type": "string", "location": "path"}, "alt": {"default": "json", "enum": ["json"], "location": "query", "type": "string"}, "maxResults": {"format": "uint32", "default": "20", "maximum": "100", "minimum": "0", "location": "query", "type": "integer"}}, "id": "plus.comments.list", "httpMethod": "GET", "path": "activities/{activityId}/comments", "response": {"$ref": "CommentFeed"}}, "get": {"scopes": ["https://www.googleapis.com/auth/plus.me"], "parameters": {"commentId": {"required": true, "type": "string", "location": "path"}}, "id": "plus.comments.get", "httpMethod": "GET", "path": "comments/{commentId}", "response": {"$ref": "Comment"}}}}', true));
+    $this->comments = new CommentsServiceResource($this, $this->serviceName, 'comments', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/plus.me"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "activityId": {"required": true, "type": "string", "location": "path"}, "alt": {"default": "json", "enum": ["json"], "location": "query", "type": "string"}, "maxResults": {"format": "uint32", "default": "20", "maximum": "100", "minimum": "0", "location": "query", "type": "integer"}, "sortOrder": {"default": "ascending", "enum": ["ascending", "descending"], "location": "query", "type": "string"}}, "id": "plus.comments.list", "httpMethod": "GET", "path": "activities/{activityId}/comments", "response": {"$ref": "CommentFeed"}}, "get": {"scopes": ["https://www.googleapis.com/auth/plus.me"], "parameters": {"commentId": {"required": true, "type": "string", "location": "path"}}, "id": "plus.comments.get", "httpMethod": "GET", "path": "comments/{commentId}", "response": {"$ref": "Comment"}}}}', true));
     $this->people = new PeopleServiceResource($this, $this->serviceName, 'people', json_decode('{"methods": {"listByActivity": {"scopes": ["https://www.googleapis.com/auth/plus.me"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "activityId": {"required": true, "type": "string", "location": "path"}, "collection": {"required": true, "enum": ["plusoners", "resharers"], "location": "path", "type": "string"}, "maxResults": {"format": "uint32", "default": "20", "maximum": "100", "minimum": "1", "location": "query", "type": "integer"}}, "id": "plus.people.listByActivity", "httpMethod": "GET", "path": "activities/{activityId}/people/{collection}", "response": {"$ref": "PeopleFeed"}}, "search": {"scopes": ["https://www.googleapis.com/auth/plus.me"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "language": {"default": "", "type": "string", "location": "query"}, "maxResults": {"format": "uint32", "default": "10", "maximum": "20", "minimum": "1", "location": "query", "type": "integer"}, "query": {"required": true, "type": "string", "location": "query"}}, "id": "plus.people.search", "httpMethod": "GET", "path": "people", "response": {"$ref": "PeopleFeed"}}, "get": {"scopes": ["https://www.googleapis.com/auth/plus.me", "https://www.googleapis.com/auth/userinfo.email"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}}, "id": "plus.people.get", "httpMethod": "GET", "path": "people/{userId}", "response": {"$ref": "Person"}}}}', true));
+
   }
 }
 
@@ -430,20 +425,15 @@ class Activity extends apiModel {
 }
 
 class ActivityActor extends apiModel {
-  public $displayName;
   public $url;
   protected $__imageType = 'ActivityActorImage';
   protected $__imageDataType = '';
   public $image;
-  public $familyName;
-  public $givenName;
+  public $displayName;
   public $id;
-  public function setDisplayName($displayName) {
-    $this->displayName = $displayName;
-  }
-  public function getDisplayName() {
-    return $this->displayName;
-  }
+  protected $__nameType = 'ActivityActorName';
+  protected $__nameDataType = '';
+  public $name;
   public function setUrl($url) {
     $this->url = $url;
   }
@@ -456,23 +446,23 @@ class ActivityActor extends apiModel {
   public function getImage() {
     return $this->image;
   }
-  public function setFamilyName($familyName) {
-    $this->familyName = $familyName;
+  public function setDisplayName($displayName) {
+    $this->displayName = $displayName;
   }
-  public function getFamilyName() {
-    return $this->familyName;
-  }
-  public function setGivenName($givenName) {
-    $this->givenName = $givenName;
-  }
-  public function getGivenName() {
-    return $this->givenName;
+  public function getDisplayName() {
+    return $this->displayName;
   }
   public function setId($id) {
     $this->id = $id;
   }
   public function getId() {
     return $this->id;
+  }
+  public function setName(ActivityActorName $name) {
+    $this->name = $name;
+  }
+  public function getName() {
+    return $this->name;
   }
 }
 
@@ -483,6 +473,23 @@ class ActivityActorImage extends apiModel {
   }
   public function getUrl() {
     return $this->url;
+  }
+}
+
+class ActivityActorName extends apiModel {
+  public $givenName;
+  public $familyName;
+  public function setGivenName($givenName) {
+    $this->givenName = $givenName;
+  }
+  public function getGivenName() {
+    return $this->givenName;
+  }
+  public function setFamilyName($familyName) {
+    $this->familyName = $familyName;
+  }
+  public function getFamilyName() {
+    return $this->familyName;
   }
 }
 

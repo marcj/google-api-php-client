@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,10 +14,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-require_once 'service/apiModel.php';
-require_once 'service/apiService.php';
-require_once 'service/apiServiceRequest.php';
 
 
   /**
@@ -233,7 +229,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
   /**
    * The "blogs" collection of methods.
    * Typical usage is:
@@ -248,7 +243,7 @@ require_once 'service/apiServiceRequest.php';
     /**
      * Retrieves a list of blogs, possibly filtered. (blogs.list)
      *
-     * @param string $userId ID of the user whose blogs are to be fetched.
+     * @param string $userId ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier.
      * @return BlogList
      */
     public function listUsersBlogs($userId, $optParams = array()) {
@@ -262,8 +257,6 @@ require_once 'service/apiServiceRequest.php';
       }
     }
   }
-
-
 
 /**
  * Service definition for Blogger (v2).
@@ -292,7 +285,6 @@ class apiBloggerService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/blogger/v2/';
     $this->version = 'v2';
     $this->serviceName = 'blogger';
@@ -304,6 +296,7 @@ class apiBloggerService extends apiService {
     $this->comments = new CommentsServiceResource($this, $this->serviceName, 'comments', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"startDate": {"type": "string", "location": "query"}, "postId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "fetchBodies": {"type": "boolean", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.comments.list", "httpMethod": "GET", "path": "blogs/{blogId}/posts/{postId}/comments", "response": {"$ref": "CommentList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"commentId": {"required": true, "type": "string", "location": "path"}, "postId": {"required": true, "type": "string", "location": "path"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.comments.get", "httpMethod": "GET", "path": "blogs/{blogId}/posts/{postId}/comments/{commentId}", "response": {"$ref": "Comment"}}}}', true));
     $this->users = new UsersServiceResource($this, $this->serviceName, 'users', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.users.get", "httpMethod": "GET", "path": "users/{userId}", "response": {"$ref": "User"}}}}', true));
     $this->users_blogs = new UsersBlogsServiceResource($this, $this->serviceName, 'blogs', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.users.blogs.list", "httpMethod": "GET", "path": "users/{userId}/blogs", "response": {"$ref": "BlogList"}}}}', true));
+
   }
 }
 
@@ -474,6 +467,9 @@ class BlogPosts extends apiModel {
 class Comment extends apiModel {
   public $content;
   public $kind;
+  protected $__inReplyToType = 'CommentInReplyTo';
+  protected $__inReplyToDataType = '';
+  public $inReplyTo;
   protected $__authorType = 'CommentAuthor';
   protected $__authorDataType = '';
   public $author;
@@ -498,6 +494,12 @@ class Comment extends apiModel {
   }
   public function getKind() {
     return $this->kind;
+  }
+  public function setInReplyTo(CommentInReplyTo $inReplyTo) {
+    $this->inReplyTo = $inReplyTo;
+  }
+  public function getInReplyTo() {
+    return $this->inReplyTo;
   }
   public function setAuthor(CommentAuthor $author) {
     $this->author = $author;
@@ -587,6 +589,16 @@ class CommentAuthorImage extends apiModel {
 }
 
 class CommentBlog extends apiModel {
+  public $id;
+  public function setId($id) {
+    $this->id = $id;
+  }
+  public function getId() {
+    return $this->id;
+  }
+}
+
+class CommentInReplyTo extends apiModel {
   public $id;
   public function setId($id) {
     $this->id = $id;

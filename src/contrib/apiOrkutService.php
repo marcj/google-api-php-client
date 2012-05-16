@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,10 +14,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-require_once 'service/apiModel.php';
-require_once 'service/apiService.php';
-require_once 'service/apiServiceRequest.php';
 
 
   /**
@@ -69,7 +65,9 @@ require_once 'service/apiServiceRequest.php';
       }
     }
     /**
-     * Lists members of a community. (communityMembers.list)
+     * Lists members of a community. Use the pagination tokens to retrieve the full list; do not rely on
+     * the member count available in the community profile information to know when to stop iterating,
+     * as that count may be approximate. (communityMembers.list)
      *
      * @param int $communityId The ID of the community whose members will be listed.
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
@@ -217,7 +215,7 @@ require_once 'service/apiServiceRequest.php';
     /**
      * Retrieves the polls of a community. (communityPolls.list)
      *
-     * @param string $communityId The ID of the community which polls will be listed.
+     * @param int $communityId The ID of the community which polls will be listed.
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
      *
      * @opt_param string pageToken A continuation token that allows pagination.
@@ -620,7 +618,7 @@ require_once 'service/apiServiceRequest.php';
 
 
     /**
-     * Retrieves the communities an user is member of. (communities.list)
+     * Retrieves the list of communities the current user is a member of. (communities.list)
      *
      * @param string $userId The ID of the user whose communities will be listed. Can be me to refer to caller.
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
@@ -641,7 +639,7 @@ require_once 'service/apiServiceRequest.php';
       }
     }
     /**
-     * Retrieves the profile of a community. (communities.get)
+     * Retrieves the basic information (aka. profile) of a community. (communities.get)
      *
      * @param int $communityId The ID of the community to get.
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
@@ -673,7 +671,7 @@ require_once 'service/apiServiceRequest.php';
 
 
     /**
-     * Adds an user as a follower of a community. (communityFollow.insert)
+     * Adds a user as a follower of a community. (communityFollow.insert)
      *
      * @param int $communityId ID of the community.
      * @param string $userId ID of the user.
@@ -690,7 +688,7 @@ require_once 'service/apiServiceRequest.php';
       }
     }
     /**
-     * Removes an user from the followers of a community. (communityFollow.delete)
+     * Removes a user from the followers of a community. (communityFollow.delete)
      *
      * @param int $communityId ID of the community.
      * @param string $userId ID of the user.
@@ -825,7 +823,7 @@ require_once 'service/apiServiceRequest.php';
 
 
     /**
-     * Retrieves the counters of an user. (counters.list)
+     * Retrieves the counters of a user. (counters.list)
      *
      * @param string $userId The ID of the user whose counters will be listed. Can be me to refer to caller.
      * @return Counters
@@ -841,8 +839,6 @@ require_once 'service/apiServiceRequest.php';
       }
     }
   }
-
-
 
 /**
  * Service definition for Orkut (v2).
@@ -881,7 +877,6 @@ class apiOrkutService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/orkut/v2/';
     $this->version = 'v2';
     $this->serviceName = 'orkut';
@@ -890,9 +885,9 @@ class apiOrkutService extends apiService {
     $this->communityMembers = new CommunityMembersServiceResource($this, $this->serviceName, 'communityMembers', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "userId": {"required": true, "type": "string", "location": "path"}}, "id": "orkut.communityMembers.insert", "httpMethod": "POST", "path": "communities/{communityId}/members/{userId}", "response": {"$ref": "CommunityMembers"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "userId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "communities/{communityId}/members/{userId}", "id": "orkut.communityMembers.delete"}, "list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "friendsOnly": {"type": "boolean", "location": "query"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "minimum": "1", "type": "integer", "location": "query"}}, "id": "orkut.communityMembers.list", "httpMethod": "GET", "path": "communities/{communityId}/members", "response": {"$ref": "CommunityMembersList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "userId": {"required": true, "type": "string", "location": "path"}, "hl": {"type": "string", "location": "query"}}, "id": "orkut.communityMembers.get", "httpMethod": "GET", "path": "communities/{communityId}/members/{userId}", "response": {"$ref": "CommunityMembers"}}}}', true));
     $this->activities = new ActivitiesServiceResource($this, $this->serviceName, 'activities', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"collection": {"required": true, "enum": ["all", "scraps", "stream"], "location": "path", "type": "string"}, "pageToken": {"type": "string", "location": "query"}, "userId": {"required": true, "type": "string", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "maximum": "100", "minimum": "1", "location": "query", "type": "integer"}}, "id": "orkut.activities.list", "httpMethod": "GET", "path": "people/{userId}/activities/{collection}", "response": {"$ref": "ActivityList"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"activityId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "activities/{activityId}", "id": "orkut.activities.delete"}}}', true));
     $this->communityPollComments = new CommunityPollCommentsServiceResource($this, $this->serviceName, 'communityPollComments', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "pollId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "CommunityPollComment"}, "id": "orkut.communityPollComments.insert", "httpMethod": "POST", "path": "communities/{communityId}/polls/{pollId}/comments", "response": {"$ref": "CommunityPollComment"}}, "list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "minimum": "1", "type": "integer", "location": "query"}, "pollId": {"required": true, "type": "string", "location": "path"}}, "id": "orkut.communityPollComments.list", "httpMethod": "GET", "path": "communities/{communityId}/polls/{pollId}/comments", "response": {"$ref": "CommunityPollCommentList"}}}}', true));
-    $this->communityPolls = new CommunityPollsServiceResource($this, $this->serviceName, 'communityPolls', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "communityId": {"required": true, "type": "string", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "minimum": "1", "type": "integer", "location": "query"}}, "id": "orkut.communityPolls.list", "httpMethod": "GET", "path": "communities/{communityId}/polls", "response": {"$ref": "CommunityPollList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}, "pollId": {"required": true, "type": "string", "location": "path"}}, "id": "orkut.communityPolls.get", "httpMethod": "GET", "path": "communities/{communityId}/polls/{pollId}", "response": {"$ref": "CommunityPoll"}}}}', true));
-    $this->communityMessages = new CommunityMessagesServiceResource($this, $this->serviceName, 'communityMessages', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"topicId": {"format": "uint64", "required": true, "type": "string", "location": "path"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "CommunityMessage"}, "id": "orkut.communityMessages.insert", "httpMethod": "POST", "path": "communities/{communityId}/topics/{topicId}/messages", "response": {"$ref": "CommunityMessage"}}, "list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "maximum": "100", "minimum": "1", "location": "query", "type": "integer"}, "topicId": {"format": "uint64", "required": true, "type": "string", "location": "path"}}, "id": "orkut.communityMessages.list", "httpMethod": "GET", "path": "communities/{communityId}/topics/{topicId}/messages", "response": {"$ref": "CommunityMessageList"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"topicId": {"format": "uint64", "required": true, "type": "string", "location": "path"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "messageId": {"format": "uint64", "required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "communities/{communityId}/topics/{topicId}/messages/{messageId}", "id": "orkut.communityMessages.delete"}}}', true));
-    $this->communityTopics = new CommunityTopicsServiceResource($this, $this->serviceName, 'communityTopics', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"isShout": {"type": "boolean", "location": "query"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "CommunityTopic"}, "id": "orkut.communityTopics.insert", "httpMethod": "POST", "path": "communities/{communityId}/topics", "response": {"$ref": "CommunityTopic"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"topicId": {"format": "uint64", "required": true, "type": "string", "location": "path"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "httpMethod": "DELETE", "path": "communities/{communityId}/topics/{topicId}", "id": "orkut.communityTopics.delete"}, "list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "maximum": "100", "minimum": "1", "location": "query", "type": "integer"}}, "id": "orkut.communityTopics.list", "httpMethod": "GET", "path": "communities/{communityId}/topics", "response": {"$ref": "CommunityTopicList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"topicId": {"format": "uint64", "required": true, "type": "string", "location": "path"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}}, "id": "orkut.communityTopics.get", "httpMethod": "GET", "path": "communities/{communityId}/topics/{topicId}", "response": {"$ref": "CommunityTopic"}}}}', true));
+    $this->communityPolls = new CommunityPollsServiceResource($this, $this->serviceName, 'communityPolls', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "minimum": "1", "type": "integer", "location": "query"}}, "id": "orkut.communityPolls.list", "httpMethod": "GET", "path": "communities/{communityId}/polls", "response": {"$ref": "CommunityPollList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}, "pollId": {"required": true, "type": "string", "location": "path"}}, "id": "orkut.communityPolls.get", "httpMethod": "GET", "path": "communities/{communityId}/polls/{pollId}", "response": {"$ref": "CommunityPoll"}}}}', true));
+    $this->communityMessages = new CommunityMessagesServiceResource($this, $this->serviceName, 'communityMessages', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"topicId": {"format": "int64", "required": true, "type": "string", "location": "path"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "CommunityMessage"}, "id": "orkut.communityMessages.insert", "httpMethod": "POST", "path": "communities/{communityId}/topics/{topicId}/messages", "response": {"$ref": "CommunityMessage"}}, "list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "maximum": "100", "minimum": "1", "location": "query", "type": "integer"}, "topicId": {"format": "int64", "required": true, "type": "string", "location": "path"}}, "id": "orkut.communityMessages.list", "httpMethod": "GET", "path": "communities/{communityId}/topics/{topicId}/messages", "response": {"$ref": "CommunityMessageList"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"topicId": {"format": "int64", "required": true, "type": "string", "location": "path"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "messageId": {"format": "int64", "required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "communities/{communityId}/topics/{topicId}/messages/{messageId}", "id": "orkut.communityMessages.delete"}}}', true));
+    $this->communityTopics = new CommunityTopicsServiceResource($this, $this->serviceName, 'communityTopics', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"isShout": {"type": "boolean", "location": "query"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "CommunityTopic"}, "id": "orkut.communityTopics.insert", "httpMethod": "POST", "path": "communities/{communityId}/topics", "response": {"$ref": "CommunityTopic"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"topicId": {"format": "int64", "required": true, "type": "string", "location": "path"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "httpMethod": "DELETE", "path": "communities/{communityId}/topics/{topicId}", "id": "orkut.communityTopics.delete"}, "list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "maximum": "100", "minimum": "1", "location": "query", "type": "integer"}}, "id": "orkut.communityTopics.list", "httpMethod": "GET", "path": "communities/{communityId}/topics", "response": {"$ref": "CommunityTopicList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"topicId": {"format": "int64", "required": true, "type": "string", "location": "path"}, "communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}}, "id": "orkut.communityTopics.get", "httpMethod": "GET", "path": "communities/{communityId}/topics/{topicId}", "response": {"$ref": "CommunityTopic"}}}}', true));
     $this->comments = new CommentsServiceResource($this, $this->serviceName, 'comments', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"activityId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Comment"}, "id": "orkut.comments.insert", "httpMethod": "POST", "path": "activities/{activityId}/comments", "response": {"$ref": "Comment"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"commentId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "comments/{commentId}", "id": "orkut.comments.delete"}, "list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"orderBy": {"default": "DESCENDING_SORT", "enum": ["ascending", "descending"], "location": "query", "type": "string"}, "pageToken": {"type": "string", "location": "query"}, "activityId": {"required": true, "type": "string", "location": "path"}, "hl": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "minimum": "1", "type": "integer", "location": "query"}}, "id": "orkut.comments.list", "httpMethod": "GET", "path": "activities/{activityId}/comments", "response": {"$ref": "CommentList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"commentId": {"required": true, "type": "string", "location": "path"}, "hl": {"type": "string", "location": "query"}}, "id": "orkut.comments.get", "httpMethod": "GET", "path": "comments/{commentId}", "response": {"$ref": "Comment"}}}}', true));
     $this->acl = new AclServiceResource($this, $this->serviceName, 'acl', json_decode('{"methods": {"delete": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"activityId": {"required": true, "type": "string", "location": "path"}, "userId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "activities/{activityId}/acl/{userId}", "id": "orkut.acl.delete"}}}', true));
     $this->communityRelated = new CommunityRelatedServiceResource($this, $this->serviceName, 'communityRelated', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"communityId": {"format": "int32", "required": true, "type": "integer", "location": "path"}, "hl": {"type": "string", "location": "query"}}, "id": "orkut.communityRelated.list", "httpMethod": "GET", "path": "communities/{communityId}/related", "response": {"$ref": "CommunityList"}}}}', true));
@@ -903,6 +898,7 @@ class apiOrkutService extends apiService {
     $this->activityVisibility = new ActivityVisibilityServiceResource($this, $this->serviceName, 'activityVisibility', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"activityId": {"required": true, "type": "string", "location": "path"}}, "id": "orkut.activityVisibility.get", "httpMethod": "GET", "path": "activities/{activityId}/visibility", "response": {"$ref": "Visibility"}}, "update": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"activityId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Visibility"}, "id": "orkut.activityVisibility.update", "httpMethod": "PUT", "path": "activities/{activityId}/visibility", "response": {"$ref": "Visibility"}}, "patch": {"scopes": ["https://www.googleapis.com/auth/orkut"], "parameters": {"activityId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Visibility"}, "id": "orkut.activityVisibility.patch", "httpMethod": "PATCH", "path": "activities/{activityId}/visibility", "response": {"$ref": "Visibility"}}}}', true));
     $this->badges = new BadgesServiceResource($this, $this->serviceName, 'badges', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}}, "id": "orkut.badges.list", "httpMethod": "GET", "path": "people/{userId}/badges", "response": {"$ref": "BadgeList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}, "badgeId": {"format": "int64", "required": true, "type": "string", "location": "path"}}, "id": "orkut.badges.get", "httpMethod": "GET", "path": "people/{userId}/badges/{badgeId}", "response": {"$ref": "Badge"}}}}', true));
     $this->counters = new CountersServiceResource($this, $this->serviceName, 'counters', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/orkut", "https://www.googleapis.com/auth/orkut.readonly"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}}, "id": "orkut.counters.list", "httpMethod": "GET", "path": "people/{userId}/counters", "response": {"$ref": "Counters"}}}}', true));
+
   }
 }
 
@@ -2239,6 +2235,9 @@ class OrkutActivityobjectsResource extends apiModel {
   protected $__linksType = 'OrkutLinkResource';
   protected $__linksDataType = 'array';
   public $links;
+  protected $__communityType = 'Community';
+  protected $__communityDataType = '';
+  public $community;
   public $content;
   protected $__personType = 'OrkutActivitypersonResource';
   protected $__personDataType = '';
@@ -2257,6 +2256,12 @@ class OrkutActivityobjectsResource extends apiModel {
   }
   public function getLinks() {
     return $this->links;
+  }
+  public function setCommunity(Community $community) {
+    $this->community = $community;
+  }
+  public function getCommunity() {
+    return $this->community;
   }
   public function setContent($content) {
     $this->content = $content;
