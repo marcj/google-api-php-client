@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -30,15 +30,13 @@
     /**
      * Creates a new, empty table in the dataset. (tables.insert)
      *
+     * @param string $projectId Project ID of the new table
+     * @param string $datasetId Dataset ID of the new table
      * @param Table $postBody
-     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
-     *
-     * @opt_param string projectId Project ID of the new table
-     * @opt_param string datasetId Dataset ID of the new table
      * @return Table
      */
-    public function insert(Table $postBody, $optParams = array()) {
-      $params = array('postBody' => $postBody);
+    public function insert($projectId, $datasetId, Table $postBody, $optParams = array()) {
+      $params = array('projectId' => $projectId, 'datasetId' => $datasetId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('insert', array($params));
       if ($this->useObjects()) {
@@ -90,16 +88,14 @@
     /**
      * Updates information in an existing table, specified by tableId. (tables.update)
      *
+     * @param string $projectId Project ID of the table to update
+     * @param string $datasetId Dataset ID of the table to update
+     * @param string $tableId Table ID of the table to update
      * @param Table $postBody
-     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
-     *
-     * @opt_param string projectId Project ID of the table to update
-     * @opt_param string datasetId Dataset ID of the table to update
-     * @opt_param string tableId Table ID of the table to update
      * @return Table
      */
-    public function update(Table $postBody, $optParams = array()) {
-      $params = array('postBody' => $postBody);
+    public function update($projectId, $datasetId, $tableId, Table $postBody, $optParams = array()) {
+      $params = array('projectId' => $projectId, 'datasetId' => $datasetId, 'tableId' => $tableId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('update', array($params));
       if ($this->useObjects()) {
@@ -158,14 +154,12 @@
     /**
      * Creates a new empty dataset. (datasets.insert)
      *
+     * @param string $projectId Project ID of the new dataset
      * @param Dataset $postBody
-     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
-     *
-     * @opt_param string projectId Project ID of the new dataset
      * @return Dataset
      */
-    public function insert(Dataset $postBody, $optParams = array()) {
-      $params = array('postBody' => $postBody);
+    public function insert($projectId, Dataset $postBody, $optParams = array()) {
+      $params = array('projectId' => $projectId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('insert', array($params));
       if ($this->useObjects()) {
@@ -218,15 +212,13 @@
      * assigned, the request will fail as you must specify at least one owner for a dataset.
      * (datasets.update)
      *
+     * @param string $projectId Project ID of the dataset being updated
+     * @param string $datasetId Dataset ID of the dataset being updated
      * @param Dataset $postBody
-     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
-     *
-     * @opt_param string projectId Project ID of the dataset being updated
-     * @opt_param string datasetId Dataset ID of the dataset being updated
      * @return Dataset
      */
-    public function update(Dataset $postBody, $optParams = array()) {
-      $params = array('postBody' => $postBody);
+    public function update($projectId, $datasetId, Dataset $postBody, $optParams = array()) {
+      $params = array('projectId' => $projectId, 'datasetId' => $datasetId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('update', array($params));
       if ($this->useObjects()) {
@@ -289,14 +281,12 @@
     /**
      * Starts a new asynchronous job. (jobs.insert)
      *
+     * @param string $projectId Project ID of the project that will be billed for the job
      * @param Job $postBody
-     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
-     *
-     * @opt_param string projectId Project ID of the project that will be billed for the job
      * @return Job
      */
-    public function insert(Job $postBody, $optParams = array()) {
-      $params = array('postBody' => $postBody);
+    public function insert($projectId, Job $postBody, $optParams = array()) {
+      $params = array('projectId' => $projectId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('insert', array($params));
       if ($this->useObjects()) {
@@ -306,18 +296,19 @@
       }
     }
     /**
-     * Retrieves the specified job by ID. (jobs.get)
+     * Runs a BigQuery SQL query synchronously and returns query results if the query completes within a
+     * specified timeout. (jobs.query)
      *
-     * @param string $projectId Project ID of the requested job
-     * @param string $jobId Job ID of the requested job
-     * @return Job
+     * @param string $projectId Project ID of the project billed for the query
+     * @param QueryRequest $postBody
+     * @return QueryResponse
      */
-    public function get($projectId, $jobId, $optParams = array()) {
-      $params = array('projectId' => $projectId, 'jobId' => $jobId);
+    public function query($projectId, QueryRequest $postBody, $optParams = array()) {
+      $params = array('projectId' => $projectId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
-      $data = $this->__call('get', array($params));
+      $data = $this->__call('query', array($params));
       if ($this->useObjects()) {
-        return new Job($data);
+        return new QueryResponse($data);
       } else {
         return $data;
       }
@@ -346,24 +337,6 @@
       }
     }
     /**
-     * Runs a BigQuery SQL query synchronously and returns query results if the query completes within a
-     * specified timeout. (jobs.query)
-     *
-     * @param string $projectId Project ID of the project billed for the query
-     * @param QueryRequest $postBody
-     * @return QueryResponse
-     */
-    public function query($projectId, QueryRequest $postBody, $optParams = array()) {
-      $params = array('projectId' => $projectId, 'postBody' => $postBody);
-      $params = array_merge($params, $optParams);
-      $data = $this->__call('query', array($params));
-      if ($this->useObjects()) {
-        return new QueryResponse($data);
-      } else {
-        return $data;
-      }
-    }
-    /**
      * Retrieves the results of a query job. (jobs.getQueryResults)
      *
      * @param string $projectId Project ID of the query job
@@ -386,16 +359,21 @@
       }
     }
     /**
-     * Deletes a completed job specified by job ID. (jobs.delete)
+     * Retrieves the specified job by ID. (jobs.get)
      *
-     * @param string $projectId Project ID of the job to delete
-     * @param string $jobId Job ID of the job to delete
+     * @param string $projectId Project ID of the requested job
+     * @param string $jobId Job ID of the requested job
+     * @return Job
      */
-    public function delete($projectId, $jobId, $optParams = array()) {
+    public function get($projectId, $jobId, $optParams = array()) {
       $params = array('projectId' => $projectId, 'jobId' => $jobId);
       $params = array_merge($params, $optParams);
-      $data = $this->__call('delete', array($params));
-      return $data;
+      $data = $this->__call('get', array($params));
+      if ($this->useObjects()) {
+        return new Job($data);
+      } else {
+        return $data;
+      }
     }
   }
 
@@ -492,15 +470,14 @@ class apiBigqueryService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/bigquery/v2/';
     $this->version = 'v2';
     $this->serviceName = 'bigquery';
 
     $apiClient->addService($this->serviceName, $this->version);
-    $this->tables = new TablesServiceResource($this, $this->serviceName, 'tables', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"type": "string", "location": "path"}, "datasetId": {"type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "id": "bigquery.tables.insert", "httpMethod": "POST", "path": "projects/{projectId}/datasets/{datasetId}/tables", "response": {"$ref": "Table"}}, "get": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "tableId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.tables.get", "httpMethod": "GET", "path": "projects/{projectId}/datasets/{datasetId}/tables/{tableId}", "response": {"$ref": "Table"}}, "list": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "datasetId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "projectId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.tables.list", "httpMethod": "GET", "path": "projects/{projectId}/datasets/{datasetId}/tables", "response": {"$ref": "TableList"}}, "update": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"type": "string", "location": "path"}, "tableId": {"type": "string", "location": "path"}, "datasetId": {"type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "id": "bigquery.tables.update", "httpMethod": "PUT", "path": "projects/{projectId}/datasets/{datasetId}/tables/{tableId}", "response": {"$ref": "Table"}}, "patch": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "tableId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "id": "bigquery.tables.patch", "httpMethod": "PATCH", "path": "projects/{projectId}/datasets/{datasetId}/tables/{tableId}", "response": {"$ref": "Table"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "tableId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "projects/{projectId}/datasets/{datasetId}/tables/{tableId}", "id": "bigquery.tables.delete"}}}', true));
-    $this->datasets = new DatasetsServiceResource($this, $this->serviceName, 'datasets', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"type": "string", "location": "path"}}, "request": {"$ref": "Dataset"}, "id": "bigquery.datasets.insert", "httpMethod": "POST", "path": "projects/{projectId}/datasets", "response": {"$ref": "Dataset"}}, "get": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.datasets.get", "httpMethod": "GET", "path": "projects/{projectId}/datasets/{datasetId}", "response": {"$ref": "Dataset"}}, "list": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "projectId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.datasets.list", "httpMethod": "GET", "path": "projects/{projectId}/datasets", "response": {"$ref": "DatasetList"}}, "update": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"type": "string", "location": "path"}, "datasetId": {"type": "string", "location": "path"}}, "request": {"$ref": "Dataset"}, "id": "bigquery.datasets.update", "httpMethod": "PUT", "path": "projects/{projectId}/datasets/{datasetId}", "response": {"$ref": "Dataset"}}, "patch": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Dataset"}, "id": "bigquery.datasets.patch", "httpMethod": "PATCH", "path": "projects/{projectId}/datasets/{datasetId}", "response": {"$ref": "Dataset"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"deleteContents": {"type": "boolean", "location": "query"}, "datasetId": {"required": true, "type": "string", "location": "path"}, "projectId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "projects/{projectId}/datasets/{datasetId}", "id": "bigquery.datasets.delete"}}}', true));
-    $this->jobs = new JobsServiceResource($this, $this->serviceName, 'jobs', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"type": "string", "location": "path"}}, "mediaUpload": {"accept": ["application/octet-stream"], "protocols": {"simple": {"path": "/upload/bigquery/v2/projects/{projectId}/jobs", "multipart": true}, "resumable": {"path": "/resumable/upload/bigquery/v2/projects/{projectId}/jobs", "multipart": true}}}, "request": {"$ref": "Job"}, "id": "bigquery.jobs.insert", "httpMethod": "POST", "path": "projects/{projectId}/jobs", "response": {"$ref": "Job"}}, "get": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "jobId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.jobs.get", "httpMethod": "GET", "path": "projects/{projectId}/jobs/{jobId}", "response": {"$ref": "Job"}}, "list": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projection": {"enum": ["full", "minimal"], "type": "string", "location": "query"}, "stateFilter": {"enum": ["done", "pending", "running"], "repeated": true, "location": "query", "type": "string"}, "projectId": {"required": true, "type": "string", "location": "path"}, "allUsers": {"type": "boolean", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "pageToken": {"type": "string", "location": "query"}}, "id": "bigquery.jobs.list", "httpMethod": "GET", "path": "projects/{projectId}/jobs", "response": {"$ref": "JobList"}}, "query": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "QueryRequest"}, "id": "bigquery.jobs.query", "httpMethod": "POST", "path": "projects/{projectId}/queries", "response": {"$ref": "QueryResponse"}}, "getQueryResults": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"timeoutMs": {"format": "uint32", "type": "integer", "location": "query"}, "projectId": {"required": true, "type": "string", "location": "path"}, "startIndex": {"format": "uint64", "type": "string", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "jobId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.jobs.getQueryResults", "httpMethod": "GET", "path": "projects/{projectId}/queries/{jobId}", "response": {"$ref": "GetQueryResultsResponse"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "jobId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "projects/{projectId}/jobs/{jobId}", "id": "bigquery.jobs.delete"}}}', true));
+    $this->tables = new TablesServiceResource($this, $this->serviceName, 'tables', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "id": "bigquery.tables.insert", "httpMethod": "POST", "path": "projects/{projectId}/datasets/{datasetId}/tables", "response": {"$ref": "Table"}}, "get": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "tableId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.tables.get", "httpMethod": "GET", "path": "projects/{projectId}/datasets/{datasetId}/tables/{tableId}", "response": {"$ref": "Table"}}, "list": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "datasetId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "projectId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.tables.list", "httpMethod": "GET", "path": "projects/{projectId}/datasets/{datasetId}/tables", "response": {"$ref": "TableList"}}, "update": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "tableId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "id": "bigquery.tables.update", "httpMethod": "PUT", "path": "projects/{projectId}/datasets/{datasetId}/tables/{tableId}", "response": {"$ref": "Table"}}, "patch": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "tableId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "id": "bigquery.tables.patch", "httpMethod": "PATCH", "path": "projects/{projectId}/datasets/{datasetId}/tables/{tableId}", "response": {"$ref": "Table"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "tableId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "projects/{projectId}/datasets/{datasetId}/tables/{tableId}", "id": "bigquery.tables.delete"}}}', true));
+    $this->datasets = new DatasetsServiceResource($this, $this->serviceName, 'datasets', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Dataset"}, "id": "bigquery.datasets.insert", "httpMethod": "POST", "path": "projects/{projectId}/datasets", "response": {"$ref": "Dataset"}}, "get": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.datasets.get", "httpMethod": "GET", "path": "projects/{projectId}/datasets/{datasetId}", "response": {"$ref": "Dataset"}}, "list": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "projectId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.datasets.list", "httpMethod": "GET", "path": "projects/{projectId}/datasets", "response": {"$ref": "DatasetList"}}, "update": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Dataset"}, "id": "bigquery.datasets.update", "httpMethod": "PUT", "path": "projects/{projectId}/datasets/{datasetId}", "response": {"$ref": "Dataset"}}, "patch": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Dataset"}, "id": "bigquery.datasets.patch", "httpMethod": "PATCH", "path": "projects/{projectId}/datasets/{datasetId}", "response": {"$ref": "Dataset"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"deleteContents": {"type": "boolean", "location": "query"}, "datasetId": {"required": true, "type": "string", "location": "path"}, "projectId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "projects/{projectId}/datasets/{datasetId}", "id": "bigquery.datasets.delete"}}}', true));
+    $this->jobs = new JobsServiceResource($this, $this->serviceName, 'jobs', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}}, "mediaUpload": {"accept": ["application/octet-stream"], "protocols": {"simple": {"path": "/upload/bigquery/v2/projects/{projectId}/jobs", "multipart": true}, "resumable": {"path": "/resumable/upload/bigquery/v2/projects/{projectId}/jobs", "multipart": true}}}, "request": {"$ref": "Job"}, "id": "bigquery.jobs.insert", "httpMethod": "POST", "path": "projects/{projectId}/jobs", "response": {"$ref": "Job"}}, "get": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "jobId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.jobs.get", "httpMethod": "GET", "path": "projects/{projectId}/jobs/{jobId}", "response": {"$ref": "Job"}}, "list": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projection": {"enum": ["full", "minimal"], "type": "string", "location": "query"}, "stateFilter": {"enum": ["done", "pending", "running"], "repeated": true, "location": "query", "type": "string"}, "projectId": {"required": true, "type": "string", "location": "path"}, "allUsers": {"type": "boolean", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "pageToken": {"type": "string", "location": "query"}}, "id": "bigquery.jobs.list", "httpMethod": "GET", "path": "projects/{projectId}/jobs", "response": {"$ref": "JobList"}}, "getQueryResults": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"timeoutMs": {"format": "uint32", "type": "integer", "location": "query"}, "projectId": {"required": true, "type": "string", "location": "path"}, "startIndex": {"format": "uint64", "type": "string", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "jobId": {"required": true, "type": "string", "location": "path"}}, "id": "bigquery.jobs.getQueryResults", "httpMethod": "GET", "path": "projects/{projectId}/queries/{jobId}", "response": {"$ref": "GetQueryResultsResponse"}}, "query": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "QueryRequest"}, "id": "bigquery.jobs.query", "httpMethod": "POST", "path": "projects/{projectId}/queries", "response": {"$ref": "QueryResponse"}}}}', true));
     $this->tabledata = new TabledataServiceResource($this, $this->serviceName, 'tabledata', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"projectId": {"required": true, "type": "string", "location": "path"}, "startIndex": {"format": "uint64", "type": "string", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}, "datasetId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}}, "id": "bigquery.tabledata.list", "httpMethod": "GET", "path": "projects/{projectId}/datasets/{datasetId}/tables/{tableId}/data", "response": {"$ref": "TableDataList"}}}}', true));
     $this->projects = new ProjectsServiceResource($this, $this->serviceName, 'projects', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/bigquery"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}}, "response": {"$ref": "ProjectList"}, "httpMethod": "GET", "path": "projects", "id": "bigquery.projects.list"}}}', true));
 
@@ -940,6 +917,7 @@ class JobConfigurationExtract extends apiModel {
 
 class JobConfigurationLink extends apiModel {
   public $createDisposition;
+  public $writeDisposition;
   protected $__destinationTableType = 'TableReference';
   protected $__destinationTableDataType = '';
   public $destinationTable;
@@ -950,13 +928,20 @@ class JobConfigurationLink extends apiModel {
   public function getCreateDisposition() {
     return $this->createDisposition;
   }
+  public function setWriteDisposition($writeDisposition) {
+    $this->writeDisposition = $writeDisposition;
+  }
+  public function getWriteDisposition() {
+    return $this->writeDisposition;
+  }
   public function setDestinationTable(TableReference $destinationTable) {
     $this->destinationTable = $destinationTable;
   }
   public function getDestinationTable() {
     return $this->destinationTable;
   }
-  public function setSourceUri($sourceUri) {
+  public function setSourceUri(/* array(string) */ $sourceUri) {
+    $this->assertIsArray($sourceUri, 'string', __METHOD__);
     $this->sourceUri = $sourceUri;
   }
   public function getSourceUri() {
@@ -1157,6 +1142,7 @@ class JobListJobs extends apiModel {
   protected $__statusType = 'JobStatus';
   protected $__statusDataType = '';
   public $status;
+  public $kind;
   protected $__statisticsType = 'JobStatistics';
   protected $__statisticsDataType = '';
   public $statistics;
@@ -1176,6 +1162,12 @@ class JobListJobs extends apiModel {
   }
   public function getStatus() {
     return $this->status;
+  }
+  public function setKind($kind) {
+    $this->kind = $kind;
+  }
+  public function getKind() {
+    return $this->kind;
   }
   public function setStatistics(JobStatistics $statistics) {
     $this->statistics = $statistics;
@@ -1468,6 +1460,8 @@ class Table extends apiModel {
   protected $__tableReferenceType = 'TableReference';
   protected $__tableReferenceDataType = '';
   public $tableReference;
+  public $numRows;
+  public $numBytes;
   public $etag;
   public $friendlyName;
   public $lastModifiedTime;
@@ -1499,6 +1493,18 @@ class Table extends apiModel {
   }
   public function getTableReference() {
     return $this->tableReference;
+  }
+  public function setNumRows($numRows) {
+    $this->numRows = $numRows;
+  }
+  public function getNumRows() {
+    return $this->numRows;
+  }
+  public function setNumBytes($numBytes) {
+    $this->numBytes = $numBytes;
+  }
+  public function getNumBytes() {
+    return $this->numBytes;
   }
   public function setEtag($etag) {
     $this->etag = $etag;

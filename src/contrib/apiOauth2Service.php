@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,10 +14,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
-require_once 'service/apiModel.php';
-require_once 'service/apiService.php';
-require_once 'service/apiServiceRequest.php';
 
 
   /**
@@ -48,7 +44,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
   /**
    * The "v2" collection of methods.
    * Typical usage is:
@@ -61,7 +56,6 @@ require_once 'service/apiServiceRequest.php';
 
 
   }
-
 
   /**
    * The "me" collection of methods.
@@ -91,39 +85,6 @@ require_once 'service/apiServiceRequest.php';
     }
   }
 
-
-  /**
-   * The "tokeninfo" collection of methods.
-   * Typical usage is:
-   *  <code>
-   *   $oauth2Service = new apiOauth2Service(...);
-   *   $tokeninfo = $oauth2Service->tokeninfo;
-   *  </code>
-   */
-  class TokeninfoServiceResource extends apiServiceResource {
-    /**
-     * (tokeninfo.tokeninfo)
-     *
-     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
-     *
-     * @opt_param string access_token
-     * @opt_param string id_token
-     * @return Tokeninfo
-     */
-    public function tokeninfo($optParams = array()) {
-      $params = array();
-      $params = array_merge($params, $optParams);
-      $data = $this->__call('tokeninfo', array($params));
-      if ($this->useObjects()) {
-        return new Tokeninfo($data);
-      } else {
-        return $data;
-      }
-    }
-
-  }
-
-
 /**
  * Service definition for Oauth2 (v2).
  *
@@ -139,24 +100,23 @@ require_once 'service/apiServiceRequest.php';
  * @author Google, Inc.
  */
 class apiOauth2Service extends apiService {
-  public $tokeninfo;
   public $userinfo;
-  public $userinfo_v2;
+  public $userinfo_v2_me;
   /**
    * Constructs the internal representation of the Oauth2 service.
    *
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
-    $this->restBasePath = '/';
+    $this->restBasePath = '//';
     $this->version = 'v2';
     $this->serviceName = 'oauth2';
 
     $apiClient->addService($this->serviceName, $this->version);
     $this->userinfo = new UserinfoServiceResource($this, $this->serviceName, 'userinfo', json_decode('{"methods": {"get": {"path": "oauth2/v2/userinfo", "response": {"$ref": "Userinfo"}, "httpMethod": "GET", "id": "oauth2.userinfo.get"}}}', true));
-    $this->userinfo_v2 = new UserinfoV2ServiceResource($this, $this->serviceName, 'v2', json_decode('{}', true));
-    $this->tokeninfo = new TokeninfoServiceResource($this, $this->serviceName, 'tokeninfo', json_decode('{"id": "oauth2.tokeninfo", "path": "oauth2/v2/tokeninfo", "response": {"$ref": "Tokeninfo"}, "parameters": {"access_token": {"type": "string", "location": "query"}, "id_token": {"type": "string", "location": "query"}}, "httpMethod": "GET"}', true));
+    $this->userinfo_v2_me = new UserinfoV2MeServiceResource($this, $this->serviceName, 'me', json_decode('{"methods": {"get": {"path": "userinfo/v2/me", "response": {"$ref": "Userinfo"}, "httpMethod": "GET", "id": "oauth2.userinfo.v2.me.get"}}}', true));
+
+    $this-> = new TokeninfoServiceResource($this, $this->serviceName, 'tokeninfo', json_decode('{"id": "oauth2.tokeninfo", "path": "oauth2/v2/tokeninfo", "response": {"$ref": "Tokeninfo"}, "parameters": {"access_token": {"type": "string", "location": "query"}, "id_token": {"type": "string", "location": "query"}}, "httpMethod": "POST"}', true));
   }
 }
 

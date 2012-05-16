@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2010 Google Inc.
+ * Copyright 2010 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -103,11 +103,13 @@
         return $data;
       }
     }
+
     /**
      * Updates an existing account. (accounts.update)
      *
      * @param int $id The account id
      * @param Account $postBody
+     * @param array $optParams
      * @return Account
      */
     public function update($id, Account $postBody, $optParams = array()) {
@@ -209,15 +211,14 @@ class apiAdexchangebuyerService extends apiService {
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->rpcPath = '/rpc';
     $this->restBasePath = '/adexchangebuyer/v1/';
     $this->version = 'v1';
     $this->serviceName = 'adexchangebuyer';
 
     $apiClient->addService($this->serviceName, $this->version);
-    $this->directDeals = new DirectDealsServiceResource($this, $this->serviceName, 'directDeals', json_decode('{"methods": {"list": {"id": "adexchangebuyer.directDeals.list", "path": "directdeals", "httpMethod": "GET", "response": {"$ref": "DirectDealsList"}}, "get": {"parameters": {"id": {"format": "int64", "required": true, "type": "string", "location": "path"}}, "id": "adexchangebuyer.directDeals.get", "httpMethod": "GET", "path": "directdeals/{id}", "response": {"$ref": "DirectDeal"}}}}', true));
-    $this->accounts = new AccountsServiceResource($this, $this->serviceName, 'accounts', json_decode('{"methods": {"get": {"parameters": {"id": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "id": "adexchangebuyer.accounts.get", "httpMethod": "GET", "path": "accounts/{id}", "response": {"$ref": "Account"}}, "list": {"id": "adexchangebuyer.accounts.list", "path": "accounts", "httpMethod": "GET", "response": {"$ref": "AccountsList"}}, "update": {"parameters": {"id": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "Account"}, "id": "adexchangebuyer.accounts.update", "httpMethod": "PUT", "path": "accounts/{id}", "response": {"$ref": "Account"}}, "patch": {"parameters": {"id": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "Account"}, "id": "adexchangebuyer.accounts.patch", "httpMethod": "PATCH", "path": "accounts/{id}", "response": {"$ref": "Account"}}}}', true));
-    $this->creatives = new CreativesServiceResource($this, $this->serviceName, 'creatives', json_decode('{"methods": {"insert": {"request": {"$ref": "Creative"}, "id": "adexchangebuyer.creatives.insert", "httpMethod": "POST", "path": "creatives", "response": {"$ref": "Creative"}}, "get": {"parameters": {"adgroupId": {"format": "int64", "required": true, "type": "string", "location": "query"}, "buyerCreativeId": {"required": true, "type": "string", "location": "path"}, "accountId": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "id": "adexchangebuyer.creatives.get", "httpMethod": "GET", "path": "creatives/{accountId}/{buyerCreativeId}", "response": {"$ref": "Creative"}}}}', true));
+    $this->directDeals = new DirectDealsServiceResource($this, $this->serviceName, 'directDeals', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/adexchange.buyer"], "id": "adexchangebuyer.directDeals.list", "httpMethod": "GET", "path": "directdeals", "response": {"$ref": "DirectDealsList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/adexchange.buyer"], "parameters": {"id": {"format": "int64", "required": true, "type": "string", "location": "path"}}, "id": "adexchangebuyer.directDeals.get", "httpMethod": "GET", "path": "directdeals/{id}", "response": {"$ref": "DirectDeal"}}}}', true));
+    $this->accounts = new AccountsServiceResource($this, $this->serviceName, 'accounts', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/adexchange.buyer"], "parameters": {"id": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "id": "adexchangebuyer.accounts.get", "httpMethod": "GET", "path": "accounts/{id}", "response": {"$ref": "Account"}}, "list": {"scopes": ["https://www.googleapis.com/auth/adexchange.buyer"], "id": "adexchangebuyer.accounts.list", "httpMethod": "GET", "path": "accounts", "response": {"$ref": "AccountsList"}}, "update": {"scopes": ["https://www.googleapis.com/auth/adexchange.buyer"], "parameters": {"id": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "Account"}, "id": "adexchangebuyer.accounts.update", "httpMethod": "PUT", "path": "accounts/{id}", "response": {"$ref": "Account"}}, "patch": {"scopes": ["https://www.googleapis.com/auth/adexchange.buyer"], "parameters": {"id": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "request": {"$ref": "Account"}, "id": "adexchangebuyer.accounts.patch", "httpMethod": "PATCH", "path": "accounts/{id}", "response": {"$ref": "Account"}}}}', true));
+    $this->creatives = new CreativesServiceResource($this, $this->serviceName, 'creatives', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/adexchange.buyer"], "request": {"$ref": "Creative"}, "response": {"$ref": "Creative"}, "httpMethod": "POST", "path": "creatives", "id": "adexchangebuyer.creatives.insert"}, "get": {"scopes": ["https://www.googleapis.com/auth/adexchange.buyer"], "parameters": {"adgroupId": {"format": "int64", "required": true, "type": "string", "location": "query"}, "buyerCreativeId": {"required": true, "type": "string", "location": "path"}, "accountId": {"format": "int32", "required": true, "type": "integer", "location": "path"}}, "id": "adexchangebuyer.creatives.get", "httpMethod": "GET", "path": "creatives/{accountId}/{buyerCreativeId}", "response": {"$ref": "Creative"}}}}', true));
 
   }
 }
