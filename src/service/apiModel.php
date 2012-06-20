@@ -106,7 +106,7 @@ class apiModel {
    * @param string $type Array items should be of this type.
    * @param string $method Method expecting an array as an argument.
    */
-  protected function assertIsArray($obj, $type, $method) {
+  public function assertIsArray($obj, $type, $method) {
     if ($obj && !is_array($obj)) {
       throw new apiException("Incorrect parameter type passed to $method(), expected an"
           . " array containing items of type $type.");

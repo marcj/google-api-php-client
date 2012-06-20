@@ -178,7 +178,7 @@ class apiServiceResource {
     return apiREST::execute($httpRequest);
   }
 
-  protected function useObjects() {
+  public  function useObjects() {
     global $apiConfig;
     return (isset($apiConfig['use_objects']) && $apiConfig['use_objects']);
   }
