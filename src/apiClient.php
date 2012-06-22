@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 
-// Check for the required json and curl extensions, the Google API PHP Client won't function without them.
+// Check for the required json and curl extensions, the Google APIs PHP Client
+// won't function without them.
 if (! function_exists('curl_init')) {
   throw new Exception('Google PHP API Client requires the CURL PHP extension');
 }
@@ -33,14 +34,13 @@ if (! ini_get('date.timezone') && function_exists('date_default_timezone_set')) 
 }
 
 // hack around with the include paths a bit so the library 'just works'
-$cwd = dirname(__FILE__);
-set_include_path("$cwd" . PATH_SEPARATOR . get_include_path());
+set_include_path(__DIR__ . PATH_SEPARATOR . get_include_path());
 
 require_once "config.php";
 // If a local configuration file is found, merge it's values with the default configuration
-if (file_exists($cwd . '/local_config.php')) {
+if (file_exists(__DIR__ . '/local_config.php')) {
   $defaultConfig = $apiConfig;
-  require_once ($cwd . '/local_config.php');
+  require_once (__DIR__ . '/local_config.php');
   $apiConfig = array_merge($defaultConfig, $apiConfig);
 }
 
@@ -125,10 +125,10 @@ class apiClient {
     }
   }
 
-  public function authenticate() {
+  public function authenticate($code = null) {
     $service = $this->prepareService();
     $this->authenticated = true;
-    return self::$auth->authenticate($service);
+    return self::$auth->authenticate($service, $code);
   }
 
   /**

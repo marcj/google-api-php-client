@@ -84,11 +84,15 @@ class apiOAuth2 extends apiAuth {
    * @return string
    * @throws apiAuthException
    */
-  public function authenticate($service) {
-    if (isset($_GET['code'])) {
+  public function authenticate($service, $code = null) {
+    if (!$code && isset($_GET['code'])) {
+      $code = $_GET['code'];
+    }
+
+    if ($code) {
       // We got here from the redirect from a successful authorization grant, fetch the access token
       $request = apiClient::$io->makeRequest(new apiHttpRequest(self::OAUTH2_TOKEN_URI, 'POST', array(), array(
-          'code' => $_GET['code'],
+          'code' => $code,
           'grant_type' => 'authorization_code',
           'redirect_uri' => $this->redirectUri,
           'client_id' => $this->clientId,
