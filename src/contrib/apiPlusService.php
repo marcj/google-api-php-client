@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2010 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -174,7 +172,7 @@
     /**
      * Search all public profiles. (people.search)
      *
-     * @param string $query Full-text search query string.
+     * @param string $query Specify a query string for full text search of public text in all profiles.
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
      *
      * @opt_param string pageToken The continuation token, used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. This token may be of any length.
@@ -299,7 +297,6 @@ class Activity extends apiModel {
   public $radius;
   public $address;
   public $crosspostSource;
-  public $placeholder;
   public $annotation;
   public $published;
   public function setPlaceName($placeName) {
@@ -403,12 +400,6 @@ class Activity extends apiModel {
   }
   public function getCrosspostSource() {
     return $this->crosspostSource;
-  }
-  public function setPlaceholder($placeholder) {
-    $this->placeholder = $placeholder;
-  }
-  public function getPlaceholder() {
-    return $this->placeholder;
   }
   public function setAnnotation($annotation) {
     $this->annotation = $annotation;
