@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2010 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -28,9 +26,46 @@
 
 
     /**
+     * Retrieves a list of blogs, possibly filtered. (blogs.listByUser)
+     *
+     * @param string $userId ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier.
+     * @return BlogList
+     */
+    public function listByUser($userId, $optParams = array()) {
+      $params = array('userId' => $userId);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('listByUser', array($params));
+      if ($this->useObjects()) {
+        return new BlogList($data);
+      } else {
+        return $data;
+      }
+    }
+    /**
+     * Retrieve a Blog by URL. (blogs.getByUrl)
+     *
+     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
+     *
+     * @opt_param string url The URL of the blog to retrieve.
+     * @return Blog
+     */
+    public function getByUrl($optParams = array()) {
+      $params = array();
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('getByUrl', array($params));
+      if ($this->useObjects()) {
+        return new Blog($data);
+      } else {
+        return $data;
+      }
+    }
+    /**
      * Gets one blog by id. (blogs.get)
      *
      * @param string $blogId The ID of the blog to get.
+     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
+     *
+     * @opt_param string maxPosts Maximum number of posts to pull back with the blog.
      * @return Blog
      */
     public function get($blogId, $optParams = array()) {
@@ -57,15 +92,73 @@
 
 
     /**
+     * Add a post. (posts.insert)
+     *
+     * @param string $blogId ID of the blog to fetch the post from.
+     * @param Post $postBody
+     * @return Post
+     */
+    public function insert($blogId, Post $postBody, $optParams = array()) {
+      $params = array('blogId' => $blogId, 'postBody' => $postBody);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('insert', array($params));
+      if ($this->useObjects()) {
+        return new Post($data);
+      } else {
+        return $data;
+      }
+    }
+    /**
+     * Search for a post. (posts.search)
+     *
+     * @param string $blogId ID of the blog to fetch the post from.
+     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
+     *
+     * @opt_param string q Query terms to search this blog for matching posts.
+     * @return PostList
+     */
+    public function search($blogId, $optParams = array()) {
+      $params = array('blogId' => $blogId);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('search', array($params));
+      if ($this->useObjects()) {
+        return new PostList($data);
+      } else {
+        return $data;
+      }
+    }
+    /**
+     * Get a post by id. (posts.get)
+     *
+     * @param string $blogId ID of the blog to fetch the post from.
+     * @param string $postId The ID of the post
+     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
+     *
+     * @opt_param string maxComments Maximum number of comments to pull back on a post.
+     * @return Post
+     */
+    public function get($blogId, $postId, $optParams = array()) {
+      $params = array('blogId' => $blogId, 'postId' => $postId);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('get', array($params));
+      if ($this->useObjects()) {
+        return new Post($data);
+      } else {
+        return $data;
+      }
+    }
+    /**
      * Retrieves a list of posts, possibly filtered. (posts.list)
      *
      * @param string $blogId ID of the blog to fetch posts from.
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
      *
+     * @opt_param string startDate Earliest post date to fetch, a date-time with RFC 3339 formatting.
+     * @opt_param string endDate Latest post date to fetch, a date-time with RFC 3339 formatting.
+     * @opt_param string labels Comma-separated list of labels to search for.
+     * @opt_param string maxResults Maximum number of posts to fetch.
      * @opt_param string pageToken Continuation token if the request is paged.
      * @opt_param bool fetchBodies Whether the body content of posts is included.
-     * @opt_param string maxResults Maximum number of posts to fetch.
-     * @opt_param string startDate Earliest post date to fetch.
      * @return PostList
      */
     public function listPosts($blogId, $optParams = array()) {
@@ -79,21 +172,72 @@
       }
     }
     /**
-     * Get a post by id. (posts.get)
+     * Update a post. (posts.update)
      *
-     * @param string $blogId ID of the blog to fetch the post from.
-     * @param string $postId The ID of the post
+     * @param string $blogId The ID of the Blog.
+     * @param string $postId The ID of the Post.
+     * @param Post $postBody
      * @return Post
      */
-    public function get($blogId, $postId, $optParams = array()) {
-      $params = array('blogId' => $blogId, 'postId' => $postId);
+    public function update($blogId, $postId, Post $postBody, $optParams = array()) {
+      $params = array('blogId' => $blogId, 'postId' => $postId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
-      $data = $this->__call('get', array($params));
+      $data = $this->__call('update', array($params));
       if ($this->useObjects()) {
         return new Post($data);
       } else {
         return $data;
       }
+    }
+    /**
+     * Retrieve a Post by Path. (posts.getByPath)
+     *
+     * @param string $blogId ID of the blog to fetch the post from.
+     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
+     *
+     * @opt_param string path Path of the Post to retrieve.
+     * @opt_param string maxComments Maximum number of comments to pull back on a post.
+     * @return Post
+     */
+    public function getByPath($blogId, $optParams = array()) {
+      $params = array('blogId' => $blogId);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('getByPath', array($params));
+      if ($this->useObjects()) {
+        return new Post($data);
+      } else {
+        return $data;
+      }
+    }
+    /**
+     * Update a post. This method supports patch semantics. (posts.patch)
+     *
+     * @param string $blogId The ID of the Blog.
+     * @param string $postId The ID of the Post.
+     * @param Post $postBody
+     * @return Post
+     */
+    public function patch($blogId, $postId, Post $postBody, $optParams = array()) {
+      $params = array('blogId' => $blogId, 'postId' => $postId, 'postBody' => $postBody);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('patch', array($params));
+      if ($this->useObjects()) {
+        return new Post($data);
+      } else {
+        return $data;
+      }
+    }
+    /**
+     * Delete a post by id. (posts.delete)
+     *
+     * @param string $blogId The Id of the Blog.
+     * @param string $postId The ID of the Post.
+     */
+    public function delete($blogId, $postId, $optParams = array()) {
+      $params = array('blogId' => $blogId, 'postId' => $postId);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('delete', array($params));
+      return $data;
     }
   }
 
@@ -164,7 +308,8 @@
      * @param string $postId ID of the post to fetch posts from.
      * @param array $optParams Optional parameters. Valid optional parameters are listed below.
      *
-     * @opt_param string startDate Earliest date of comment to fetch.
+     * @opt_param string startDate Earliest date of comment to fetch, a date-time with RFC 3339 formatting.
+     * @opt_param string endDate Latest date of comment to fetch, a date-time with RFC 3339 formatting.
      * @opt_param string maxResults Maximum number of comments to include in the result.
      * @opt_param string pageToken Continuation token if request is paged.
      * @opt_param bool fetchBodies Whether the body content of the comments is included.
@@ -229,37 +374,8 @@
     }
   }
 
-  /**
-   * The "blogs" collection of methods.
-   * Typical usage is:
-   *  <code>
-   *   $bloggerService = new apiBloggerService(...);
-   *   $blogs = $bloggerService->blogs;
-   *  </code>
-   */
-  class UsersBlogsServiceResource extends apiServiceResource {
-
-
-    /**
-     * Retrieves a list of blogs, possibly filtered. (blogs.list)
-     *
-     * @param string $userId ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier.
-     * @return BlogList
-     */
-    public function listUsersBlogs($userId, $optParams = array()) {
-      $params = array('userId' => $userId);
-      $params = array_merge($params, $optParams);
-      $data = $this->__call('list', array($params));
-      if ($this->useObjects()) {
-        return new BlogList($data);
-      } else {
-        return $data;
-      }
-    }
-  }
-
 /**
- * Service definition for Blogger (v2).
+ * Service definition for Blogger (v3).
  *
  * <p>
  * API for access to the data within Blogger.
@@ -267,7 +383,7 @@
  *
  * <p>
  * For more information about this service, see the
- * <a href="https://code.google.com/apis/blogger/docs/2.0/json/getting_started.html" target="_blank">API Documentation</a>
+ * <a href="https://developers.google.com/blogger/docs/3.0/getting_started" target="_blank">API Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -278,24 +394,22 @@ class apiBloggerService extends apiService {
   public $pages;
   public $comments;
   public $users;
-  public $users_blogs;
   /**
    * Constructs the internal representation of the Blogger service.
    *
    * @param apiClient apiClient
    */
   public function __construct(apiClient $apiClient) {
-    $this->restBasePath = '/blogger/v2/';
-    $this->version = 'v2';
+    $this->restBasePath = '/blogger/v3/';
+    $this->version = 'v3';
     $this->serviceName = 'blogger';
 
     $apiClient->addService($this->serviceName, $this->version);
-    $this->blogs = new BlogsServiceResource($this, $this->serviceName, 'blogs', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.blogs.get", "httpMethod": "GET", "path": "blogs/{blogId}", "response": {"$ref": "Blog"}}}}', true));
-    $this->posts = new PostsServiceResource($this, $this->serviceName, 'posts', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "fetchBodies": {"type": "boolean", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "startDate": {"type": "string", "location": "query"}}, "id": "blogger.posts.list", "httpMethod": "GET", "path": "blogs/{blogId}/posts", "response": {"$ref": "PostList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"postId": {"required": true, "type": "string", "location": "path"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.posts.get", "httpMethod": "GET", "path": "blogs/{blogId}/posts/{postId}", "response": {"$ref": "Post"}}}}', true));
-    $this->pages = new PagesServiceResource($this, $this->serviceName, 'pages', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"fetchBodies": {"type": "boolean", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.pages.list", "httpMethod": "GET", "path": "blogs/{blogId}/pages", "response": {"$ref": "PageList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"pageId": {"required": true, "type": "string", "location": "path"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.pages.get", "httpMethod": "GET", "path": "blogs/{blogId}/pages/{pageId}", "response": {"$ref": "Page"}}}}', true));
-    $this->comments = new CommentsServiceResource($this, $this->serviceName, 'comments', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"startDate": {"type": "string", "location": "query"}, "postId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "fetchBodies": {"type": "boolean", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.comments.list", "httpMethod": "GET", "path": "blogs/{blogId}/posts/{postId}/comments", "response": {"$ref": "CommentList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"commentId": {"required": true, "type": "string", "location": "path"}, "postId": {"required": true, "type": "string", "location": "path"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.comments.get", "httpMethod": "GET", "path": "blogs/{blogId}/posts/{postId}/comments/{commentId}", "response": {"$ref": "Comment"}}}}', true));
-    $this->users = new UsersServiceResource($this, $this->serviceName, 'users', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.users.get", "httpMethod": "GET", "path": "users/{userId}", "response": {"$ref": "User"}}}}', true));
-    $this->users_blogs = new UsersBlogsServiceResource($this, $this->serviceName, 'blogs', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.users.blogs.list", "httpMethod": "GET", "path": "users/{userId}/blogs", "response": {"$ref": "BlogList"}}}}', true));
+    $this->blogs = new BlogsServiceResource($this, $this->serviceName, 'blogs', json_decode('{"methods": {"listByUser": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.blogs.listByUser", "httpMethod": "GET", "path": "users/{userId}/blogs", "response": {"$ref": "BlogList"}}, "getByUrl": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"url": {"type": "string", "location": "query"}}, "response": {"$ref": "Blog"}, "httpMethod": "GET", "path": "blogs/byurl", "id": "blogger.blogs.getByUrl"}, "get": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"maxPosts": {"format": "uint32", "type": "integer", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.blogs.get", "httpMethod": "GET", "path": "blogs/{blogId}", "response": {"$ref": "Blog"}}}}', true));
+    $this->posts = new PostsServiceResource($this, $this->serviceName, 'posts', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"blogId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Post"}, "id": "blogger.posts.insert", "httpMethod": "POST", "path": "blogs/{blogId}/posts", "response": {"$ref": "Post"}}, "search": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"q": {"type": "string", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.posts.search", "httpMethod": "GET", "path": "blogs/{blogId}/posts/search", "response": {"$ref": "PostList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"maxComments": {"format": "uint32", "type": "integer", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}, "postId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.posts.get", "httpMethod": "GET", "path": "blogs/{blogId}/posts/{postId}", "response": {"$ref": "Post"}}, "list": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"startDate": {"format": "date-time", "type": "string", "location": "query"}, "endDate": {"format": "date-time", "type": "string", "location": "query"}, "labels": {"type": "string", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "fetchBodies": {"type": "boolean", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.posts.list", "httpMethod": "GET", "path": "blogs/{blogId}/posts", "response": {"$ref": "PostList"}}, "update": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"postId": {"required": true, "type": "string", "location": "path"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Post"}, "id": "blogger.posts.update", "httpMethod": "PUT", "path": "blogs/{blogId}/posts/{postId}", "response": {"$ref": "Post"}}, "getByPath": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"path": {"type": "string", "location": "query"}, "maxComments": {"format": "uint32", "type": "integer", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.posts.getByPath", "httpMethod": "GET", "path": "blogs/{blogId}/posts/bypath", "response": {"$ref": "Post"}}, "patch": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"postId": {"required": true, "type": "string", "location": "path"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Post"}, "id": "blogger.posts.patch", "httpMethod": "PATCH", "path": "blogs/{blogId}/posts/{postId}", "response": {"$ref": "Post"}}, "delete": {"scopes": ["https://www.googleapis.com/auth/blogger"], "parameters": {"postId": {"required": true, "type": "string", "location": "path"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "blogs/{blogId}/posts/{postId}", "id": "blogger.posts.delete"}}}', true));
+    $this->pages = new PagesServiceResource($this, $this->serviceName, 'pages', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"fetchBodies": {"type": "boolean", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.pages.list", "httpMethod": "GET", "path": "blogs/{blogId}/pages", "response": {"$ref": "PageList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"pageId": {"required": true, "type": "string", "location": "path"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.pages.get", "httpMethod": "GET", "path": "blogs/{blogId}/pages/{pageId}", "response": {"$ref": "Page"}}}}', true));
+    $this->comments = new CommentsServiceResource($this, $this->serviceName, 'comments', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"startDate": {"format": "date-time", "type": "string", "location": "query"}, "postId": {"required": true, "type": "string", "location": "path"}, "endDate": {"format": "date-time", "type": "string", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "fetchBodies": {"type": "boolean", "location": "query"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.comments.list", "httpMethod": "GET", "path": "blogs/{blogId}/posts/{postId}/comments", "response": {"$ref": "CommentList"}}, "get": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"commentId": {"required": true, "type": "string", "location": "path"}, "postId": {"required": true, "type": "string", "location": "path"}, "blogId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.comments.get", "httpMethod": "GET", "path": "blogs/{blogId}/posts/{postId}/comments/{commentId}", "response": {"$ref": "Comment"}}}}', true));
+    $this->users = new UsersServiceResource($this, $this->serviceName, 'users', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/blogger.readonly"], "parameters": {"userId": {"required": true, "type": "string", "location": "path"}}, "id": "blogger.users.get", "httpMethod": "GET", "path": "users/{userId}", "response": {"$ref": "User"}}}}', true));
 
   }
 }
@@ -309,13 +423,14 @@ class Blog extends apiModel {
   protected $__postsType = 'BlogPosts';
   protected $__postsDataType = '';
   public $posts;
+  public $customMetaData;
   public $updated;
-  public $id;
-  public $url;
-  public $published;
   protected $__pagesType = 'BlogPages';
   protected $__pagesDataType = '';
   public $pages;
+  public $url;
+  public $published;
+  public $id;
   public $selfLink;
   public $name;
   public function setKind($kind) {
@@ -342,17 +457,23 @@ class Blog extends apiModel {
   public function getPosts() {
     return $this->posts;
   }
+  public function setCustomMetaData($customMetaData) {
+    $this->customMetaData = $customMetaData;
+  }
+  public function getCustomMetaData() {
+    return $this->customMetaData;
+  }
   public function setUpdated($updated) {
     $this->updated = $updated;
   }
   public function getUpdated() {
     return $this->updated;
   }
-  public function setId($id) {
-    $this->id = $id;
+  public function setPages(BlogPages $pages) {
+    $this->pages = $pages;
   }
-  public function getId() {
-    return $this->id;
+  public function getPages() {
+    return $this->pages;
   }
   public function setUrl($url) {
     $this->url = $url;
@@ -366,11 +487,11 @@ class Blog extends apiModel {
   public function getPublished() {
     return $this->published;
   }
-  public function setPages(BlogPages $pages) {
-    $this->pages = $pages;
+  public function setId($id) {
+    $this->id = $id;
   }
-  public function getPages() {
-    return $this->pages;
+  public function getId() {
+    return $this->id;
   }
   public function setSelfLink($selfLink) {
     $this->selfLink = $selfLink;
@@ -449,12 +570,22 @@ class BlogPages extends apiModel {
 
 class BlogPosts extends apiModel {
   public $totalItems;
+  protected $__itemsType = 'Post';
+  protected $__itemsDataType = 'array';
+  public $items;
   public $selfLink;
   public function setTotalItems($totalItems) {
     $this->totalItems = $totalItems;
   }
   public function getTotalItems() {
     return $this->totalItems;
+  }
+  public function setItems(/* array(Post) */ $items) {
+    $this->assertIsArray($items, 'Post', __METHOD__);
+    $this->items = $items;
+  }
+  public function getItems() {
+    return $this->items;
   }
   public function setSelfLink($selfLink) {
     $this->selfLink = $selfLink;
@@ -812,11 +943,15 @@ class Post extends apiModel {
   protected $__repliesDataType = '';
   public $replies;
   public $labels;
+  public $customMetaData;
   public $updated;
   protected $__blogType = 'PostBlog';
   protected $__blogDataType = '';
   public $blog;
   public $url;
+  protected $__locationType = 'PostLocation';
+  protected $__locationDataType = '';
+  public $location;
   public $published;
   public $title;
   public $id;
@@ -852,6 +987,12 @@ class Post extends apiModel {
   public function getLabels() {
     return $this->labels;
   }
+  public function setCustomMetaData($customMetaData) {
+    $this->customMetaData = $customMetaData;
+  }
+  public function getCustomMetaData() {
+    return $this->customMetaData;
+  }
   public function setUpdated($updated) {
     $this->updated = $updated;
   }
@@ -869,6 +1010,12 @@ class Post extends apiModel {
   }
   public function getUrl() {
     return $this->url;
+  }
+  public function setLocation(PostLocation $location) {
+    $this->location = $location;
+  }
+  public function getLocation() {
+    return $this->location;
   }
   public function setPublished($published) {
     $this->published = $published;
@@ -983,14 +1130,55 @@ class PostList extends apiModel {
   }
 }
 
+class PostLocation extends apiModel {
+  public $lat;
+  public $lng;
+  public $span;
+  public $name;
+  public function setLat($lat) {
+    $this->lat = $lat;
+  }
+  public function getLat() {
+    return $this->lat;
+  }
+  public function setLng($lng) {
+    $this->lng = $lng;
+  }
+  public function getLng() {
+    return $this->lng;
+  }
+  public function setSpan($span) {
+    $this->span = $span;
+  }
+  public function getSpan() {
+    return $this->span;
+  }
+  public function setName($name) {
+    $this->name = $name;
+  }
+  public function getName() {
+    return $this->name;
+  }
+}
+
 class PostReplies extends apiModel {
   public $totalItems;
+  protected $__itemsType = 'Comment';
+  protected $__itemsDataType = 'array';
+  public $items;
   public $selfLink;
   public function setTotalItems($totalItems) {
     $this->totalItems = $totalItems;
   }
   public function getTotalItems() {
     return $this->totalItems;
+  }
+  public function setItems(/* array(Comment) */ $items) {
+    $this->assertIsArray($items, 'Comment', __METHOD__);
+    $this->items = $items;
+  }
+  public function getItems() {
+    return $this->items;
   }
   public function setSelfLink($selfLink) {
     $this->selfLink = $selfLink;
