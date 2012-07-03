@@ -20,7 +20,7 @@ if (isset($_GET['logout'])) {
 
 if (isset($_GET['code'])) {
   if (strval($_SESSION['state']) !== strval($_GET['state'])) {
-    die("The session state ({$_SESSION['state']}) didn't match the state parameter ({$_GET['state']})");
+    die("The session state did not match.");
   }
   $client->authenticate();
   $_SESSION['token'] = $client->getAccessToken();

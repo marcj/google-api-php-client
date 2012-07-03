@@ -203,6 +203,14 @@ class apiClient {
   }
 
   /**
+   * Returns if the access_token is expired.
+   * @return bool Returns True if the access_token is expired.
+   */
+  public function isAccessTokenExpired() {
+    return self::$auth->isAccessTokenExpired();
+  }
+
+  /**
    * Set the developer key to use, these are obtained through the API Console.
    * @see http://code.google.com/apis/console-help/#generatingdevkeys
    * @param string $developerKey
@@ -256,6 +264,13 @@ class apiClient {
     $apiConfig['oauth2_client_id'] = $clientId;
     self::$auth->clientId = $clientId;
   }
+
+  /**
+   * Get the OAuth 2.0 Client ID.
+   */
+  public function getClientId() {
+    return self::$auth->clientId;
+  }
   
   /**
    * Set the OAuth 2.0 Client Secret.
@@ -268,6 +283,13 @@ class apiClient {
   }
 
   /**
+   * Get the OAuth 2.0 Client Secret.
+   */
+  public function getClientSecret() {
+    return self::$auth->clientSecret;
+  }
+
+  /**
    * Set the OAuth 2.0 Redirect URI.
    * @param string $redirectUri
    */
@@ -275,6 +297,13 @@ class apiClient {
     global $apiConfig;
     $apiConfig['oauth2_redirect_uri'] = $redirectUri;
     self::$auth->redirectUri = $redirectUri;
+  }
+
+  /**
+   * Get the OAuth 2.0 Redirect URI.
+   */
+  public function getRedirectUri() {
+    return self::$auth->redirectUri;
   }
 
   /**
