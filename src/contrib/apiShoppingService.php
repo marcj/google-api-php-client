@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2010 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -53,7 +51,6 @@
      * @opt_param string useCase One of CommerceSearchUseCase, ShoppingApiUseCase
      * @opt_param string location Location used to determine tax and shipping
      * @opt_param int maxVariants Maximum number of variant results to return per result
-     * @opt_param string plusOne.options +1 button rendering specification
      * @opt_param string categories.include Category specification
      * @opt_param string boostBy Boosting specification
      * @opt_param bool safe Whether safe search is enabled. Default: true
@@ -61,6 +58,7 @@
      * @opt_param string maxResults Maximum number of results to return
      * @opt_param bool facets.useGcsConfig Whether to return facet information as configured in the GCS account
      * @opt_param bool categories.enabled Whether to return category information
+     * @opt_param string plusOne.styles +1 button rendering styles
      * @opt_param string attributeFilter Comma separated list of attributes to return
      * @opt_param bool clickTracking Whether to add a click tracking parameter to offer URLs
      * @opt_param string thumbnails Image thumbnails specification
@@ -98,17 +96,17 @@
      *
      * @opt_param string categories.include Category specification
      * @opt_param bool recommendations.enabled Whether to return recommendation information
+     * @opt_param string thumbnails Thumbnail specification
      * @opt_param bool plusOne.useGcsConfig Whether to use +1 button styles configured in the GCS account
      * @opt_param string taxonomy Merchant taxonomy
      * @opt_param bool categories.useGcsConfig This parameter is currently ignored
+     * @opt_param string plusOne.styles +1 button rendering styles
      * @opt_param string recommendations.include Recommendation specification
      * @opt_param bool categories.enabled Whether to return category information
      * @opt_param string location Location used to determine tax and shipping
      * @opt_param bool plusOne.enabled Whether to return +1 button code
-     * @opt_param string thumbnails Thumbnail specification
      * @opt_param string attributeFilter Comma separated list of attributes to return
      * @opt_param bool recommendations.useGcsConfig This parameter is currently ignored
-     * @opt_param string plusOne.options +1 button rendering specification
      * @return Product
      */
     public function get($source, $accountId, $productIdType, $productId, $optParams = array()) {
@@ -127,7 +125,7 @@
  * Service definition for Shopping (v1).
  *
  * <p>
- * Lets you search over product data
+ * Lets you search over product data.
  * </p>
  *
  * <p>
@@ -150,7 +148,7 @@ class apiShoppingService extends apiService {
     $this->serviceName = 'shopping';
 
     $apiClient->addService($this->serviceName, $this->version);
-    $this->products = new ProductsServiceResource($this, $this->serviceName, 'products', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/shoppingapi"], "parameters": {"facets.include": {"type": "string", "location": "query"}, "plusOne.enabled": {"type": "boolean", "location": "query"}, "plusOne.useGcsConfig": {"type": "boolean", "location": "query"}, "facets.enabled": {"type": "boolean", "location": "query"}, "relatedQueries.useGcsConfig": {"type": "boolean", "location": "query"}, "promotions.enabled": {"type": "boolean", "location": "query"}, "restrictBy": {"type": "string", "location": "query"}, "channels": {"type": "string", "location": "query"}, "currency": {"type": "string", "location": "query"}, "startIndex": {"format": "uint32", "type": "integer", "location": "query"}, "facets.discover": {"type": "string", "location": "query"}, "categoryRecommendations.category": {"type": "string", "location": "query"}, "availability": {"type": "string", "location": "query"}, "plusOne.options": {"type": "string", "location": "query"}, "spelling.enabled": {"type": "boolean", "location": "query"}, "taxonomy": {"type": "string", "location": "query"}, "spelling.useGcsConfig": {"type": "boolean", "location": "query"}, "source": {"required": true, "type": "string", "location": "path"}, "useCase": {"type": "string", "location": "query"}, "location": {"type": "string", "location": "query"}, "maxVariants": {"format": "int32", "type": "integer", "location": "query"}, "crowdBy": {"type": "string", "location": "query"}, "categories.include": {"type": "string", "location": "query"}, "boostBy": {"type": "string", "location": "query"}, "safe": {"type": "boolean", "location": "query"}, "categories.useGcsConfig": {"type": "boolean", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "facets.useGcsConfig": {"type": "boolean", "location": "query"}, "categories.enabled": {"type": "boolean", "location": "query"}, "attributeFilter": {"type": "string", "location": "query"}, "clickTracking": {"type": "boolean", "location": "query"}, "thumbnails": {"type": "string", "location": "query"}, "language": {"type": "string", "location": "query"}, "categoryRecommendations.include": {"type": "string", "location": "query"}, "country": {"type": "string", "location": "query"}, "rankBy": {"type": "string", "location": "query"}, "categoryRecommendations.enabled": {"type": "boolean", "location": "query"}, "q": {"type": "string", "location": "query"}, "redirects.enabled": {"type": "boolean", "location": "query"}, "redirects.useGcsConfig": {"type": "boolean", "location": "query"}, "relatedQueries.enabled": {"type": "boolean", "location": "query"}, "categoryRecommendations.useGcsConfig": {"type": "boolean", "location": "query"}, "promotions.useGcsConfig": {"type": "boolean", "location": "query"}}, "id": "shopping.products.list", "httpMethod": "GET", "path": "{source}/products", "response": {"$ref": "Products"}}, "get": {"scopes": ["https://www.googleapis.com/auth/shoppingapi"], "parameters": {"categories.include": {"type": "string", "location": "query"}, "recommendations.enabled": {"type": "boolean", "location": "query"}, "thumbnails": {"type": "string", "location": "query"}, "plusOne.useGcsConfig": {"type": "boolean", "location": "query"}, "recommendations.include": {"type": "string", "location": "query"}, "taxonomy": {"type": "string", "location": "query"}, "productIdType": {"required": true, "type": "string", "location": "path"}, "categories.useGcsConfig": {"type": "boolean", "location": "query"}, "source": {"required": true, "type": "string", "location": "path"}, "categories.enabled": {"type": "boolean", "location": "query"}, "location": {"type": "string", "location": "query"}, "plusOne.enabled": {"type": "boolean", "location": "query"}, "attributeFilter": {"type": "string", "location": "query"}, "recommendations.useGcsConfig": {"type": "boolean", "location": "query"}, "plusOne.options": {"type": "string", "location": "query"}, "accountId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "productId": {"required": true, "type": "string", "location": "path"}}, "id": "shopping.products.get", "httpMethod": "GET", "path": "{source}/products/{accountId}/{productIdType}/{productId}", "response": {"$ref": "Product"}}}}', true));
+    $this->products = new ProductsServiceResource($this, $this->serviceName, 'products', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/shoppingapi"], "parameters": {"facets.include": {"type": "string", "location": "query"}, "plusOne.enabled": {"type": "boolean", "location": "query"}, "plusOne.useGcsConfig": {"type": "boolean", "location": "query"}, "facets.enabled": {"type": "boolean", "location": "query"}, "relatedQueries.useGcsConfig": {"type": "boolean", "location": "query"}, "promotions.enabled": {"type": "boolean", "location": "query"}, "restrictBy": {"type": "string", "location": "query"}, "channels": {"type": "string", "location": "query"}, "currency": {"type": "string", "location": "query"}, "startIndex": {"format": "uint32", "type": "integer", "location": "query"}, "facets.discover": {"type": "string", "location": "query"}, "categoryRecommendations.category": {"type": "string", "location": "query"}, "availability": {"type": "string", "location": "query"}, "crowdBy": {"type": "string", "location": "query"}, "spelling.enabled": {"type": "boolean", "location": "query"}, "taxonomy": {"type": "string", "location": "query"}, "spelling.useGcsConfig": {"type": "boolean", "location": "query"}, "source": {"required": true, "type": "string", "location": "path"}, "useCase": {"type": "string", "location": "query"}, "location": {"type": "string", "location": "query"}, "maxVariants": {"format": "int32", "type": "integer", "location": "query"}, "categories.include": {"type": "string", "location": "query"}, "boostBy": {"type": "string", "location": "query"}, "safe": {"type": "boolean", "location": "query"}, "categories.useGcsConfig": {"type": "boolean", "location": "query"}, "maxResults": {"format": "uint32", "type": "integer", "location": "query"}, "facets.useGcsConfig": {"type": "boolean", "location": "query"}, "categories.enabled": {"type": "boolean", "location": "query"}, "plusOne.styles": {"type": "string", "location": "query"}, "attributeFilter": {"type": "string", "location": "query"}, "clickTracking": {"type": "boolean", "location": "query"}, "thumbnails": {"type": "string", "location": "query"}, "language": {"type": "string", "location": "query"}, "categoryRecommendations.include": {"type": "string", "location": "query"}, "country": {"type": "string", "location": "query"}, "rankBy": {"type": "string", "location": "query"}, "categoryRecommendations.enabled": {"type": "boolean", "location": "query"}, "q": {"type": "string", "location": "query"}, "redirects.enabled": {"type": "boolean", "location": "query"}, "redirects.useGcsConfig": {"type": "boolean", "location": "query"}, "relatedQueries.enabled": {"type": "boolean", "location": "query"}, "categoryRecommendations.useGcsConfig": {"type": "boolean", "location": "query"}, "promotions.useGcsConfig": {"type": "boolean", "location": "query"}}, "id": "shopping.products.list", "httpMethod": "GET", "path": "{source}/products", "response": {"$ref": "Products"}}, "get": {"scopes": ["https://www.googleapis.com/auth/shoppingapi"], "parameters": {"categories.include": {"type": "string", "location": "query"}, "recommendations.enabled": {"type": "boolean", "location": "query"}, "thumbnails": {"type": "string", "location": "query"}, "plusOne.useGcsConfig": {"type": "boolean", "location": "query"}, "recommendations.include": {"type": "string", "location": "query"}, "taxonomy": {"type": "string", "location": "query"}, "productIdType": {"required": true, "type": "string", "location": "path"}, "categories.useGcsConfig": {"type": "boolean", "location": "query"}, "plusOne.styles": {"type": "string", "location": "query"}, "source": {"required": true, "type": "string", "location": "path"}, "categories.enabled": {"type": "boolean", "location": "query"}, "location": {"type": "string", "location": "query"}, "plusOne.enabled": {"type": "boolean", "location": "query"}, "attributeFilter": {"type": "string", "location": "query"}, "recommendations.useGcsConfig": {"type": "boolean", "location": "query"}, "accountId": {"format": "uint32", "required": true, "type": "integer", "location": "path"}, "productId": {"required": true, "type": "string", "location": "path"}}, "id": "shopping.products.get", "httpMethod": "GET", "path": "{source}/products/{accountId}/{productIdType}/{productId}", "response": {"$ref": "Product"}}}}', true));
 
   }
 }
@@ -506,7 +504,6 @@ class ProductsPromotions extends apiModel {
   public $imageLink;
   public $destLink;
   public $customHtml;
-  public $link;
   protected $__customFieldsType = 'ProductsPromotionsCustomFields';
   protected $__customFieldsDataType = 'array';
   public $customFields;
@@ -541,12 +538,6 @@ class ProductsPromotions extends apiModel {
   }
   public function getCustomHtml() {
     return $this->customHtml;
-  }
-  public function setLink($link) {
-    $this->link = $link;
-  }
-  public function getLink() {
-    return $this->link;
   }
   public function setCustomFields(/* array(ProductsPromotionsCustomFields) */ $customFields) {
     $this->assertIsArray($customFields, 'ProductsPromotionsCustomFields', __METHOD__);
@@ -778,6 +769,7 @@ class ShoppingModelProductJsonV1 extends apiModel {
   protected $__authorType = 'ShoppingModelProductJsonV1Author';
   protected $__authorDataType = '';
   public $author;
+  public $score;
   public $condition;
   public $providedId;
   public $internal8;
@@ -844,6 +836,12 @@ class ShoppingModelProductJsonV1 extends apiModel {
   }
   public function getAuthor() {
     return $this->author;
+  }
+  public function setScore($score) {
+    $this->score = $score;
+  }
+  public function getScore() {
+    return $this->score;
   }
   public function setCondition($condition) {
     $this->condition = $condition;
@@ -1086,10 +1084,17 @@ class ShoppingModelProductJsonV1Author extends apiModel {
 }
 
 class ShoppingModelProductJsonV1Images extends apiModel {
+  public $status;
   public $link;
   protected $__thumbnailsType = 'ShoppingModelProductJsonV1ImagesThumbnails';
   protected $__thumbnailsDataType = 'array';
   public $thumbnails;
+  public function setStatus($status) {
+    $this->status = $status;
+  }
+  public function getStatus() {
+    return $this->status;
+  }
   public function setLink($link) {
     $this->link = $link;
   }
@@ -1154,15 +1159,33 @@ class ShoppingModelProductJsonV1Internal4 extends apiModel {
 }
 
 class ShoppingModelProductJsonV1Inventories extends apiModel {
+  public $installmentPrice;
+  public $installmentMonths;
   public $distance;
   public $price;
   public $storeId;
   public $tax;
   public $shipping;
   public $currency;
+  public $salePrice;
+  public $originalPrice;
   public $distanceUnit;
+  public $saleStartDate;
   public $availability;
   public $channel;
+  public $saleEndDate;
+  public function setInstallmentPrice($installmentPrice) {
+    $this->installmentPrice = $installmentPrice;
+  }
+  public function getInstallmentPrice() {
+    return $this->installmentPrice;
+  }
+  public function setInstallmentMonths($installmentMonths) {
+    $this->installmentMonths = $installmentMonths;
+  }
+  public function getInstallmentMonths() {
+    return $this->installmentMonths;
+  }
   public function setDistance($distance) {
     $this->distance = $distance;
   }
@@ -1199,11 +1222,29 @@ class ShoppingModelProductJsonV1Inventories extends apiModel {
   public function getCurrency() {
     return $this->currency;
   }
+  public function setSalePrice($salePrice) {
+    $this->salePrice = $salePrice;
+  }
+  public function getSalePrice() {
+    return $this->salePrice;
+  }
+  public function setOriginalPrice($originalPrice) {
+    $this->originalPrice = $originalPrice;
+  }
+  public function getOriginalPrice() {
+    return $this->originalPrice;
+  }
   public function setDistanceUnit($distanceUnit) {
     $this->distanceUnit = $distanceUnit;
   }
   public function getDistanceUnit() {
     return $this->distanceUnit;
+  }
+  public function setSaleStartDate($saleStartDate) {
+    $this->saleStartDate = $saleStartDate;
+  }
+  public function getSaleStartDate() {
+    return $this->saleStartDate;
   }
   public function setAvailability($availability) {
     $this->availability = $availability;
@@ -1216,6 +1257,12 @@ class ShoppingModelProductJsonV1Inventories extends apiModel {
   }
   public function getChannel() {
     return $this->channel;
+  }
+  public function setSaleEndDate($saleEndDate) {
+    $this->saleEndDate = $saleEndDate;
+  }
+  public function getSaleEndDate() {
+    return $this->saleEndDate;
   }
 }
 
