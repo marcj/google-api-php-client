@@ -20,7 +20,7 @@ if (isset($_GET['signout'])) {
 
 if (isset($_GET['code'])) {
   // Validate the state parameter (the CSRF token generated with the
-  // Google+ sign-in button.
+  // Google+ sign-in button).
   if (strval($_SESSION['state']) !== strval($_GET['state'])) {
     die("The session state did not match.");
   }
