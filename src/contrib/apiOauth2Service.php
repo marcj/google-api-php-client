@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2010 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -113,8 +111,8 @@ class apiOauth2Service extends apiService {
     $this->serviceName = 'oauth2';
 
     $apiClient->addService($this->serviceName, $this->version);
-    $this->userinfo = new UserinfoServiceResource($this, $this->serviceName, 'userinfo', json_decode('{"methods": {"get": {"path": "oauth2/v2/userinfo", "response": {"$ref": "Userinfo"}, "httpMethod": "GET", "id": "oauth2.userinfo.get"}}}', true));
-    $this->userinfo_v2_me = new UserinfoV2MeServiceResource($this, $this->serviceName, 'me', json_decode('{"methods": {"get": {"path": "userinfo/v2/me", "response": {"$ref": "Userinfo"}, "httpMethod": "GET", "id": "oauth2.userinfo.v2.me.get"}}}', true));
+    $this->userinfo = new UserinfoServiceResource($this, $this->serviceName, 'userinfo', json_decode('{"methods": {"get": {"id": "oauth2.userinfo.get", "path": "oauth2/v2/userinfo", "response": {"$ref": "Userinfo"}, "httpMethod": "GET", "scopes": ["https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]}}}', true));
+    $this->userinfo_v2_me = new UserinfoV2MeServiceResource($this, $this->serviceName, 'me', json_decode('{"methods": {"get": {"id": "oauth2.userinfo.v2.me.get", "path": "userinfo/v2/me", "response": {"$ref": "Userinfo"}, "httpMethod": "GET", "scopes": ["https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]}}}', true));
   }
 }
 
