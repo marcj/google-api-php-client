@@ -42,6 +42,7 @@ if (isset($_SESSION['token'])) {
 }
 
 if ($client->isAccessTokenExpired()) {
+
   // Generate a unique CSRF token.
   $state = sha1(uniqid(mt_rand(), true));
   $_SESSION['state'] = $state;
@@ -65,6 +66,7 @@ if ($client->isAccessTokenExpired()) {
   state="$state" callback="onSignIn">
 </g:plus></body></html>
 MARKUP;
+
 } else {
   // Build the moment to write
   $target = new ItemScope();
