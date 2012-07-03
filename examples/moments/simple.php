@@ -54,7 +54,7 @@ if ($client->isAccessTokenExpired()) {
 <script type="text/javascript">
   // The simplest possible solution to this callback. In your application,
   // you would want to replace the button with markup that indicates the state.
-  function onSignIn(a) {
+  function onSignIn() {
     window.location.reload(true);
   }
 </script></head>
