@@ -28,6 +28,7 @@ class apiAssertionCredentials {
   public $privateKey;
   public $privateKeyPassword;
   public $assertionType;
+  public $prn;
 
   /**
    * @param $serviceAccountName
@@ -35,32 +36,40 @@ class apiAssertionCredentials {
    * @param $privateKey
    * @param string $privateKeyPassword
    * @param string $assertionType
+   * @param bool|string $prn The email address of the user for which the
+   *               application is requesting delegated access.
    */
   public function __construct(
       $serviceAccountName,
       $scopes,
       $privateKey,
       $privateKeyPassword = 'notasecret',
-      $assertionType = 'http://oauth.net/grant_type/jwt/1.0/bearer') {
+      $assertionType = 'http://oauth.net/grant_type/jwt/1.0/bearer',
+      $prn = false) {
     $this->serviceAccountName = $serviceAccountName;
     $this->scopes = is_string($scopes) ? $scopes : implode(' ', $scopes);
     $this->privateKey = $privateKey;
     $this->privateKeyPassword = $privateKeyPassword;
     $this->assertionType = $assertionType;
+    $this->prn = $prn;
   }
 
   public function generateAssertion() {
     $now = time();
 
-    $jwt = $this->makeSignedJwt(array(
-      'aud' => apiOAuth2::OAUTH2_TOKEN_URI,
-      'scope' => $this->scopes,
-      'iat' => $now,
-      'exp' => $now + self::MAX_TOKEN_LIFETIME_SECS,
-      'iss' => $this->serviceAccountName,
-    ));
+    $jwtParams = array(
+          'aud' => apiOAuth2::OAUTH2_TOKEN_URI,
+          'scope' => $this->scopes,
+          'iat' => $now,
+          'exp' => $now + self::MAX_TOKEN_LIFETIME_SECS,
+          'iss' => $this->serviceAccountName,
+    );
 
-    return $jwt;
+    if ($this->prn !== false) {
+      $jwtParams['prn'] = $this->prn;
+    }
+
+    return $this->makeSignedJwt($jwtParams);
   }
 
   /**
