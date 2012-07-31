@@ -1,5 +1,7 @@
 <?php
 /*
+ * Copyright 2010 Google Inc.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -203,6 +205,44 @@
   }
 
   /**
+   * The "mcf" collection of methods.
+   * Typical usage is:
+   *  <code>
+   *   $analyticsService = new apiAnalyticsService(...);
+   *   $mcf = $analyticsService->mcf;
+   *  </code>
+   */
+  class DataMcfServiceResource extends apiServiceResource {
+
+
+    /**
+     * Returns Analytics Multi-Channel Funnels data for a profile. (mcf.get)
+     *
+     * @param string $ids Unique table ID for retrieving Analytics data. Table ID is of the form ga:XXXX, where XXXX is the Analytics profile ID.
+     * @param string $start_date Start date for fetching Analytics data. All requests should specify a start date formatted as YYYY-MM-DD.
+     * @param string $end_date End date for fetching Analytics data. All requests should specify an end date formatted as YYYY-MM-DD.
+     * @param string $metrics A comma-separated list of Multi-Channel Funnels metrics. E.g., 'mcf:totalConversions,mcf:totalConversionValue'. At least one metric must be specified.
+     * @param array $optParams Optional parameters. Valid optional parameters are listed below.
+     *
+     * @opt_param int max-results The maximum number of entries to include in this feed.
+     * @opt_param string sort A comma-separated list of dimensions or metrics that determine the sort order for the Analytics data.
+     * @opt_param string dimensions A comma-separated list of Multi-Channel Funnels dimensions. E.g., 'mcf:source,mcf:medium'.
+     * @opt_param int start-index An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter.
+     * @opt_param string filters A comma-separated list of dimension or metric filters to be applied to the Analytics data.
+     * @return McfData
+     */
+    public function get($ids, $start_date, $end_date, $metrics, $optParams = array()) {
+      $params = array('ids' => $ids, 'start-date' => $start_date, 'end-date' => $end_date, 'metrics' => $metrics);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('get', array($params));
+      if ($this->useObjects()) {
+        return new McfData($data);
+      } else {
+        return $data;
+      }
+    }
+  }
+  /**
    * The "ga" collection of methods.
    * Typical usage is:
    *  <code>
@@ -262,6 +302,7 @@ class apiAnalyticsService extends apiService {
   public $management_accounts;
   public $management_goals;
   public $management_profiles;
+  public $data_mcf;
   public $data_ga;
   /**
    * Constructs the internal representation of the Analytics service.
@@ -274,12 +315,13 @@ class apiAnalyticsService extends apiService {
     $this->serviceName = 'analytics';
 
     $apiClient->addService($this->serviceName, $this->version);
-    $this->management_webproperties = new ManagementWebpropertiesServiceResource($this, $this->serviceName, 'webproperties', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "id": "analytics.management.webproperties.list", "httpMethod": "GET", "path": "management/accounts/{accountId}/webproperties", "response": {"$ref": "Webproperties"}}}}', true));
-    $this->management_segments = new ManagementSegmentsServiceResource($this, $this->serviceName, 'segments', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}}, "response": {"$ref": "Segments"}, "httpMethod": "GET", "path": "management/segments", "id": "analytics.management.segments.list"}}}', true));
-    $this->management_accounts = new ManagementAccountsServiceResource($this, $this->serviceName, 'accounts', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}}, "response": {"$ref": "Accounts"}, "httpMethod": "GET", "path": "management/accounts", "id": "analytics.management.accounts.list"}}}', true));
-    $this->management_goals = new ManagementGoalsServiceResource($this, $this->serviceName, 'goals', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "profileId": {"required": true, "type": "string", "location": "path"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}, "accountId": {"required": true, "type": "string", "location": "path"}, "webPropertyId": {"required": true, "type": "string", "location": "path"}}, "id": "analytics.management.goals.list", "httpMethod": "GET", "path": "management/accounts/{accountId}/webproperties/{webPropertyId}/profiles/{profileId}/goals", "response": {"$ref": "Goals"}}}}', true));
-    $this->management_profiles = new ManagementProfilesServiceResource($this, $this->serviceName, 'profiles', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}, "accountId": {"required": true, "type": "string", "location": "path"}, "webPropertyId": {"required": true, "type": "string", "location": "path"}}, "id": "analytics.management.profiles.list", "httpMethod": "GET", "path": "management/accounts/{accountId}/webproperties/{webPropertyId}/profiles", "response": {"$ref": "Profiles"}}}}', true));
-    $this->data_ga = new DataGaServiceResource($this, $this->serviceName, 'ga', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"format": "int32", "type": "integer", "location": "query"}, "sort": {"type": "string", "location": "query"}, "dimensions": {"type": "string", "location": "query"}, "start-date": {"required": true, "type": "string", "location": "query"}, "start-index": {"format": "int32", "minimum": "1", "type": "integer", "location": "query"}, "end-date": {"required": true, "type": "string", "location": "query"}, "ids": {"required": true, "type": "string", "location": "query"}, "metrics": {"required": true, "type": "string", "location": "query"}, "filters": {"type": "string", "location": "query"}, "segment": {"type": "string", "location": "query"}}, "id": "analytics.data.ga.get", "httpMethod": "GET", "path": "data/ga", "response": {"$ref": "GaData"}}}}', true));
+    $this->management_webproperties = new ManagementWebpropertiesServiceResource($this, $this->serviceName, 'webproperties', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"type": "integer", "location": "query", "format": "int32"}, "start-index": {"minimum": "1", "type": "integer", "location": "query", "format": "int32"}, "accountId": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "Webproperties"}, "httpMethod": "GET", "path": "management/accounts/{accountId}/webproperties", "id": "analytics.management.webproperties.list"}}}', true));
+    $this->management_segments = new ManagementSegmentsServiceResource($this, $this->serviceName, 'segments', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"type": "integer", "location": "query", "format": "int32"}, "start-index": {"minimum": "1", "type": "integer", "location": "query", "format": "int32"}}, "id": "analytics.management.segments.list", "httpMethod": "GET", "path": "management/segments", "response": {"$ref": "Segments"}}}}', true));
+    $this->management_accounts = new ManagementAccountsServiceResource($this, $this->serviceName, 'accounts', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"type": "integer", "location": "query", "format": "int32"}, "start-index": {"minimum": "1", "type": "integer", "location": "query", "format": "int32"}}, "id": "analytics.management.accounts.list", "httpMethod": "GET", "path": "management/accounts", "response": {"$ref": "Accounts"}}}}', true));
+    $this->management_goals = new ManagementGoalsServiceResource($this, $this->serviceName, 'goals', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"type": "integer", "location": "query", "format": "int32"}, "profileId": {"required": true, "type": "string", "location": "path"}, "start-index": {"minimum": "1", "type": "integer", "location": "query", "format": "int32"}, "accountId": {"required": true, "type": "string", "location": "path"}, "webPropertyId": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "Goals"}, "httpMethod": "GET", "path": "management/accounts/{accountId}/webproperties/{webPropertyId}/profiles/{profileId}/goals", "id": "analytics.management.goals.list"}}}', true));
+    $this->management_profiles = new ManagementProfilesServiceResource($this, $this->serviceName, 'profiles', json_decode('{"methods": {"list": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"type": "integer", "location": "query", "format": "int32"}, "start-index": {"minimum": "1", "type": "integer", "location": "query", "format": "int32"}, "accountId": {"required": true, "type": "string", "location": "path"}, "webPropertyId": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "Profiles"}, "httpMethod": "GET", "path": "management/accounts/{accountId}/webproperties/{webPropertyId}/profiles", "id": "analytics.management.profiles.list"}}}', true));
+    $this->data_mcf = new DataMcfServiceResource($this, $this->serviceName, 'mcf', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"type": "integer", "location": "query", "format": "int32"}, "sort": {"type": "string", "location": "query"}, "dimensions": {"type": "string", "location": "query"}, "start-date": {"required": true, "type": "string", "location": "query"}, "start-index": {"minimum": "1", "type": "integer", "location": "query", "format": "int32"}, "ids": {"required": true, "type": "string", "location": "query"}, "metrics": {"required": true, "type": "string", "location": "query"}, "filters": {"type": "string", "location": "query"}, "end-date": {"required": true, "type": "string", "location": "query"}}, "response": {"$ref": "McfData"}, "httpMethod": "GET", "path": "data/mcf", "id": "analytics.data.mcf.get"}}}', true));
+    $this->data_ga = new DataGaServiceResource($this, $this->serviceName, 'ga', json_decode('{"methods": {"get": {"scopes": ["https://www.googleapis.com/auth/analytics.readonly"], "parameters": {"max-results": {"type": "integer", "location": "query", "format": "int32"}, "sort": {"type": "string", "location": "query"}, "dimensions": {"type": "string", "location": "query"}, "start-date": {"required": true, "type": "string", "location": "query"}, "start-index": {"minimum": "1", "type": "integer", "location": "query", "format": "int32"}, "end-date": {"required": true, "type": "string", "location": "query"}, "ids": {"required": true, "type": "string", "location": "query"}, "metrics": {"required": true, "type": "string", "location": "query"}, "filters": {"type": "string", "location": "query"}, "segment": {"type": "string", "location": "query"}}, "response": {"$ref": "GaData"}, "httpMethod": "GET", "path": "data/ga", "id": "analytics.data.ga.get"}}}', true));
 
   }
 }
@@ -1035,6 +1077,291 @@ class Goals extends apiModel {
   }
   public function getTotalResults() {
     return $this->totalResults;
+  }
+}
+
+class McfData extends apiModel {
+  public $kind;
+  protected $__rowsType = 'McfDataRows';
+  protected $__rowsDataType = 'array';
+  public $rows;
+  public $containsSampledData;
+  public $totalResults;
+  public $itemsPerPage;
+  public $totalsForAllResults;
+  public $nextLink;
+  public $id;
+  protected $__queryType = 'McfDataQuery';
+  protected $__queryDataType = '';
+  public $query;
+  public $previousLink;
+  protected $__profileInfoType = 'McfDataProfileInfo';
+  protected $__profileInfoDataType = '';
+  public $profileInfo;
+  protected $__columnHeadersType = 'McfDataColumnHeaders';
+  protected $__columnHeadersDataType = 'array';
+  public $columnHeaders;
+  public $selfLink;
+  public function setKind($kind) {
+    $this->kind = $kind;
+  }
+  public function getKind() {
+    return $this->kind;
+  }
+  public function setRows(/* array(McfDataRows) */ $rows) {
+    $this->assertIsArray($rows, 'McfDataRows', __METHOD__);
+    $this->rows = $rows;
+  }
+  public function getRows() {
+    return $this->rows;
+  }
+  public function setContainsSampledData($containsSampledData) {
+    $this->containsSampledData = $containsSampledData;
+  }
+  public function getContainsSampledData() {
+    return $this->containsSampledData;
+  }
+  public function setTotalResults($totalResults) {
+    $this->totalResults = $totalResults;
+  }
+  public function getTotalResults() {
+    return $this->totalResults;
+  }
+  public function setItemsPerPage($itemsPerPage) {
+    $this->itemsPerPage = $itemsPerPage;
+  }
+  public function getItemsPerPage() {
+    return $this->itemsPerPage;
+  }
+  public function setTotalsForAllResults($totalsForAllResults) {
+    $this->totalsForAllResults = $totalsForAllResults;
+  }
+  public function getTotalsForAllResults() {
+    return $this->totalsForAllResults;
+  }
+  public function setNextLink($nextLink) {
+    $this->nextLink = $nextLink;
+  }
+  public function getNextLink() {
+    return $this->nextLink;
+  }
+  public function setId($id) {
+    $this->id = $id;
+  }
+  public function getId() {
+    return $this->id;
+  }
+  public function setQuery(McfDataQuery $query) {
+    $this->query = $query;
+  }
+  public function getQuery() {
+    return $this->query;
+  }
+  public function setPreviousLink($previousLink) {
+    $this->previousLink = $previousLink;
+  }
+  public function getPreviousLink() {
+    return $this->previousLink;
+  }
+  public function setProfileInfo(McfDataProfileInfo $profileInfo) {
+    $this->profileInfo = $profileInfo;
+  }
+  public function getProfileInfo() {
+    return $this->profileInfo;
+  }
+  public function setColumnHeaders(/* array(McfDataColumnHeaders) */ $columnHeaders) {
+    $this->assertIsArray($columnHeaders, 'McfDataColumnHeaders', __METHOD__);
+    $this->columnHeaders = $columnHeaders;
+  }
+  public function getColumnHeaders() {
+    return $this->columnHeaders;
+  }
+  public function setSelfLink($selfLink) {
+    $this->selfLink = $selfLink;
+  }
+  public function getSelfLink() {
+    return $this->selfLink;
+  }
+}
+
+class McfDataColumnHeaders extends apiModel {
+  public $dataType;
+  public $columnType;
+  public $name;
+  public function setDataType($dataType) {
+    $this->dataType = $dataType;
+  }
+  public function getDataType() {
+    return $this->dataType;
+  }
+  public function setColumnType($columnType) {
+    $this->columnType = $columnType;
+  }
+  public function getColumnType() {
+    return $this->columnType;
+  }
+  public function setName($name) {
+    $this->name = $name;
+  }
+  public function getName() {
+    return $this->name;
+  }
+}
+
+class McfDataProfileInfo extends apiModel {
+  public $webPropertyId;
+  public $internalWebPropertyId;
+  public $tableId;
+  public $profileId;
+  public $profileName;
+  public $accountId;
+  public function setWebPropertyId($webPropertyId) {
+    $this->webPropertyId = $webPropertyId;
+  }
+  public function getWebPropertyId() {
+    return $this->webPropertyId;
+  }
+  public function setInternalWebPropertyId($internalWebPropertyId) {
+    $this->internalWebPropertyId = $internalWebPropertyId;
+  }
+  public function getInternalWebPropertyId() {
+    return $this->internalWebPropertyId;
+  }
+  public function setTableId($tableId) {
+    $this->tableId = $tableId;
+  }
+  public function getTableId() {
+    return $this->tableId;
+  }
+  public function setProfileId($profileId) {
+    $this->profileId = $profileId;
+  }
+  public function getProfileId() {
+    return $this->profileId;
+  }
+  public function setProfileName($profileName) {
+    $this->profileName = $profileName;
+  }
+  public function getProfileName() {
+    return $this->profileName;
+  }
+  public function setAccountId($accountId) {
+    $this->accountId = $accountId;
+  }
+  public function getAccountId() {
+    return $this->accountId;
+  }
+}
+
+class McfDataQuery extends apiModel {
+  public $max_results;
+  public $sort;
+  public $dimensions;
+  public $start_date;
+  public $start_index;
+  public $segment;
+  public $ids;
+  public $metrics;
+  public $filters;
+  public $end_date;
+  public function setMax_results($max_results) {
+    $this->max_results = $max_results;
+  }
+  public function getMax_results() {
+    return $this->max_results;
+  }
+  public function setSort(/* array(string) */ $sort) {
+    $this->assertIsArray($sort, 'string', __METHOD__);
+    $this->sort = $sort;
+  }
+  public function getSort() {
+    return $this->sort;
+  }
+  public function setDimensions($dimensions) {
+    $this->dimensions = $dimensions;
+  }
+  public function getDimensions() {
+    return $this->dimensions;
+  }
+  public function setStart_date($start_date) {
+    $this->start_date = $start_date;
+  }
+  public function getStart_date() {
+    return $this->start_date;
+  }
+  public function setStart_index($start_index) {
+    $this->start_index = $start_index;
+  }
+  public function getStart_index() {
+    return $this->start_index;
+  }
+  public function setSegment($segment) {
+    $this->segment = $segment;
+  }
+  public function getSegment() {
+    return $this->segment;
+  }
+  public function setIds($ids) {
+    $this->ids = $ids;
+  }
+  public function getIds() {
+    return $this->ids;
+  }
+  public function setMetrics(/* array(string) */ $metrics) {
+    $this->assertIsArray($metrics, 'string', __METHOD__);
+    $this->metrics = $metrics;
+  }
+  public function getMetrics() {
+    return $this->metrics;
+  }
+  public function setFilters($filters) {
+    $this->filters = $filters;
+  }
+  public function getFilters() {
+    return $this->filters;
+  }
+  public function setEnd_date($end_date) {
+    $this->end_date = $end_date;
+  }
+  public function getEnd_date() {
+    return $this->end_date;
+  }
+}
+
+class McfDataRows extends apiModel {
+  public $primitiveValue;
+  protected $__conversionPathValueType = 'McfDataRowsConversionPathValue';
+  protected $__conversionPathValueDataType = 'array';
+  public $conversionPathValue;
+  public function setPrimitiveValue($primitiveValue) {
+    $this->primitiveValue = $primitiveValue;
+  }
+  public function getPrimitiveValue() {
+    return $this->primitiveValue;
+  }
+  public function setConversionPathValue(/* array(McfDataRowsConversionPathValue) */ $conversionPathValue) {
+    $this->assertIsArray($conversionPathValue, 'McfDataRowsConversionPathValue', __METHOD__);
+    $this->conversionPathValue = $conversionPathValue;
+  }
+  public function getConversionPathValue() {
+    return $this->conversionPathValue;
+  }
+}
+
+class McfDataRowsConversionPathValue extends apiModel {
+  public $nodeValue;
+  public $interactionType;
+  public function setNodeValue($nodeValue) {
+    $this->nodeValue = $nodeValue;
+  }
+  public function getNodeValue() {
+    return $this->nodeValue;
+  }
+  public function setInteractionType($interactionType) {
+    $this->interactionType = $interactionType;
+  }
+  public function getInteractionType() {
+    return $this->interactionType;
   }
 }
 
