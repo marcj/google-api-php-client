@@ -75,7 +75,7 @@ class CoreReportingApiReference {
         $results = $this->queryCoreReportingApi($tableId);
         $output .= $this->getFormattedResults($results);
 
-      } catch (apiServiceException $e) {
+      } catch (Google_ServiceException $e) {
         $this->error = $e->getMessage();
       }
     }

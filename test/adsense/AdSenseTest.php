@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-require_once '../src/contrib/apiAdsenseService.php';
+require_once '../src/contrib/Google_AdsenseService.php';
 
 class AdsenseTests extends PHPUnit_Framework_TestSuite {
   public static function suite() {
@@ -30,7 +30,7 @@ class AdSenseManagementTest extends BaseTest {
   public $adsense;
   public function __construct() {
     parent::__construct();
-    $this->adsense = new apiAdSenseService(BaseTest::$client);
+    $this->adsense = new Google_AdSenseService(BaseTest::$client);
   }
 
   public function testAccountsList() {
@@ -431,7 +431,7 @@ class AdSenseManagementTest extends BaseTest {
       $this->assertArrayHasKey('type', $header);
     }
     if(array_key_exists('items', $report)) {
-      foreach($reportRows['items'] as $row) {
+      foreach($report['items'] as $row) {
         $this->assertCount(4, $row);
       }
     }

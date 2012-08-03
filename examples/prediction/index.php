@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-require_once 'apiClient.php';
-require_once 'apiPredictionService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_PredictionService.php';
 
 session_start();
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google Prediction API PHP Starter Application");
 // Visit https://code.google.com/apis/console/?api=prediction to generate 
 // your oauth2_client_id, oauth2_client_secret, and to register your 
@@ -32,7 +32,7 @@ $client->setApplicationName("Google Prediction API PHP Starter Application");
 // $client->setDeveloperKey('insert_your_developer_key');
 $client->setScopes(array('https://www.googleapis.com/auth/prediction'));
 
-$predictionService = new apiPredictionService($client);
+$predictionService = new Google_PredictionService($client);
 $trainedmodels = $predictionService->trainedmodels;
 
 if (isset($_REQUEST['logout'])) {

@@ -35,7 +35,7 @@
  * If successful, you should be able to run the Hello Analytics API sample.
  * @author Nick Mihailovski <api.nickm@gmail.com>
  */
-require_once '../../../src/apiClient.php';
+require_once '../../../src/Google_Client.php';
 require_once 'storage.php';
 require_once 'authHelper.php';
 
@@ -63,7 +63,7 @@ $mgmtApiDemoUrl = THIS_PAGE . '?demo=mgmt';
 $coreReportingDemoUrl = THIS_PAGE . '?demo=reporting';
 
 // Build a new client object to work with authorization.
-$client = new apiClient();
+$client = new Google_Client();
 $client->setClientId(CLIENT_ID);
 $client->setClientSecret(CLIENT_SECRET);
 $client->setRedirectUri(REDIRECT_URL);
@@ -94,7 +94,7 @@ if ($_GET['action'] == 'revoke') {
   $authHelper->setTokenFromStorage();
 
   if ($authHelper->isAuthorized()) {
-    $analytics = new apiAnalyticsService($client);
+    $analytics = new Google_AnalyticsService($client);
 
     if ($_GET['demo'] == 'hello') {
 
@@ -128,7 +128,7 @@ if ($_GET['action'] == 'revoke') {
   // The PHP library will try to update the access token
   // (via the refresh token) when an API request is made.
   // So the actual token in apiClient can be different after
-  // a require thorugh apiAnalyticsService is made. Here we
+  // a require through Google_AnalyticsService is made. Here we
   // make sure whatever the valid token in $service is also
   // persisted into storage.
   $storage->set($client->getAccessToken());

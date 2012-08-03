@@ -21,7 +21,7 @@
  */
 class AuthHelper {
 
-  /** @var apiClient $client */
+  /** @var Google_Client $client */
   private $client;
 
   /** @var apiAnalyticsService $analytics */
@@ -36,7 +36,7 @@ class AuthHelper {
 
   /**
    * Constructor.
-   * @param apiClient $client The API client service object. Used for
+   * @param Google_Client $client The API client service object. Used for
    *     authorization. This is passed by reference and allows this same
    *     object (once authorized) to be used outside of this class.
    * @param storage $storage The storage mechanism to persist authorization
@@ -81,7 +81,7 @@ class AuthHelper {
         header("Location: $this->controllerUrl");
       }
 
-    } catch (apiAuthException $e) {
+    } catch (Google_AuthException $e) {
       $this->errorMsg = $e->getMessage();
     }
   }
@@ -99,7 +99,7 @@ class AuthHelper {
       try {
         $this->client->revokeToken($tokenObj->refresh_token);
         $this->storage->delete();
-      } catch (apiAuthException $e) {
+      } catch (Google_AuthException $e) {
         $this->errorMsg = $e->getMessage();
       }
     }

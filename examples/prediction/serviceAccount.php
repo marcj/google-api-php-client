@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiPredictionService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_PredictionService.php';
 
 // Set your client id, service account name, and the path to your private key.
 // For more information about obtaining these keys, visit:
@@ -28,7 +28,7 @@ const SERVICE_ACCOUNT_NAME = 'INSERT_YOUR_SERVICE_ACCOUNT_NAME';
 // readable by others.
 const KEY_FILE = '/super/secret/path/to/key.p12';
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google Prediction Sample");
 
 // Set your cached access token. Remember to replace $_SESSION with a
@@ -41,14 +41,14 @@ if (isset($_SESSION['token'])) {
 // Load the key in PKCS 12 format (you need to download this from the
 // Google API Console when the service account was created.
 $key = file_get_contents(KEY_FILE);
-$client->setAssertionCredentials(new apiAssertionCredentials(
-  SERVICE_ACCOUNT_NAME,
-  array('https://www.googleapis.com/auth/prediction'),
-  $key)
+$client->setAssertionCredentials(new Google_AssertionCredentials(
+    SERVICE_ACCOUNT_NAME,
+    array('https://www.googleapis.com/auth/prediction'),
+    $key)
 );
 
 $client->setClientId(CLIENT_ID);
-$service = new apiPredictionService($client);
+$service = new Google_PredictionService($client);
 
 
 // Prediction logic:

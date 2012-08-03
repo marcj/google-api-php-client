@@ -19,18 +19,18 @@
  */
 
 require_once 'BaseTest.php';
-require_once '../src/contrib/apiPlusService.php';
-require_once '../src/service/apiBatchRequest.php';
+require_once '../src/contrib/Google_PlusService.php';
+require_once '../src/service/Google_BatchRequest.php';
 
 class ApiBatchRequestTest extends BaseTest {
   public $plus;
   public function __construct() {
     parent::__construct();
-    $this->plus = new apiPlusService(BaseTest::$client);
+    $this->plus = new Google_PlusService(BaseTest::$client);
   }
 
   public function testBatchRequest() {
-    $batch = new apiBatchRequest();
+    $batch = new Google_BatchRequest();
 
     BaseTest::$client->setUseBatch(true);
     $batch->add($this->plus->people->get('me'), 'key1');
@@ -38,8 +38,8 @@ class ApiBatchRequestTest extends BaseTest {
     $batch->add($this->plus->people->get('me'), 'key3');
 
     $result = $batch->execute();
-    $this->assertTrue(isset($result['key1']));
-    $this->assertTrue(isset($result['key2']));
-    $this->assertTrue(isset($result['key3']));
+    $this->assertTrue(isset($result['response-key1']));
+    $this->assertTrue(isset($result['response-key2']));
+    $this->assertTrue(isset($result['response-key3']));
   }
 }

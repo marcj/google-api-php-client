@@ -14,17 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiCustomsearchService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_CustomsearchService.php';
 session_start();
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName('Google CustomSearch PHP Starter Application');
 // Docs: http://code.google.com/apis/customsearch/v1/using_rest.html
 // Visit https://code.google.com/apis/console?api=customsearch to generate
 // your developer key (simple api key).
 // $client->setDeveloperKey('INSERT_your_developer_key');
-$search = new apiCustomsearchService($client);
+$search = new Google_CustomsearchService($client);
 
 
 // Example executing a search with your custom search id.

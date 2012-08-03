@@ -15,13 +15,13 @@
  * the License.
  */
 
-require_once '../src/apiClient.php';
-require_once '../src/contrib/apiPlusService.php';
+require_once '../src/Google_Client.php';
+require_once '../src/contrib/Google_PlusService.php';
 session_start();
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google+ PHP Starter Application");
-$plus = new apiPlusService($client);
+$plus = new Google_PlusService($client);
 
 // Visit https://code.google.com/apis/console?api=plus to generate your
 // client id, client secret, and to register your redirect uri.
@@ -48,7 +48,7 @@ if (isset($_SESSION['token'])) {
 if ($client->getAccessToken()) {
   $client->setUseBatch(true);
  
-  $batch = new apiBatchRequest();
+  $batch = new Google_BatchRequest();
   $batch->add($plus->people->get('me'), 'key1');
   $batch->add($plus->people->get('me'), 'key2');
   $result = $batch->execute();

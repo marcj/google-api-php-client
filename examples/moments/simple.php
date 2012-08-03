@@ -1,18 +1,19 @@
 <?php
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiPlusMomentsService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_PlusMomentsService.php';
+
 session_start();
 
 // Visit the Google+ history documentation to enable the Google+ history:
 // https://developers.google.com/+/history/#getting_started
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google+ history example");
 $client->setClientId('insert_client_id');
 $client->setClientSecret('insert_client_secret');
 $client->setRedirectUri('insert_redirect_uri');
 $client->setDeveloperKey('insert_developer_key');
 
-$moments = new apiPlusMomentsService($client);
+$moments = new Google_PlusMomentsService($client);
 
 if (isset($_GET['signout'])) {
   unset($_SESSION['token']);
@@ -69,10 +70,10 @@ MARKUP;
 
 } else {
   // Build the moment to write
-  $target = new ItemScope();
+  $target = new Google_ItemScope();
   $target->url = 'https://developers.google.com/+/plugins/snippet/examples/thing';
 
-  $moment = new Moment();
+  $moment = new Google_Moment();
   $moment->type = "http://schemas.google.com/AddActivity";
   $moment->target = $target;
 

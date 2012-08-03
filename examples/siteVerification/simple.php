@@ -1,9 +1,9 @@
 <?php
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiSiteVerificationService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_SiteVerificationService.php';
 session_start();
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google Site Verification PHP Sample");
 
 // Visit https://code.google.com/apis/console?api=siteVerification to generate
@@ -12,7 +12,7 @@ $client->setApplicationName("Google Site Verification PHP Sample");
 // $client->setClientSecret('insert_your_oauth2_client_secret');
 // $client->setRedirectUri('insert_your_oauth2_redirect_uri');
 // $client->setDeveloperKey('insert_your_developer_key');
-$service = new apiSiteVerificationService($client);
+$service = new Google_SiteVerificationService($client);
 
 if (isset($_GET['logout'])) {
   unset($_SESSION['token']);

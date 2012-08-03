@@ -31,7 +31,7 @@ class apiSessionStorage {
 
   /**
    * Sets a value in a PHP session.
-   * @param string The value to set in the session.
+   * @param string $value The value to set in the session.
    */
   public function set($value) {
     $_SESSION['access_token'] = $value;

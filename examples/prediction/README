@@ -35,7 +35,7 @@ Getting Started:
 
   3) You are now ready to load index.php on your web server.
 
-OAuth 2 instructions:
+OAuth 2.0 instructions:
   http://code.google.com/p/google-api-php-client/wiki/OAuth2
 
 Supported sample applications:

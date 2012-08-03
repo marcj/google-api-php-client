@@ -59,9 +59,9 @@ class ManagementApiReference {
 
     try {
       $output = $this->getTraverseManagementApiHtml();
-    } catch (apiException $e) {
+    } catch (Google_ServiceException $e) {
       $this->error = $e->getMessage();
-    } catch (apiServiceException $e) {
+    } catch (Google_Exception $e) {
       $this->error = $e->getMessage();
     } 
     return $output;

@@ -18,7 +18,7 @@
  * under the License.
  */
 
-class TestApiClient extends apiClient {
+class TestApiClient extends Google_Client {
   public function prepareService() {
     return parent::prepareService();
   }
@@ -26,7 +26,7 @@ class TestApiClient extends apiClient {
 
 class ApiClientTest extends BaseTest {
   public function testClient() {
-    $client = new apiClient();
+    $client = new Google_Client();
     $client->setAccessType('foo');
     $this->assertEquals('foo', $client->getAuth()->accessType);
 
@@ -65,7 +65,7 @@ class ApiClientTest extends BaseTest {
   }
 
   public function testSettersGetters() {
-    $client = new apiClient();
+    $client = new Google_Client();
     $client->setClientId("client1");
     $client->setClientSecret('client1secret');
     $client->setState('1');
@@ -84,14 +84,14 @@ class ApiClientTest extends BaseTest {
     $this->assertEquals('object', gettype($client->getIo()));
 
 
-    $client->setAuthClass('apiAuthNone');
-    $client->setAuthClass('apiOAuth2');
+    $client->setAuthClass('Google_AuthNone');
+    $client->setAuthClass('Google_OAuth2');
 
     try {
       $client->setAccessToken(null);
-      die('Should have thrown an apiAuthException.');
-    } catch(apiAuthException $e) {
-      $this->assertEquals('Could not json decode the access token', $e->getMessage());
+      die('Should have thrown an Google_AuthException.');
+    } catch(Google_AuthException $e) {
+      $this->assertEquals('Could not json decode the token', $e->getMessage());
     }
 
     $token = json_encode(array('access_token' => 'token'));

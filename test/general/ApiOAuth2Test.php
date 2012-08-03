@@ -18,14 +18,14 @@
  * under the License.
  */
 
-require_once "../src/apiClient.php";
+require_once "../src/Google_Client.php";
 require_once "BaseTest.php";
-require_once "io/apiREST.php";
+require_once "io/Google_REST.php";
 
 class ApiOAuth2Test extends BaseTest {
 
   public function testSign() {
-    $oauth = new apiOAuth2();
+    $oauth = new Google_OAuth2();
 
     $oauth->developerKey = "devKey";
     $oauth->clientId = "clientId1";
@@ -34,24 +34,25 @@ class ApiOAuth2Test extends BaseTest {
     $oauth->approvalPrompt = 'force';
     $oauth->accessType = "offline";
 
-    $req = new apiHttpRequest('http://localhost');
+    $req = new Google_HttpRequest('http://localhost');
     $req = $oauth->sign($req);
 
     $this->assertEquals('http://localhost?key=devKey', $req->getUrl());
 
     // test accessToken
-    $oauth->accessToken = array(
+    $oauth->token = array(
         'access_token' => 'ACCESS_TOKEN',
         'created' => time(),
         'expires_in' => '3600'
     );
+
     $req = $oauth->sign($req);
     $auth = $req->getRequestHeader('authorization');
     $this->assertEquals('Bearer ACCESS_TOKEN', $auth);
   }
 
   public function testCreateAuthUrl() {
-    $oauth = new apiOAuth2();
+    $oauth = new Google_OAuth2();
 
     $oauth->developerKey = "devKey";
     $oauth->clientId = "clientId1";

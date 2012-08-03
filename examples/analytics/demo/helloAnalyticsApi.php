@@ -59,7 +59,7 @@ class HelloAnalyticsApi {
         return $this->getFormattedResults($results);
       }
 
-    } catch (apiServiceException $e) {
+    } catch (Google_ServiceException $e) {
       // Error from the API.
       $this->error = $e->getMessage();
 
