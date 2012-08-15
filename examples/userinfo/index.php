@@ -29,10 +29,11 @@ $client->setApplicationName("Google UserInfo PHP Starter Application");
 $oauth2 = new Google_Oauth2Service($client);
 
 if (isset($_GET['code'])) {
-  $client->authenticate();
+  $client->authenticate($_GET['code']);
   $_SESSION['token'] = $client->getAccessToken();
   $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
   header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
+  return;
 }
 
 if (isset($_SESSION['token'])) {

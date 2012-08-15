@@ -53,10 +53,10 @@ $service = new Google_PredictionService($client);
 
 // Prediction logic:
 $id = 'sample.languageid';
-$predictionData = new InputInput();
+$predictionData = new Google_InputInput();
 $predictionData->setCsvInstance(array('Je suis fatigue'));
 
-$input = new Input();
+$input = new Google_Input();
 $input->setInput($predictionData);
 
 $result = $service->hostedmodels->predict($id, $input);
