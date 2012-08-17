@@ -80,9 +80,9 @@ if ($client->getAccessToken()) {
     /* prediction logic follows...  */
     $id = "languages";
     $predictionText = "Je suis fatigue";
-    $predictionData = new InputInput();
+    $predictionData = new Google_InputInput();
     $predictionData->setCsvInstance(array($predictionText));
-    $input = new Input();
+    $input = new Google_Input();
     $input->setInput($predictionData);
     $result = $predictionService->trainedmodels->predict($id, $input);
     print("</div><br><br><h2>Prediction Result:</h2>");

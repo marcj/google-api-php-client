@@ -22,13 +22,13 @@
 * @author David Torres <david.t@google.com>
 */
 
-require_once "../../src/apiClient.php";
-require_once "../../src/contrib/apiAdexchangebuyerService.php";
+require_once "../../src/Google_Client.php";
+require_once "../../src/contrib/Google_AdexchangebuyerService.php";
 require_once "htmlHelper.php";
 
 session_start();
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName('DoubleClick Ad Exchange Buyer API PHP Samples');
 // Visit https://code.google.com/apis/console?api=adexchangebuyer to generate
 // your client id, client secret, and to register your redirect uri.
@@ -40,7 +40,7 @@ $client->setScopes(array('https://www.googleapis.com/auth/adexchange.buyer'));
 // $client->setClientSecret('insert_your_oauth2_client_secret');
 // $client->setRedirectUri('insert_your_oauth2_redirect_uri');
 // $client->setDeveloperKey('insert_your_simple_api_key');
-$service = new apiAdexchangebuyerService($client);
+$service = new Google_AdexchangebuyerService($client);
 
 if (isset($_GET['code'])) {
   $client->authenticate();
@@ -70,7 +70,7 @@ if ($client->getAccessToken()) {
     printHtmlHeader($example->getName());
     try {
       $example->execute();
-    } catch (apiException $ex) {
+    } catch (Google_Exception $ex) {
       printf('An error as occurred while calling the example:<br/>');
       printf($ex->getMessage());
     }

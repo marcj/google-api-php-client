@@ -44,6 +44,7 @@ class GetDirectDeals extends BaseExample {
   /**
    * (non-PHPdoc)
    * @see BaseExample::getName()
+   * @return string
    */
   public function getName() {
     return "Get Direct Deals";

@@ -33,7 +33,7 @@
  */
 class ManagementApiReference {
 
-  /** @var apiAnalyticsService $analytics */
+  /** @var Google_AnalyticsService $analytics */
   private $analytics;
 
   /** @var string $error */
@@ -41,11 +41,12 @@ class ManagementApiReference {
 
   /**
    * Constructor.
-   * @param apiAnalyticsService $analytics The analytics service object to make
-   *     requests to the API.
+   * @param $analytics
+   * @internal param \Google_AnalyticsService $analytics The analytics service
+   *     object to make requests to the API.
    */
-  function __construct(&$anlaytics) {
-    $this->analytics = $anlaytics;
+  function __construct(&$analytics) {
+    $this->analytics = $analytics;
   }
 
   /**
@@ -122,7 +123,7 @@ class ManagementApiReference {
    * collections. This was added to make the traversal code easier
    * to read.
    * @param collection $collection Any Management API collection.
-   * @return stringThe ID of the first item in a collection.
+   * @return string The ID of the first item in a collection.
    */
   private function getFirstId(&$collection) {
     $items = $collection->getItems();
@@ -163,7 +164,7 @@ HTML;
 
   /**
    * Returns important information from the webproperties collection.
-   * @param Webproperties $webproperties The result from the API.
+   * @param Google_Webproperties $webproperties The result from the API.
    * @return string An HTML representation.
    */
   private function getWebpropertiesHtml(&$webproperties) {
@@ -372,7 +373,7 @@ HTML;
 
   /**
    * Returns important information for visit number of pages goals.
-   * @param GoalVisitNumPagesDetails $details The result from the API.
+   * @param Google_GoalVisitNumPagesDetails $details The result from the API.
    * @return string An HTML representation.
    */
   private function getVisitNumPagesDetailsHtml(&$details) {
@@ -388,7 +389,7 @@ HTML;
 
   /**
    * Returns important information for event goals.
-   * @param GoalEventDetails $details The result from the API.
+   * @param Google_GoalEventDetails $details The result from the API.
    * @return string An HTML representation.
    */
   private function getEventDetailsHtml(&$details) {
@@ -421,7 +422,7 @@ HTML;
 
   /**
    * Returns important information from the segments collection.
-   * @param Segments $segments The result from the API.
+   * @param Google_Segments $segments The result from the API.
    * @return string An HTML representation.
    */
   private function getSegmentsHtml(&$segments) {
@@ -476,7 +477,7 @@ Next Link      = {$nextLink}
 HTML;
   }
 
-  /** @return string Any errors that occured. */
+  /** @return string Any errors that occurred. */
   function getError() {
     return $this->error;
   }

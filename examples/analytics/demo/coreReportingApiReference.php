@@ -45,12 +45,13 @@ class CoreReportingApiReference {
 
   /**
    * Constructor.
-   * @param apiAnalyticsService $analytics The analytics service object to make
-   *     requests to the API.
+   * @param $analytics
    * @param string $controllerUrl The Url for the main controller.
+   * @internal param Google_AnalyticsService $analytics The analytics service
+   *     object to make requests to the API.
    */
-  function __construct(&$anlaytics, $controllerUrl) {
-    $this->analytics = $anlaytics;
+  function __construct(&$analytics, $controllerUrl) {
+    $this->analytics = $analytics;
     $this->controllerUrl;
   }
 

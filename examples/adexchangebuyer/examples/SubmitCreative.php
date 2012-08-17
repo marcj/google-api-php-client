@@ -57,7 +57,7 @@ class SubmitCreative extends BaseExample {
   public function run() {
     $values = $this->formValues;
 
-    $creative = new Creative();
+    $creative = new Google_Creative();
     $creative->setAccountId($values['account_id']);
     $creative->setAdgroupId($values['ad_group_id']);
     $creative->setBuyerCreativeId($values['buyer_creative_id']);
@@ -75,6 +75,7 @@ class SubmitCreative extends BaseExample {
   /**
    * (non-PHPdoc)
    * @see BaseExample::getName()
+   * @return string
    */
   public function getName() {
     return 'Submit Creative';

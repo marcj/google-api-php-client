@@ -30,6 +30,7 @@ class UpdateAccount extends BaseExample {
   /**
    * (non-PHPdoc)
    * @see BaseExample::getInputParameters()
+   * @return array
    */
   protected function getInputParameters() {
     return array(array('name' => 'account_id',
@@ -46,7 +47,7 @@ class UpdateAccount extends BaseExample {
    */
   public function run() {
     $values = $this->formValues;
-    $account = new Account();
+    $account = new Google_Account();
     $account->setId($values['account_id']);
     $account->setCookieMatchingUrl($values['cookie_matching_url']);
 
@@ -59,6 +60,7 @@ class UpdateAccount extends BaseExample {
   /**
    * (non-PHPdoc)
    * @see BaseExample::getName()
+   * @return string
    */
   public function getName() {
     return 'Update Account';

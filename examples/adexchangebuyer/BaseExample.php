@@ -19,7 +19,7 @@
  * Include the Ad Exchange Buyer service class and the HTML generation
  * functions.
  */
-require_once "../../src/contrib/apiAdexchangebuyerService.php";
+require_once "../../src/contrib/Google_AdexchangebuyerService.php";
 require_once "htmlHelper.php";
 
 /**
@@ -29,14 +29,19 @@ require_once "htmlHelper.php";
  * @author David Torres <david.t@google.com>
  */
 abstract class BaseExample {
+
+  /**
+   * @var Google_AdexchangebuyerService
+   */
   protected $service;
 
   /**
    * Inject the dependency.
-   * @param apiAdexchangebuyerService $adExchangeBuyerService an authenticated
-   *     instance of apiAdexchangebuyerService
+   * @param Google_AdexchangebuyerService $service
+   * @internal param Google_AdexchangebuyerService $adExchangeBuyerService
+   *     an authenticated instance of Google_AdExchangebuyerService.
    */
-  public function __construct(apiAdexchangebuyerService $service) {
+  public function __construct(Google_AdexchangebuyerService $service) {
     $this->service = $service;
   }
 
@@ -70,7 +75,8 @@ abstract class BaseExample {
 
   /**
    * Returns the list of input parameters of the example.
-   * To be overriden by examples that require parameters.
+   * To be overridden by examples that require parameters.
+   * @return array
    */
   protected function getInputParameters() {
     return array();
@@ -104,6 +110,7 @@ abstract class BaseExample {
   /**
    * Checks if the form has been submitted and all required parameters are
    * set.
+   * @return bool
    */
   protected function isSubmitComplete() {
     if (!isset($_POST['submit'])) {
@@ -120,6 +127,7 @@ abstract class BaseExample {
 
   /**
    * Retrieves the submitted form values.
+   * @return array
    */
   protected function getFormValues() {
     $input = array();

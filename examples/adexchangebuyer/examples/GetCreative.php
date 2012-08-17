@@ -30,6 +30,7 @@ class GetCreative extends BaseExample {
   /**
    * (non-PHPdoc)
    * @see BaseExample::getInputParameters()
+   * @return array
    */
   protected function getInputParameters() {
     return array(array('name' => 'account_id',
@@ -55,7 +56,7 @@ class GetCreative extends BaseExample {
           $values['buyer_creative_id'], $values['ad_group_id']);
       print '<h2>Found creative</h2>';
       $this->printResult($creative);
-    } catch (apiException $ex) {
+    } catch (Google_Exception $ex) {
       if ($ex->getCode() == 404 || $ex->getCode() == 403) {
         print '<h1>Creative not found or can\'t access creative</h1>';
       } else {
@@ -67,6 +68,7 @@ class GetCreative extends BaseExample {
   /**
    * (non-PHPdoc)
    * @see BaseExample::getName()
+   * @return string
    */
   public function getName() {
     return 'Get Creative';
