@@ -1416,23 +1416,18 @@ class Google_ProjectReference extends Google_Model {
 
 class Google_QueryRequest extends Google_Model {
   public $timeoutMs;
-  public $query;
   public $kind;
-  public $maxResults;
+  public $dryRun;
   protected $__defaultDatasetType = 'Google_DatasetReference';
   protected $__defaultDatasetDataType = '';
   public $defaultDataset;
+  public $maxResults;
+  public $query;
   public function setTimeoutMs($timeoutMs) {
     $this->timeoutMs = $timeoutMs;
   }
   public function getTimeoutMs() {
     return $this->timeoutMs;
-  }
-  public function setQuery($query) {
-    $this->query = $query;
-  }
-  public function getQuery() {
-    return $this->query;
   }
   public function setKind($kind) {
     $this->kind = $kind;
@@ -1440,17 +1435,29 @@ class Google_QueryRequest extends Google_Model {
   public function getKind() {
     return $this->kind;
   }
-  public function setMaxResults($maxResults) {
-    $this->maxResults = $maxResults;
+  public function setDryRun($dryRun) {
+    $this->dryRun = $dryRun;
   }
-  public function getMaxResults() {
-    return $this->maxResults;
+  public function getDryRun() {
+    return $this->dryRun;
   }
   public function setDefaultDataset(Google_DatasetReference $defaultDataset) {
     $this->defaultDataset = $defaultDataset;
   }
   public function getDefaultDataset() {
     return $this->defaultDataset;
+  }
+  public function setMaxResults($maxResults) {
+    $this->maxResults = $maxResults;
+  }
+  public function getMaxResults() {
+    return $this->maxResults;
+  }
+  public function setQuery($query) {
+    $this->query = $query;
+  }
+  public function getQuery() {
+    return $this->query;
   }
 }
 
