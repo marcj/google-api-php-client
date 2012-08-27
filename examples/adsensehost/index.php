@@ -74,6 +74,7 @@ try {
 
 /**
  * Builds an array containing the supported actions.
+ * @return array
  */
 function getSupportedActions() {
   $actions = array();
