@@ -1266,6 +1266,7 @@ class Google_BooksLayerGeoDataCommon extends Google_Model {
 
 class Google_BooksLayerGeoDataGeo extends Google_Model {
   public $countryCode;
+  public $title;
   public $zoom;
   public $longitude;
   public $mapType;
@@ -1273,7 +1274,6 @@ class Google_BooksLayerGeoDataGeo extends Google_Model {
   protected $__boundaryType = 'Google_BooksLayerGeoDataGeoBoundary';
   protected $__boundaryDataType = 'array';
   public $boundary;
-  public $resolution;
   protected $__viewportType = 'Google_BooksLayerGeoDataGeoViewport';
   protected $__viewportDataType = '';
   public $viewport;
@@ -1283,6 +1283,12 @@ class Google_BooksLayerGeoDataGeo extends Google_Model {
   }
   public function getCountryCode() {
     return $this->countryCode;
+  }
+  public function setTitle($title) {
+    $this->title = $title;
+  }
+  public function getTitle() {
+    return $this->title;
   }
   public function setZoom($zoom) {
     $this->zoom = $zoom;
@@ -1314,12 +1320,6 @@ class Google_BooksLayerGeoDataGeo extends Google_Model {
   }
   public function getBoundary() {
     return $this->boundary;
-  }
-  public function setResolution($resolution) {
-    $this->resolution = $resolution;
-  }
-  public function getResolution() {
-    return $this->resolution;
   }
   public function setViewport(Google_BooksLayerGeoDataGeoViewport $viewport) {
     $this->viewport = $viewport;
