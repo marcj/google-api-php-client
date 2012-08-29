@@ -25,19 +25,19 @@ class AuthTest extends BaseTest {
   const PUBLIC_KEY_FILE = "general/testdata/cacert.pem";
   const USER_ID = "102102479283111695822";
 
-  /** @var googleP12Signer  */
+  /** @var Google_P12Signer  */
   private $signer;
 
   /** @var string */
   private $pem;
 
-  /** @var googlePemVerifier */
+  /** @var Google_PemVerifier */
   private $verifier;
 
   public function setUp() {
     $this->signer = new Google_P12Signer(file_get_contents(self::PRIVATE_KEY_FILE), "notasecret");
     $this->pem = file_get_contents(self::PUBLIC_KEY_FILE);
-    $this->verifier = new googlePemVerifier($this->pem);
+    $this->verifier = new Google_PemVerifier($this->pem);
   }
 
   public function testCantOpenP12() {

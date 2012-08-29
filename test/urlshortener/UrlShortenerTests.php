@@ -19,6 +19,7 @@ require_once '../src/Google_Client.php';
 require_once '../src/contrib/Google_UrlshortenerService.php';
 
 class UrlShortenerTests extends BaseTest {
+  /** @var Google_UrlshortenerService */
   public $service;
 
   public function __construct() {

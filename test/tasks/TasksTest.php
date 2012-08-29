@@ -18,6 +18,7 @@
 require_once '../src/contrib/Google_TasksService.php';
 
 class TasksTest extends BaseTest {
+  /** @var Google_TasksService */
   public $taskService;
 
   public function __construct() {
@@ -56,11 +57,9 @@ class TasksTest extends BaseTest {
   }
 
   private function createTaskList($name) {
-    $taskList = $this->taskService->tasklists;
     $list = new Google_TaskList();
-      
     $list->title = $name;
-    return $taskList->insert($list);
+    return $this->taskService->tasklists->insert($list);
   }
 
   private function createTask($title, $listId) {
