@@ -106,6 +106,9 @@ class Google_MemcacheCache extends Google_Cache {
 
   /**
    * @inheritDoc
+   * @param string $key
+   * @param string $value
+   * @throws Google_CacheException
    */
   public function set($key, $value) {
     $this->check();
@@ -118,6 +121,7 @@ class Google_MemcacheCache extends Google_Cache {
 
   /**
    * @inheritDoc
+   * @param String $key
    */
   public function delete($key) {
     $this->check();

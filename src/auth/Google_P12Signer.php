@@ -32,6 +32,7 @@ class Google_P12Signer extends Google_Signer {
       throw new Exception(
           'The Google PHP API library needs the openssl PHP extension');
     }
+
     // This throws on error
     $certs = array();
     if (!openssl_pkcs12_read($p12, $certs, $password)) {

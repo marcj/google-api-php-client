@@ -84,8 +84,8 @@ class Google_AssertionCredentials {
       Google_Utils::urlSafeB64Encode(json_encode($header)),
       Google_Utils::urlSafeB64Encode(json_encode($payload))
     );
-    $signingInput = implode('.', $segments);
 
+    $signingInput = implode('.', $segments);
     $signer = new Google_P12Signer($this->privateKey, $this->privateKeyPassword);
     $signature = $signer->sign($signingInput);
     $segments[] = Google_Utils::urlSafeB64Encode($signature);

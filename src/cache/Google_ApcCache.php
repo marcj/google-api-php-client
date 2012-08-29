@@ -90,6 +90,7 @@ class googleApcCache extends Google_Cache {
 
   /**
    * @inheritDoc
+   * @param String $key
    */
   public function delete($key) {
     @apc_delete($key);
