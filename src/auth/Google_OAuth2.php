@@ -107,7 +107,7 @@ class Google_OAuth2 extends Google_Auth {
       } else {
         $response = $request->getResponseBody();
         $decodedResponse = json_decode($response, true);
-        if ($decodedResponse != $response && $decodedResponse != null && $decodedResponse['error']) {
+        if ($decodedResponse != null && $decodedResponse['error']) {
           $response = $decodedResponse['error'];
         }
         throw new Google_AuthException("Error fetching OAuth2 access token, message: '$response'", $request->getResponseHttpCode());
@@ -116,6 +116,7 @@ class Google_OAuth2 extends Google_Auth {
 
     $authUrl = $this->createAuthUrl($service['scope']);
     header('Location: ' . $authUrl);
+    return true;
   } 
 
   /**
@@ -384,7 +385,7 @@ class Google_OAuth2 extends Google_Auth {
     // Check signature
     $verified = false;
     foreach ($certs as $keyName => $pem) {
-      $public_key = new googlePemVerifier($pem);
+      $public_key = new Google_PemVerifier($pem);
       if ($public_key->verify($signed, $signature)) {
         $verified = true;
         break;

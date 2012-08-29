@@ -20,7 +20,7 @@
  *
  * @author Brian Eaton <beaton@google.com>
  */
-class googlePemVerifier extends Google_Verifier {
+class Google_PemVerifier extends Google_Verifier {
   private $publicKey;
 
   /**
@@ -28,14 +28,16 @@ class googlePemVerifier extends Google_Verifier {
    *
    * $pem: a PEM encoded certificate (not a file).
    * @param $pem
+   * @throws Google_AuthException
+   * @throws Google_Exception
    */
   function __construct($pem) {
     if (!function_exists('openssl_x509_read')) {
-      throw new Exception('Google API PHP client needs the openssl PHP extension');
+      throw new Google_Exception('Google API PHP client needs the openssl PHP extension');
     }
     $this->publicKey = openssl_x509_read($pem);
     if (!$this->publicKey) {
-      throw new googleAuthException("Unable to parse PEM: $pem");
+      throw new Google_AuthException("Unable to parse PEM: $pem");
     }
   }
 
@@ -51,12 +53,13 @@ class googlePemVerifier extends Google_Verifier {
    * Returns true if the signature is valid, false otherwise.
    * @param $data
    * @param $signature
+   * @throws Google_AuthException
    * @return bool
    */
   function verify($data, $signature) {
     $status = openssl_verify($data, $signature, $this->publicKey, "sha256");
     if ($status === -1) {
-      throw new googleAuthException('Signature verification error: ' . openssl_error_string());
+      throw new Google_AuthException('Signature verification error: ' . openssl_error_string());
     }
     return $status === 1;
   }
