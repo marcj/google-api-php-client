@@ -1132,8 +1132,8 @@ class Google_DiskList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_Disk) */ $items) {
-    $this->assertIsArray($items, 'Google_Disk', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Disk ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1185,15 +1185,13 @@ class Google_Firewall extends Google_Model {
   public function getDescription() {
     return $this->description;
   }
-  public function setSourceTags(/* array(Google_string) */ $sourceTags) {
-    $this->assertIsArray($sourceTags, 'Google_string', __METHOD__);
+  public function setSourceTags($sourceTags) {
     $this->sourceTags = $sourceTags;
   }
   public function getSourceTags() {
     return $this->sourceTags;
   }
-  public function setSourceRanges(/* array(Google_string) */ $sourceRanges) {
-    $this->assertIsArray($sourceRanges, 'Google_string', __METHOD__);
+  public function setSourceRanges($sourceRanges) {
     $this->sourceRanges = $sourceRanges;
   }
   public function getSourceRanges() {
@@ -1205,15 +1203,14 @@ class Google_Firewall extends Google_Model {
   public function getNetwork() {
     return $this->network;
   }
-  public function setTargetTags(/* array(Google_string) */ $targetTags) {
-    $this->assertIsArray($targetTags, 'Google_string', __METHOD__);
+  public function setTargetTags($targetTags) {
     $this->targetTags = $targetTags;
   }
   public function getTargetTags() {
     return $this->targetTags;
   }
-  public function setAllowed(/* array(Google_FirewallAllowed) */ $allowed) {
-    $this->assertIsArray($allowed, 'Google_FirewallAllowed', __METHOD__);
+  public function setAllowed($allowed) {
+    $this->assertIsArray($allowed, 'Google_FirewallAllowed ', __METHOD__);
     $this->allowed = $allowed;
   }
   public function getAllowed() {
@@ -1254,8 +1251,7 @@ class Google_FirewallAllowed extends Google_Model {
   public function getIPProtocol() {
     return $this->IPProtocol;
   }
-  public function setPorts(/* array(Google_string) */ $ports) {
-    $this->assertIsArray($ports, 'Google_string', __METHOD__);
+  public function setPorts($ports) {
     $this->ports = $ports;
   }
   public function getPorts() {
@@ -1277,8 +1273,8 @@ class Google_FirewallList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_Firewall) */ $items) {
-    $this->assertIsArray($items, 'Google_Firewall', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Firewall ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1405,8 +1401,8 @@ class Google_ImageList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_Image) */ $items) {
-    $this->assertIsArray($items, 'Google_Image', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Image ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1511,8 +1507,7 @@ class Google_Instance extends Google_Model {
   public function getZone() {
     return $this->zone;
   }
-  public function setTags(/* array(Google_string) */ $tags) {
-    $this->assertIsArray($tags, 'Google_string', __METHOD__);
+  public function setTags($tags) {
     $this->tags = $tags;
   }
   public function getTags() {
@@ -1524,8 +1519,8 @@ class Google_Instance extends Google_Model {
   public function getImage() {
     return $this->image;
   }
-  public function setDisks(/* array(Google_AttachedDisk) */ $disks) {
-    $this->assertIsArray($disks, 'Google_AttachedDisk', __METHOD__);
+  public function setDisks($disks) {
+    $this->assertIsArray($disks, 'Google_AttachedDisk ', __METHOD__);
     $this->disks = $disks;
   }
   public function getDisks() {
@@ -1543,15 +1538,15 @@ class Google_Instance extends Google_Model {
   public function getStatusMessage() {
     return $this->statusMessage;
   }
-  public function setServiceAccounts(/* array(Google_ServiceAccount) */ $serviceAccounts) {
-    $this->assertIsArray($serviceAccounts, 'Google_ServiceAccount', __METHOD__);
+  public function setServiceAccounts($serviceAccounts) {
+    $this->assertIsArray($serviceAccounts, 'Google_ServiceAccount ', __METHOD__);
     $this->serviceAccounts = $serviceAccounts;
   }
   public function getServiceAccounts() {
     return $this->serviceAccounts;
   }
-  public function setNetworkInterfaces(/* array(Google_NetworkInterface) */ $networkInterfaces) {
-    $this->assertIsArray($networkInterfaces, 'Google_NetworkInterface', __METHOD__);
+  public function setNetworkInterfaces($networkInterfaces) {
+    $this->assertIsArray($networkInterfaces, 'Google_NetworkInterface ', __METHOD__);
     $this->networkInterfaces = $networkInterfaces;
   }
   public function getNetworkInterfaces() {
@@ -1597,8 +1592,8 @@ class Google_InstanceList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_Instance) */ $items) {
-    $this->assertIsArray($items, 'Google_Instance', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Instance ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1683,8 +1678,8 @@ class Google_KernelList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_Kernel) */ $items) {
-    $this->assertIsArray($items, 'Google_Kernel', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Kernel ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1745,8 +1740,8 @@ class Google_MachineType extends Google_Model {
   public function getKind() {
     return $this->kind;
   }
-  public function setEphemeralDisks(/* array(Google_MachineTypeEphemeralDisks) */ $ephemeralDisks) {
-    $this->assertIsArray($ephemeralDisks, 'Google_MachineTypeEphemeralDisks', __METHOD__);
+  public function setEphemeralDisks($ephemeralDisks) {
+    $this->assertIsArray($ephemeralDisks, 'Google_MachineTypeEphemeralDisks ', __METHOD__);
     $this->ephemeralDisks = $ephemeralDisks;
   }
   public function getEphemeralDisks() {
@@ -1782,8 +1777,7 @@ class Google_MachineType extends Google_Model {
   public function getMemoryMb() {
     return $this->memoryMb;
   }
-  public function setAvailableZone(/* array(Google_object) */ $availableZone) {
-    $this->assertIsArray($availableZone, 'Google_object', __METHOD__);
+  public function setAvailableZone($availableZone) {
     $this->availableZone = $availableZone;
   }
   public function getAvailableZone() {
@@ -1839,8 +1833,8 @@ class Google_MachineTypeList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_MachineType) */ $items) {
-    $this->assertIsArray($items, 'Google_MachineType', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_MachineType ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1871,8 +1865,8 @@ class Google_Metadata extends Google_Model {
   protected $__itemsDataType = 'array';
   public $items;
   public $kind;
-  public function setItems(/* array(Google_MetadataItems) */ $items) {
-    $this->assertIsArray($items, 'Google_MetadataItems', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_MetadataItems ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1976,8 +1970,8 @@ class Google_NetworkInterface extends Google_Model {
   public function getNetwork() {
     return $this->network;
   }
-  public function setAccessConfigs(/* array(Google_AccessConfig) */ $accessConfigs) {
-    $this->assertIsArray($accessConfigs, 'Google_AccessConfig', __METHOD__);
+  public function setAccessConfigs($accessConfigs) {
+    $this->assertIsArray($accessConfigs, 'Google_AccessConfig ', __METHOD__);
     $this->accessConfigs = $accessConfigs;
   }
   public function getAccessConfigs() {
@@ -2017,8 +2011,8 @@ class Google_NetworkList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_Network) */ $items) {
-    $this->assertIsArray($items, 'Google_Network', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Network ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -2186,8 +2180,8 @@ class Google_OperationError extends Google_Model {
   protected $__errorsType = 'Google_OperationErrorErrors';
   protected $__errorsDataType = 'array';
   public $errors;
-  public function setErrors(/* array(Google_OperationErrorErrors) */ $errors) {
-    $this->assertIsArray($errors, 'Google_OperationErrorErrors', __METHOD__);
+  public function setErrors($errors) {
+    $this->assertIsArray($errors, 'Google_OperationErrorErrors ', __METHOD__);
     $this->errors = $errors;
   }
   public function getErrors() {
@@ -2233,8 +2227,8 @@ class Google_OperationList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_Operation) */ $items) {
-    $this->assertIsArray($items, 'Google_Operation', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Operation ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -2292,15 +2286,14 @@ class Google_Project extends Google_Model {
   public function getCommonInstanceMetadata() {
     return $this->commonInstanceMetadata;
   }
-  public function setExternalIpAddresses(/* array(Google_string) */ $externalIpAddresses) {
-    $this->assertIsArray($externalIpAddresses, 'Google_string', __METHOD__);
+  public function setExternalIpAddresses($externalIpAddresses) {
     $this->externalIpAddresses = $externalIpAddresses;
   }
   public function getExternalIpAddresses() {
     return $this->externalIpAddresses;
   }
-  public function setQuotas(/* array(Google_ProjectQuotas) */ $quotas) {
-    $this->assertIsArray($quotas, 'Google_ProjectQuotas', __METHOD__);
+  public function setQuotas($quotas) {
+    $this->assertIsArray($quotas, 'Google_ProjectQuotas ', __METHOD__);
     $this->quotas = $quotas;
   }
   public function getQuotas() {
@@ -2360,8 +2353,7 @@ class Google_ServiceAccount extends Google_Model {
   public $scopes;
   public $kind;
   public $email;
-  public function setScopes(/* array(Google_string) */ $scopes) {
-    $this->assertIsArray($scopes, 'Google_string', __METHOD__);
+  public function setScopes($scopes) {
     $this->scopes = $scopes;
   }
   public function getScopes() {
@@ -2468,8 +2460,8 @@ class Google_SnapshotList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_Snapshot) */ $items) {
-    $this->assertIsArray($items, 'Google_Snapshot', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Snapshot ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -2519,8 +2511,7 @@ class Google_Zone extends Google_Model {
   public function getKind() {
     return $this->kind;
   }
-  public function setAvailableMachineType(/* array(Google_object) */ $availableMachineType) {
-    $this->assertIsArray($availableMachineType, 'Google_object', __METHOD__);
+  public function setAvailableMachineType($availableMachineType) {
     $this->availableMachineType = $availableMachineType;
   }
   public function getAvailableMachineType() {
@@ -2532,8 +2523,8 @@ class Google_Zone extends Google_Model {
   public function getDescription() {
     return $this->description;
   }
-  public function setMaintenanceWindows(/* array(Google_ZoneMaintenanceWindows) */ $maintenanceWindows) {
-    $this->assertIsArray($maintenanceWindows, 'Google_ZoneMaintenanceWindows', __METHOD__);
+  public function setMaintenanceWindows($maintenanceWindows) {
+    $this->assertIsArray($maintenanceWindows, 'Google_ZoneMaintenanceWindows ', __METHOD__);
     $this->maintenanceWindows = $maintenanceWindows;
   }
   public function getMaintenanceWindows() {
@@ -2579,8 +2570,8 @@ class Google_ZoneList extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems(/* array(Google_Zone) */ $items) {
-    $this->assertIsArray($items, 'Google_Zone', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Zone ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
