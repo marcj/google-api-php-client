@@ -214,7 +214,7 @@
  * Service definition for Google_Adexchangebuyer (v1).
  *
  * <p>
- * Lets you manage your Ad Exchange Buyer account
+ * Lets you manage your Ad Exchange Buyer account.
  * </p>
  *
  * <p>
@@ -267,8 +267,8 @@ class Google_Account extends Google_Model {
   public function getMaximumTotalQps() {
     return $this->maximumTotalQps;
   }
-  public function setBidderLocation(/* array(Google_AccountBidderLocation) */ $bidderLocation) {
-    $this->assertIsArray($bidderLocation, 'Google_AccountBidderLocation', __METHOD__);
+  public function setBidderLocation($bidderLocation) {
+    $this->assertIsArray($bidderLocation, 'Google_AccountBidderLocation ', __METHOD__);
     $this->bidderLocation = $bidderLocation;
   }
   public function getBidderLocation() {
@@ -316,8 +316,8 @@ class Google_AccountsList extends Google_Model {
   protected $__itemsDataType = 'array';
   public $items;
   public $kind;
-  public function setItems(/* array(Google_Account) */ $items) {
-    $this->assertIsArray($items, 'Google_Account', __METHOD__);
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Account ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -349,8 +349,7 @@ class Google_Creative extends Google_Model {
   public $disapprovalReasons;
   public $sensitiveCategories;
   public $accountId;
-  public function setProductCategories(/* array(Google_int) */ $productCategories) {
-    $this->assertIsArray($productCategories, 'Google_int', __METHOD__);
+  public function setProductCategories($productCategories) {
     $this->productCategories = $productCategories;
   }
   public function getProductCategories() {
@@ -380,8 +379,7 @@ class Google_Creative extends Google_Model {
   public function getWidth() {
     return $this->width;
   }
-  public function setAttribute(/* array(Google_int) */ $attribute) {
-    $this->assertIsArray($attribute, 'Google_int', __METHOD__);
+  public function setAttribute($attribute) {
     $this->attribute = $attribute;
   }
   public function getAttribute() {
@@ -399,8 +397,7 @@ class Google_Creative extends Google_Model {
   public function getHeight() {
     return $this->height;
   }
-  public function setAdvertiserId(/* array(Google_string) */ $advertiserId) {
-    $this->assertIsArray($advertiserId, 'Google_string', __METHOD__);
+  public function setAdvertiserId($advertiserId) {
     $this->advertiserId = $advertiserId;
   }
   public function getAdvertiserId() {
@@ -424,29 +421,25 @@ class Google_Creative extends Google_Model {
   public function getBuyerCreativeId() {
     return $this->buyerCreativeId;
   }
-  public function setClickThroughUrl(/* array(Google_string) */ $clickThroughUrl) {
-    $this->assertIsArray($clickThroughUrl, 'Google_string', __METHOD__);
+  public function setClickThroughUrl($clickThroughUrl) {
     $this->clickThroughUrl = $clickThroughUrl;
   }
   public function getClickThroughUrl() {
     return $this->clickThroughUrl;
   }
-  public function setVendorType(/* array(Google_int) */ $vendorType) {
-    $this->assertIsArray($vendorType, 'Google_int', __METHOD__);
+  public function setVendorType($vendorType) {
     $this->vendorType = $vendorType;
   }
   public function getVendorType() {
     return $this->vendorType;
   }
-  public function setDisapprovalReasons(/* array(Google_string) */ $disapprovalReasons) {
-    $this->assertIsArray($disapprovalReasons, 'Google_string', __METHOD__);
+  public function setDisapprovalReasons($disapprovalReasons) {
     $this->disapprovalReasons = $disapprovalReasons;
   }
   public function getDisapprovalReasons() {
     return $this->disapprovalReasons;
   }
-  public function setSensitiveCategories(/* array(Google_int) */ $sensitiveCategories) {
-    $this->assertIsArray($sensitiveCategories, 'Google_int', __METHOD__);
+  public function setSensitiveCategories($sensitiveCategories) {
     $this->sensitiveCategories = $sensitiveCategories;
   }
   public function getSensitiveCategories() {
@@ -461,12 +454,19 @@ class Google_Creative extends Google_Model {
 }
 
 class Google_CreativesList extends Google_Model {
+  public $nextPageToken;
   protected $__itemsType = 'Google_Creative';
   protected $__itemsDataType = 'array';
   public $items;
   public $kind;
-  public function setItems(/* array(Google_Creative) */ $items) {
-    $this->assertIsArray($items, 'Google_Creative', __METHOD__);
+  public function setNextPageToken($nextPageToken) {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken() {
+    return $this->nextPageToken;
+  }
+  public function setItems($items) {
+    $this->assertIsArray($items, 'Google_Creative ', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -557,8 +557,8 @@ class Google_DirectDealsList extends Google_Model {
   public function getKind() {
     return $this->kind;
   }
-  public function setDirectDeals(/* array(Google_DirectDeal) */ $directDeals) {
-    $this->assertIsArray($directDeals, 'Google_DirectDeal', __METHOD__);
+  public function setDirectDeals($directDeals) {
+    $this->assertIsArray($directDeals, 'Google_DirectDeal ', __METHOD__);
     $this->directDeals = $directDeals;
   }
   public function getDirectDeals() {
