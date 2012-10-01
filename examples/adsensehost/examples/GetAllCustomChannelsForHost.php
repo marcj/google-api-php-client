@@ -15,43 +15,46 @@
  * limitations under the License.
  */
 
-// Require the base class
+// Require the base class.
 require_once __DIR__ . "/../BaseExample.php";
 
 /**
- * Gets all custom channels in an ad client.
+ * This example gets all custom channels in a host ad client.
  *
- * To get ad clients, run getAllAdClients.
+ * To get ad clients, see GetAllAdClientsForHost.php.
  * Tags: customchannels.list
  *
+ * @author Sérgio Gomes <sgomes@google.com>
  * @author Silvano Luciani <silvano.luciani@gmail.com>
  */
-class GetAllCustomChannels extends BaseExample {
+class GetAllCustomChannelsForHost extends BaseExample {
   public function render() {
-    $adClientId = AD_CLIENT_ID;
-    $optParams['maxResults'] = AD_MAX_PAGE_SIZE;
+    $adClientId = HOST_AD_CLIENT_ID;
+    $optParams['maxResults'] = MAX_PAGE_SIZE;
     $listClass = 'list';
     printListHeader($listClass);
     $pageToken = null;
-    //do {
+    do {
       $optParams['pageToken'] = $pageToken;
-      # Retrieve custom channels list, and display it.
+      // Retrieve custom channels list, and display it.
       $result = $this->adSenseHostService->customchannels
           ->listCustomchannels($adClientId, $optParams);
       $customChannels = $result['items'];
       if (isset($customChannels)) {
         foreach ($customChannels as $customChannel) {
-          $format = 'Custom channel with code "%s" and name "%s" was found.';
-          $content = sprintf(
-              $format, $customChannel['code'], $customChannel['name']);
-          printListElement($content);
+          $content = array();
+          $mainFormat =
+              'Custom channel with ID "%s", code "%s" and name "%s" found.';
+          $content[] = sprintf($mainFormat, $customChannel['id'],
+              $customChannel['code'], $customChannel['name']);
+          printListElementForClients($content);
         }
         $pageToken = isset($result['nextPageToken']) ? $result['nextPageToken']
             : null;
       } else {
         printNoResultForList();
       }
-    //} while ($pageToken);
+    } while ($pageToken);
     printListFooter();
   }
 }

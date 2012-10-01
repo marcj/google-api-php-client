@@ -23,8 +23,8 @@ if (!extension_loaded('pdo') || !extension_loaded('pdo_sqlite')) {
 /**
  * Include the library files for the api client and AdSense service class.
  */
-require_once "../../src/apiClient.php";
-require_once "../../src/contrib/apiAdsensehostService.php";
+require_once "../../src/Google_Client.php";
+require_once "../../src/contrib/Google_AdsensehostService.php";
 
 /**
  * Handles authentication and OAuth token storing.
@@ -32,10 +32,11 @@ require_once "../../src/contrib/apiAdsensehostService.php";
  * containing a table called 'auth' composed of two VARCHAR(255) fields called
  * 'user' and 'token'.
  *
+ * @author Sérgio Gomes <sgomes@google.com>
  * @author Silvano Luciani <silvano.luciani@gmail.com>
  */
 
-class AdSenseAuth {
+class AdSenseHostAuth {
   protected $apiClient;
   protected $adSenseHostService;
   private $user;
@@ -45,18 +46,12 @@ class AdSenseAuth {
    * (Inject them in a real world app!!)
    */
   public function __construct() {
-    // Create the apiClient instances.
-    $this->apiClient = new apiClient();
-    // Visit https://code.google.com/apis/console to
-    // generate your oauth2_client_id, oauth2_client_secret, and to
-    // register your oauth2_redirect_uri.
-    $this->apiClient->setClientId('YOUR_CLIENT_ID_HERE');
-    $this->apiClient->setClientSecret('YOUR_CLIENT_SECRET_HERE');
-    $this->apiClient->setDeveloperKey('YOUR_DEVELOPER_KEY_HERE');
-    // Point the oauth2_redirect_uri to index.php.
-    $this->apiClient->setRedirectUri('http://localhost/index.php');
+    // Create the Google_Client instance.
+    // You can set your credentials in the config.php file, included under the
+    // src/ folder in your client library install.
+    $this->apiClient = new Google_Client();
     // Create the api AdsensehostService instance.
-    $this->adSenseHostService = new apiAdsensehostService($this->apiClient);
+    $this->adSenseHostService = new Google_AdsensehostService($this->apiClient);
   }
 
   /**
@@ -67,11 +62,18 @@ class AdSenseAuth {
   public function authenticate($user) {
     $this->user = $user;
     $dbh = new PDO('sqlite:examples.sqlite');
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $dbh->prepare('CREATE TABLE IF NOT EXISTS auth ' .
+        '(user VARCHAR(255), token VARCHAR(255))');
+    $stmt->execute();
     $token = $this->getToken($dbh);
     if (isset($token)) {
       // I already have the token.
       $this->apiClient->setAccessToken($token);
     } else {
+      // Override the scope to use the readonly one
+      $this->apiClient->setScopes(
+          array("https://www.googleapis.com/auth/adsensehost"));
       // Go get the token
       $this->apiClient->setAccessToken($this->apiClient->authenticate());
       $this->saveToken($dbh, false, $this->apiClient->getAccessToken());
@@ -80,9 +82,8 @@ class AdSenseAuth {
   }
 
   /**
-   * Return the AdsenseHostService instance (to be used to retrieve data).
-   * @return apiAdsenseHostService the authenticated apiAdsensehostService 
-   *     instance
+   * Return the AdsenseService instance (to be used to retrieve data).
+   * @return apiAdsenseService the authenticated apiAdsenseService instance
    */
   public function getAdSenseHostService() {
     return $this->adSenseHostService;

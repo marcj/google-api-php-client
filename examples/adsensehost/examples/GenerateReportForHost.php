@@ -19,14 +19,14 @@
 require_once __DIR__ . "/../BaseExample.php";
 
 /**
- * Retrieves a report for the specified ad client.
+ * This example retrieves a report for the specified host ad client.
  *
- * To get ad clients, run getAllAdClients.
+ * To get ad clients, see GetAllAdClientsForHost.php.
  * Tags: reports.generate
  *
- * @author Silvano Luciani <silvano.luciani@gmail.com>
+ * @author Sérgio Gomes <sgomes@google.com>
  */
-class GenerateReport extends BaseExample {
+class GenerateReportForHost extends BaseExample {
   public function render() {
     $startDate = $this->getSixMonthsBeforeNow();
     $endDate = $this->getNow();
@@ -36,11 +36,9 @@ class GenerateReport extends BaseExample {
         'CLICKS', 'AD_REQUESTS_CTR', 'COST_PER_CLICK', 'AD_REQUESTS_RPM',
         'EARNINGS'),
       'dimension' => 'DATE',
-      'sort' => 'DATE',
-    	'filter' => array(
-      	'AD_CLIENT_ID==' . AD_CLIENT_ID
-      )
-    );
+      'sort' => '+DATE',
+      'filter' => array(
+        'AD_CLIENT_ID==' . HOST_AD_CLIENT_ID));
     // Retrieve report.
     $report = $this->adSenseHostService->reports
         ->generate($startDate, $endDate, $optParams);
