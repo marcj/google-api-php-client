@@ -268,7 +268,7 @@ class Google_Account extends Google_Model {
     return $this->maximumTotalQps;
   }
   public function setBidderLocation($bidderLocation) {
-    $this->assertIsArray($bidderLocation, 'Google_AccountBidderLocation ', __METHOD__);
+    $this->assertIsArray($bidderLocation, 'Google_AccountBidderLocation', __METHOD__);
     $this->bidderLocation = $bidderLocation;
   }
   public function getBidderLocation() {
@@ -317,7 +317,7 @@ class Google_AccountsList extends Google_Model {
   public $items;
   public $kind;
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Account ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Account', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -466,7 +466,7 @@ class Google_CreativesList extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Creative ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Creative', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -558,7 +558,7 @@ class Google_DirectDealsList extends Google_Model {
     return $this->kind;
   }
   public function setDirectDeals($directDeals) {
-    $this->assertIsArray($directDeals, 'Google_DirectDeal ', __METHOD__);
+    $this->assertIsArray($directDeals, 'Google_DirectDeal', __METHOD__);
     $this->directDeals = $directDeals;
   }
   public function getDirectDeals() {

@@ -254,7 +254,7 @@ class Google_Acl extends Google_Model {
   public $kind;
   public $description;
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_PlusAclentryResource ', __METHOD__);
+    $this->assertIsArray($items, 'Google_PlusAclentryResource', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -518,7 +518,7 @@ class Google_ActivityFeed extends Google_Model {
     return $this->title;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Activity ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Activity', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -584,7 +584,7 @@ class Google_ActivityObject extends Google_Model {
     return $this->resharers;
   }
   public function setAttachments($attachments) {
-    $this->assertIsArray($attachments, 'Google_ActivityObjectAttachments ', __METHOD__);
+    $this->assertIsArray($attachments, 'Google_ActivityObjectAttachments', __METHOD__);
     $this->attachments = $attachments;
   }
   public function getAttachments() {
@@ -906,7 +906,7 @@ class Google_Comment extends Google_Model {
   public $id;
   public $selfLink;
   public function setInReplyTo($inReplyTo) {
-    $this->assertIsArray($inReplyTo, 'Google_CommentInReplyTo ', __METHOD__);
+    $this->assertIsArray($inReplyTo, 'Google_CommentInReplyTo', __METHOD__);
     $this->inReplyTo = $inReplyTo;
   }
   public function getInReplyTo() {
@@ -1041,7 +1041,7 @@ class Google_CommentFeed extends Google_Model {
     return $this->title;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Comment ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Comment', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1135,7 +1135,7 @@ class Google_PeopleFeed extends Google_Model {
     return $this->title;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Person ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Person', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1196,7 +1196,7 @@ class Google_Person extends Google_Model {
     return $this->relationshipStatus;
   }
   public function setOrganizations($organizations) {
-    $this->assertIsArray($organizations, 'Google_PersonOrganizations ', __METHOD__);
+    $this->assertIsArray($organizations, 'Google_PersonOrganizations', __METHOD__);
     $this->organizations = $organizations;
   }
   public function getOrganizations() {
@@ -1245,21 +1245,21 @@ class Google_Person extends Google_Model {
     return $this->tagline;
   }
   public function setUrls($urls) {
-    $this->assertIsArray($urls, 'Google_PersonUrls ', __METHOD__);
+    $this->assertIsArray($urls, 'Google_PersonUrls', __METHOD__);
     $this->urls = $urls;
   }
   public function getUrls() {
     return $this->urls;
   }
   public function setPlacesLived($placesLived) {
-    $this->assertIsArray($placesLived, 'Google_PersonPlacesLived ', __METHOD__);
+    $this->assertIsArray($placesLived, 'Google_PersonPlacesLived', __METHOD__);
     $this->placesLived = $placesLived;
   }
   public function getPlacesLived() {
     return $this->placesLived;
   }
   public function setEmails($emails) {
-    $this->assertIsArray($emails, 'Google_PersonEmails ', __METHOD__);
+    $this->assertIsArray($emails, 'Google_PersonEmails', __METHOD__);
     $this->emails = $emails;
   }
   public function getEmails() {

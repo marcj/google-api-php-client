@@ -712,7 +712,7 @@ class Google_Account extends Google_Model {
     return $this->id;
   }
   public function setSubAccounts($subAccounts) {
-    $this->assertIsArray($subAccounts, 'Google_Account ', __METHOD__);
+    $this->assertIsArray($subAccounts, 'Google_Account', __METHOD__);
     $this->subAccounts = $subAccounts;
   }
   public function getSubAccounts() {
@@ -740,7 +740,7 @@ class Google_Accounts extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Account ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Account', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -805,7 +805,7 @@ class Google_AdClients extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_AdClient ', __METHOD__);
+    $this->assertIsArray($items, 'Google_AdClient', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -877,7 +877,7 @@ class Google_AdUnits extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_AdUnit ', __METHOD__);
+    $this->assertIsArray($items, 'Google_AdUnit', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -932,7 +932,7 @@ class Google_AdsenseReportsGenerateResponse extends Google_Model {
     return $this->totals;
   }
   public function setHeaders($headers) {
-    $this->assertIsArray($headers, 'Google_AdsenseReportsGenerateResponseHeaders ', __METHOD__);
+    $this->assertIsArray($headers, 'Google_AdsenseReportsGenerateResponseHeaders', __METHOD__);
     $this->headers = $headers;
   }
   public function getHeaders() {
@@ -1061,7 +1061,7 @@ class Google_CustomChannels extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_CustomChannel ', __METHOD__);
+    $this->assertIsArray($items, 'Google_CustomChannel', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1119,7 +1119,7 @@ class Google_UrlChannels extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_UrlChannel ', __METHOD__);
+    $this->assertIsArray($items, 'Google_UrlChannel', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {

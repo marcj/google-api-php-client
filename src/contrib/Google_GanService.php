@@ -497,7 +497,7 @@ class Google_Advertisers extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Advertiser ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Advertiser', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -636,7 +636,7 @@ class Google_CcOffer extends Google_Model {
     return $this->cardBenefits;
   }
   public function setRewards($rewards) {
-    $this->assertIsArray($rewards, 'Google_CcOfferRewards ', __METHOD__);
+    $this->assertIsArray($rewards, 'Google_CcOfferRewards', __METHOD__);
     $this->rewards = $rewards;
   }
   public function getRewards() {
@@ -757,7 +757,7 @@ class Google_CcOffer extends Google_Model {
     return $this->introPurchaseTerms;
   }
   public function setDefaultFees($defaultFees) {
-    $this->assertIsArray($defaultFees, 'Google_CcOfferDefaultFees ', __METHOD__);
+    $this->assertIsArray($defaultFees, 'Google_CcOfferDefaultFees', __METHOD__);
     $this->defaultFees = $defaultFees;
   }
   public function getDefaultFees() {
@@ -938,7 +938,7 @@ class Google_CcOffer extends Google_Model {
     return $this->balanceTransferTerms;
   }
   public function setBonusRewards($bonusRewards) {
-    $this->assertIsArray($bonusRewards, 'Google_CcOfferBonusRewards ', __METHOD__);
+    $this->assertIsArray($bonusRewards, 'Google_CcOfferBonusRewards', __METHOD__);
     $this->bonusRewards = $bonusRewards;
   }
   public function getBonusRewards() {
@@ -1063,7 +1063,7 @@ class Google_CcOffers extends Google_Model {
   public $items;
   public $kind;
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_CcOffer ', __METHOD__);
+    $this->assertIsArray($items, 'Google_CcOffer', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1173,7 +1173,7 @@ class Google_Event extends Google_Model {
     return $this->chargeId;
   }
   public function setProducts($products) {
-    $this->assertIsArray($products, 'Google_EventProducts ', __METHOD__);
+    $this->assertIsArray($products, 'Google_EventProducts', __METHOD__);
     $this->products = $products;
   }
   public function getProducts() {
@@ -1304,7 +1304,7 @@ class Google_Events extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Event ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Event', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1460,7 +1460,7 @@ class Google_Links extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Link ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Link', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1590,7 +1590,7 @@ class Google_Publishers extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Publisher ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Publisher', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {

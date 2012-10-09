@@ -730,7 +730,7 @@ class Google_Accounts extends Google_Model {
   public $kind;
   public $etag;
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_Account ', __METHOD__);
+    $this->assertIsArray($items, 'Google_Account', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -802,7 +802,7 @@ class Google_AdClients extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_AdClient ', __METHOD__);
+    $this->assertIsArray($items, 'Google_AdClient', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1089,7 +1089,7 @@ class Google_AdUnits extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_AdUnit ', __METHOD__);
+    $this->assertIsArray($items, 'Google_AdUnit', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1220,7 +1220,7 @@ class Google_CustomChannels extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_CustomChannel ', __METHOD__);
+    $this->assertIsArray($items, 'Google_CustomChannel', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1275,7 +1275,7 @@ class Google_Report extends Google_Model {
     return $this->totals;
   }
   public function setHeaders($headers) {
-    $this->assertIsArray($headers, 'Google_ReportHeaders ', __METHOD__);
+    $this->assertIsArray($headers, 'Google_ReportHeaders', __METHOD__);
     $this->headers = $headers;
   }
   public function getHeaders() {
@@ -1357,7 +1357,7 @@ class Google_UrlChannels extends Google_Model {
     return $this->nextPageToken;
   }
   public function setItems($items) {
-    $this->assertIsArray($items, 'Google_UrlChannel ', __METHOD__);
+    $this->assertIsArray($items, 'Google_UrlChannel', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
