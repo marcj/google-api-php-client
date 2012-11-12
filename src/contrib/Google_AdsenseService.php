@@ -18,7 +18,7 @@
    * The "urlchannels" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $urlchannels = $adsenseService->urlchannels;
    *  </code>
    */
@@ -51,7 +51,7 @@
    * The "adunits" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $adunits = $adsenseService->adunits;
    *  </code>
    */
@@ -103,7 +103,7 @@
    * The "customchannels" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $customchannels = $adsenseService->customchannels;
    *  </code>
    */
@@ -137,7 +137,7 @@
    * The "adclients" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $adclients = $adsenseService->adclients;
    *  </code>
    */
@@ -169,7 +169,7 @@
    * The "reports" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $reports = $adsenseService->reports;
    *  </code>
    */
@@ -212,7 +212,7 @@
    * The "accounts" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $accounts = $adsenseService->accounts;
    *  </code>
    */
@@ -263,7 +263,7 @@
    * The "urlchannels" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $urlchannels = $adsenseService->urlchannels;
    *  </code>
    */
@@ -296,7 +296,7 @@
    * The "adunits" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $adunits = $adsenseService->adunits;
    *  </code>
    */
@@ -350,7 +350,7 @@
    * The "customchannels" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $customchannels = $adsenseService->customchannels;
    *  </code>
    */
@@ -384,7 +384,7 @@
    * The "adclients" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $adclients = $adsenseService->adclients;
    *  </code>
    */
@@ -416,7 +416,7 @@
    * The "reports" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $reports = $adsenseService->reports;
    *  </code>
    */
@@ -458,7 +458,7 @@
    * The "customchannels" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $customchannels = $adsenseService->customchannels;
    *  </code>
    */
@@ -513,7 +513,7 @@
    * The "adunits" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $adunits = $adsenseService->adunits;
    *  </code>
    */
@@ -549,7 +549,7 @@
    * The "customchannels" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $customchannels = $adsenseService->customchannels;
    *  </code>
    */
@@ -601,7 +601,7 @@
    * The "adunits" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $adsenseService = new Google_AdsenseService(...);
+   *   $adsenseService = new Google_AdSenseService(...);
    *   $adunits = $adsenseService->adunits;
    *  </code>
    */
@@ -633,7 +633,7 @@
   }
 
 /**
- * Service definition for Google_Adsense (v1.1).
+ * Service definition for Google_AdSense (v1.1).
  *
  * <p>
  * Gives AdSense publishers access to their inventory and the ability to generate reports
@@ -646,7 +646,7 @@
  *
  * @author Google, Inc.
  */
-class Google_AdsenseService extends Google_Service {
+class Google_AdSenseService extends Google_Service {
   public $urlchannels;
   public $adunits;
   public $adunits_customchannels;
@@ -663,7 +663,7 @@ class Google_AdsenseService extends Google_Service {
   public $customchannels;
   public $customchannels_adunits;
   /**
-   * Constructs the internal representation of the Adsense service.
+   * Constructs the internal representation of the AdSense service.
    *
    * @param Google_Client $client
    */
@@ -711,7 +711,7 @@ class Google_Account extends Google_Model {
   public function getId() {
     return $this->id;
   }
-  public function setSubAccounts($subAccounts) {
+  public function setSubAccounts(/* array(Google_Account) */ $subAccounts) {
     $this->assertIsArray($subAccounts, 'Google_Account', __METHOD__);
     $this->subAccounts = $subAccounts;
   }
@@ -739,7 +739,7 @@ class Google_Accounts extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems($items) {
+  public function setItems(/* array(Google_Account) */ $items) {
     $this->assertIsArray($items, 'Google_Account', __METHOD__);
     $this->items = $items;
   }
@@ -804,7 +804,7 @@ class Google_AdClients extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems($items) {
+  public function setItems(/* array(Google_AdClient) */ $items) {
     $this->assertIsArray($items, 'Google_AdClient', __METHOD__);
     $this->items = $items;
   }
@@ -876,7 +876,7 @@ class Google_AdUnits extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems($items) {
+  public function setItems(/* array(Google_AdUnit) */ $items) {
     $this->assertIsArray($items, 'Google_AdUnit', __METHOD__);
     $this->items = $items;
   }
@@ -932,7 +932,6 @@ class Google_AdsenseReportsGenerateResponse extends Google_Model {
     return $this->totals;
   }
   public function setHeaders($headers) {
-    $this->assertIsArray($headers, 'Google_AdsenseReportsGenerateResponseHeaders', __METHOD__);
     $this->headers = $headers;
   }
   public function getHeaders() {
@@ -1060,7 +1059,7 @@ class Google_CustomChannels extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems($items) {
+  public function setItems(/* array(Google_CustomChannel) */ $items) {
     $this->assertIsArray($items, 'Google_CustomChannel', __METHOD__);
     $this->items = $items;
   }
@@ -1118,7 +1117,7 @@ class Google_UrlChannels extends Google_Model {
   public function getNextPageToken() {
     return $this->nextPageToken;
   }
-  public function setItems($items) {
+  public function setItems(/* array(Google_UrlChannel) */ $items) {
     $this->assertIsArray($items, 'Google_UrlChannel', __METHOD__);
     $this->items = $items;
   }
