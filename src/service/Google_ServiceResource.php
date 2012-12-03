@@ -33,6 +33,7 @@ class Google_ServiceResource {
       'trace' => array('type' => 'string', 'location' => 'query'),
       'userIp' => array('type' => 'string', 'location' => 'query'),
       'userip' => array('type' => 'string', 'location' => 'query'),
+      'quotaUser' => array('type' => 'string', 'location' => 'query'),
       'file' => array('type' => 'complex', 'location' => 'body'),
       'data' => array('type' => 'string', 'location' => 'body'),
       'mimeType' => array('type' => 'string', 'location' => 'header'),
