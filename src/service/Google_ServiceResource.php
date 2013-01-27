@@ -169,9 +169,14 @@ class Google_ServiceResource {
       return $httpRequest;
     }
 
-    // Terminate immediatly if this is a resumable request.
+    // Terminate immediately if this is a resumable request.
     if (isset($parameters['uploadType']['value'])
-        && 'resumable' == $parameters['uploadType']['value']) {
+        && Google_MediaFileUpload::UPLOAD_RESUMABLE_TYPE == $parameters['uploadType']['value']) {
+      $contentTypeHeader = array();
+      if (isset($contentType) && $contentType) {
+        $contentTypeHeader['content-type'] = $contentType;
+      }
+      $httpRequest->setRequestHeaders($contentTypeHeader);
       return $httpRequest;
     }
 
