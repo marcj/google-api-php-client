@@ -86,17 +86,17 @@ class Google_MediaFileUpload {
         'value' => $uploadType,
     );
 
-    if (isset($params['file'])) {
-      // This is a standard file upload with curl.
-      $file = $params['file']['value'];
-      unset($params['file']);
-      return self::processFileUpload($file);
-    }
-
     $mimeType = isset($params['mimeType'])
         ? $params['mimeType']['value']
         : false;
     unset($params['mimeType']);
+
+    if (isset($params['file'])) {
+      // This is a standard file upload with curl.
+      $file = $params['file']['value'];
+      unset($params['file']);
+      return self::processFileUpload($file, $mimeType);
+    }
 
     $data = isset($params['data'])
         ? $params['data']['value']
@@ -132,20 +132,25 @@ class Google_MediaFileUpload {
   }
 
   /**
-   * Process standard file uploads.
+   * Prepares a standard file upload via cURL.
    * @param $file
-   * @internal param $fileName
-   * @return array Inclues the processed file name.
+   * @param $mime
+   * @return array Includes the processed file name.
    * @visible For testing.
    */
-  public static function processFileUpload($file) {
+  public static function processFileUpload($file, $mime) {
     if (!$file) return array();
     if (substr($file, 0, 1) != '@') {
       $file = '@' . $file;
     }
 
     // This is a standard file upload with curl.
-    return array('postBody' => array('file' => $file));
+    $params = array('postBody' => array('file' => $file));
+    if ($mime) {
+      $params['content-type'] = $mime;
+    }
+
+    return $params;
   }
 
   /**
