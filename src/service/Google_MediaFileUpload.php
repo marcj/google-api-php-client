@@ -113,6 +113,7 @@ class Google_MediaFileUpload {
 
     if (self::UPLOAD_RESUMABLE_TYPE == $uploadType) {
       $payload['content-type'] = $mimeType;
+      $payload['postBody'] = is_string($meta) ? $meta : json_encode($meta);
 
     } elseif (self::UPLOAD_MEDIA_TYPE == $uploadType) {
       // This is a simple media upload.
@@ -245,6 +246,7 @@ class Google_MediaFileUpload {
         'content-type' => 'application/json; charset=UTF-8',
         'content-length' => Google_Utils::getStrLen($body),
         'x-upload-content-type' => $this->mimeType,
+        'x-upload-content-length' => $this->size,
         'expect' => '',
       ));
     }

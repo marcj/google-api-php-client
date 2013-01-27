@@ -177,6 +177,9 @@ class Google_ServiceResource {
         $contentTypeHeader['content-type'] = $contentType;
       }
       $httpRequest->setRequestHeaders($contentTypeHeader);
+      if ($postBody) {
+        $httpRequest->setPostBody($postBody);
+      }
       return $httpRequest;
     }
 
