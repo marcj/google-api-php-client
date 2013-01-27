@@ -58,10 +58,14 @@ class Google_MediaFileUpload {
     $this->size = strlen($this->data);
     $this->resumable = $resumable;
     if(!$chunkSize) {
-      $this->chunkSize = 256 * 1024;
+      $chunkSize = 256 * 1024;
     }
-
+    $this->chunkSize = $chunkSize;
     $this->progress = 0;
+  }
+
+  public function setFileSize($size) {
+    $this->size = $size;
   }
 
   /**
@@ -90,6 +94,10 @@ class Google_MediaFileUpload {
         ? $params['mimeType']['value']
         : false;
     unset($params['mimeType']);
+
+    if (!$mimeType) {
+      $mimeType = $payload['content-type'];
+    }
 
     if (isset($params['file'])) {
       // This is a standard file upload with curl.
@@ -200,13 +208,16 @@ class Google_MediaFileUpload {
   }
 
 
-  public function nextChunk(Google_HttpRequest $req) {
+  public function nextChunk(Google_HttpRequest $req, $chunk=false) {
     if (false == $this->resumeUri) {
       $this->resumeUri = $this->getResumeUri($req);
     }
 
-    $data = substr($this->data, $this->progress, $this->chunkSize);
-    $lastBytePos = $this->progress + strlen($data) - 1;
+    if (false == $chunk) {
+      $chunk = substr($this->data, $this->progress, $this->chunkSize);
+    }
+
+    $lastBytePos = $this->progress + strlen($chunk) - 1;
     $headers = array(
       'content-range' => "bytes $this->progress-$lastBytePos/$this->size",
       'content-type' => $req->getRequestHeader('content-type'),
@@ -214,7 +225,7 @@ class Google_MediaFileUpload {
       'expect' => '',
     );
 
-    $httpRequest = new Google_HttpRequest($this->resumeUri, 'PUT', $headers, $data);
+    $httpRequest = new Google_HttpRequest($this->resumeUri, 'PUT', $headers, $chunk);
     $response = Google_Client::$io->authenticatedRequest($httpRequest);
     $code = $response->getResponseHttpCode();
     if (308 == $code) {
