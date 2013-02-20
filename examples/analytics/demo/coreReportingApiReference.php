@@ -137,7 +137,7 @@ class CoreReportingApiReference {
     return <<<HTML
 <h3>Report Information</h3>
 <pre>
-Contains Sampled Data = {$results->getContainsSampledData()} // TODO Fix ?!?!
+Contains Sampled Data = {$results->getContainsSampledData()}
 Kind                  = {$results->getKind()}
 ID                    = {$results->getId()}
 Self Link             = {$results->getSelfLink()}

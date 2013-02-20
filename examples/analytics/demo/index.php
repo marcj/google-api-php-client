@@ -28,7 +28,10 @@
  *   - enable Analytics API access
  *   - Register for OAuth2.0
  *   - The Redirect URL must be the same as defined in the constant below.
- *     this value should be the exact location of this script.
+ *     this value should be the exact location of this script. So if this
+ *     script resides on the URL: http://localhost/ga-api then both the
+ *     REDIRECT_URI as well as the redirect value in the APIs console must
+ *     be the URL.
  *   Once complete you must copy the Client ID and Client Secret values from
  *   the APIs console into the constants below.
  *
@@ -36,6 +39,7 @@
  * @author Nick Mihailovski <api.nickm@gmail.com>
  */
 require_once '../../../src/Google_Client.php';
+require_once '../../../src/contrib/Google_AnalyticsService.php';
 require_once 'storage.php';
 require_once 'authHelper.php';
 
@@ -79,6 +83,7 @@ $client->setUseObjects(true);
 // Build a new storage object to handle and store tokens in sessions.
 // Create a new storage object to persist the tokens across sessions.
 $storage = new apiSessionStorage();
+
 
 $authHelper = new AuthHelper($client, $storage, THIS_PAGE);
 
