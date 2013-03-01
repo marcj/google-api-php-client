@@ -271,7 +271,7 @@ class Google_Client {
   public function getClientId() {
     return self::$auth->clientId;
   }
-  
+
   /**
    * Set the OAuth 2.0 Client Secret.
    * @param string $clientSecret
@@ -357,6 +357,19 @@ class Google_Client {
   }
 
   /**
+   * If 'plus.login' is included in the list of requested scopes, you can use
+   * you can define types of app activities that your app will write.
+   * You can find a list of available types here:
+   * @link https://developers.google.com/+/api/moment-types
+   *
+   * @param array $requestVisibleActions Array of app activity types
+   */
+  public function setRequestVisibleActions($requestVisibleActions) {
+    self::$auth->requestVisibleActions =
+            join(" ", $requestVisibleActions);
+  }
+
+  /**
    * Declare if objects should be returned by the api service classes.
    *
    * @param boolean $useObjects True if objects should be returned by the service classes.
@@ -430,7 +443,7 @@ class Google_ServiceException extends Google_Exception {
     } else {
       parent::__construct($message, $code);
     }
-    
+
     $this->errors = $errors;
   }
 
