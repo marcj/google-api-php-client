@@ -357,8 +357,17 @@ class Google_Client {
   }
 
   /**
+   * Returns the list of scopes set on the client
+   * @return array the list of scopes
+   *
+   */
+  public function getScopes() {
+     return $this->scopes;
+  }
+
+  /**
    * If 'plus.login' is included in the list of requested scopes, you can use
-   * you can define types of app activities that your app will write.
+   * this method to define types of app activities that your app will write.
    * You can find a list of available types here:
    * @link https://developers.google.com/+/api/moment-types
    *
