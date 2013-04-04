@@ -29,6 +29,11 @@ class Google_AssertionCredentials {
   public $privateKeyPassword;
   public $assertionType;
   public $sub;
+  /**
+   * @deprecated
+   * @link http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-06
+   */
+  public $prn;
 
   /**
    * @param $serviceAccountName
@@ -52,6 +57,7 @@ class Google_AssertionCredentials {
     $this->privateKeyPassword = $privateKeyPassword;
     $this->assertionType = $assertionType;
     $this->sub = $sub;
+    $this->prn = $sub;
   }
 
   public function generateAssertion() {
@@ -67,6 +73,8 @@ class Google_AssertionCredentials {
 
     if ($this->sub !== false) {
       $jwtParams['sub'] = $this->sub;
+    } else if ($this->prn !== false) {
+      $jwtParams['prn'] = $this->prn;
     }
 
     return $this->makeSignedJwt($jwtParams);
