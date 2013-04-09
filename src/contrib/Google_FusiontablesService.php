@@ -20,11 +20,11 @@
    * The "column" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $fusiontablesService = new google_FusiontablesService(...);
+   *   $fusiontablesService = new Google_FusiontablesService(...);
    *   $column = $fusiontablesService->column;
    *  </code>
    */
-  class google_ColumnServiceResource extends Google_ServiceResource {
+  class Google_ColumnServiceResource extends Google_ServiceResource {
 
 
     /**
@@ -46,14 +46,14 @@
      * @param string $tableId Table to which the column belongs.
      * @param string $columnId Name or identifier for the column that is being requested.
      * @param array $optParams Optional parameters.
-     * @return google_Column
+     * @return Google_Column
      */
     public function get($tableId, $columnId, $optParams = array()) {
       $params = array('tableId' => $tableId, 'columnId' => $columnId);
       $params = array_merge($params, $optParams);
       $data = $this->__call('get', array($params));
       if ($this->useObjects()) {
-        return new google_Column($data);
+        return new Google_Column($data);
       } else {
         return $data;
       }
@@ -62,16 +62,16 @@
      * Adds a new column to the table. (column.insert)
      *
      * @param string $tableId Table for which a new column is being added.
-     * @param google_Column $postBody
+     * @param Google_Column $postBody
      * @param array $optParams Optional parameters.
-     * @return google_Column
+     * @return Google_Column
      */
-    public function insert($tableId, google_Column $postBody, $optParams = array()) {
+    public function insert($tableId, Google_Column $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('insert', array($params));
       if ($this->useObjects()) {
-        return new google_Column($data);
+        return new Google_Column($data);
       } else {
         return $data;
       }
@@ -84,14 +84,14 @@
      *
      * @opt_param string pageToken Continuation token specifying which result page to return. Optional.
      * @opt_param string maxResults Maximum number of columns to return. Optional. Default is 5.
-     * @return google_ColumnList
+     * @return Google_ColumnList
      */
     public function listColumn($tableId, $optParams = array()) {
       $params = array('tableId' => $tableId);
       $params = array_merge($params, $optParams);
       $data = $this->__call('list', array($params));
       if ($this->useObjects()) {
-        return new google_ColumnList($data);
+        return new Google_ColumnList($data);
       } else {
         return $data;
       }
@@ -102,16 +102,16 @@
      *
      * @param string $tableId Table for which the column is being updated.
      * @param string $columnId Name or identifier for the column that is being updated.
-     * @param google_Column $postBody
+     * @param Google_Column $postBody
      * @param array $optParams Optional parameters.
-     * @return google_Column
+     * @return Google_Column
      */
-    public function patch($tableId, $columnId, google_Column $postBody, $optParams = array()) {
+    public function patch($tableId, $columnId, Google_Column $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'columnId' => $columnId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('patch', array($params));
       if ($this->useObjects()) {
-        return new google_Column($data);
+        return new Google_Column($data);
       } else {
         return $data;
       }
@@ -121,16 +121,16 @@
      *
      * @param string $tableId Table for which the column is being updated.
      * @param string $columnId Name or identifier for the column that is being updated.
-     * @param google_Column $postBody
+     * @param Google_Column $postBody
      * @param array $optParams Optional parameters.
-     * @return google_Column
+     * @return Google_Column
      */
-    public function update($tableId, $columnId, google_Column $postBody, $optParams = array()) {
+    public function update($tableId, $columnId, Google_Column $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'columnId' => $columnId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('update', array($params));
       if ($this->useObjects()) {
-        return new google_Column($data);
+        return new Google_Column($data);
       } else {
         return $data;
       }
@@ -141,11 +141,11 @@
    * The "query" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $fusiontablesService = new google_FusiontablesService(...);
+   *   $fusiontablesService = new Google_FusiontablesService(...);
    *   $query = $fusiontablesService->query;
    *  </code>
    */
-  class google_QueryServiceResource extends Google_ServiceResource {
+  class Google_QueryServiceResource extends Google_ServiceResource {
 
 
     /**
@@ -156,14 +156,14 @@
      *
      * @opt_param bool typed Should typed values be returned in the (JSON) response -- numbers for numeric values and parsed geometries for KML values? Default is true.
      * @opt_param bool hdrs Should column names be included (in the first row)?. Default is true.
-     * @return google_Sqlresponse
+     * @return Google_Sqlresponse
      */
     public function sql($sql, $optParams = array()) {
       $params = array('sql' => $sql);
       $params = array_merge($params, $optParams);
       $data = $this->__call('sql', array($params));
       if ($this->useObjects()) {
-        return new google_Sqlresponse($data);
+        return new Google_Sqlresponse($data);
       } else {
         return $data;
       }
@@ -176,14 +176,14 @@
      *
      * @opt_param bool typed Should typed values be returned in the (JSON) response -- numbers for numeric values and parsed geometries for KML values? Default is true.
      * @opt_param bool hdrs Should column names be included (in the first row)?. Default is true.
-     * @return google_Sqlresponse
+     * @return Google_Sqlresponse
      */
     public function sqlGet($sql, $optParams = array()) {
       $params = array('sql' => $sql);
       $params = array_merge($params, $optParams);
       $data = $this->__call('sqlGet', array($params));
       if ($this->useObjects()) {
-        return new google_Sqlresponse($data);
+        return new Google_Sqlresponse($data);
       } else {
         return $data;
       }
@@ -194,11 +194,11 @@
    * The "style" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $fusiontablesService = new google_FusiontablesService(...);
+   *   $fusiontablesService = new Google_FusiontablesService(...);
    *   $style = $fusiontablesService->style;
    *  </code>
    */
-  class google_StyleServiceResource extends Google_ServiceResource {
+  class Google_StyleServiceResource extends Google_ServiceResource {
 
 
     /**
@@ -220,14 +220,14 @@
      * @param string $tableId Table to which the requested style belongs
      * @param int $styleId Identifier (integer) for a specific style in a table
      * @param array $optParams Optional parameters.
-     * @return google_StyleSetting
+     * @return Google_StyleSetting
      */
     public function get($tableId, $styleId, $optParams = array()) {
       $params = array('tableId' => $tableId, 'styleId' => $styleId);
       $params = array_merge($params, $optParams);
       $data = $this->__call('get', array($params));
       if ($this->useObjects()) {
-        return new google_StyleSetting($data);
+        return new Google_StyleSetting($data);
       } else {
         return $data;
       }
@@ -236,16 +236,16 @@
      * Adds a new style for the table. (style.insert)
      *
      * @param string $tableId Table for which a new style is being added
-     * @param google_StyleSetting $postBody
+     * @param Google_StyleSetting $postBody
      * @param array $optParams Optional parameters.
-     * @return google_StyleSetting
+     * @return Google_StyleSetting
      */
-    public function insert($tableId, google_StyleSetting $postBody, $optParams = array()) {
+    public function insert($tableId, Google_StyleSetting $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('insert', array($params));
       if ($this->useObjects()) {
-        return new google_StyleSetting($data);
+        return new Google_StyleSetting($data);
       } else {
         return $data;
       }
@@ -258,14 +258,14 @@
      *
      * @opt_param string pageToken Continuation token specifying which result page to return. Optional.
      * @opt_param string maxResults Maximum number of styles to return. Optional. Default is 5.
-     * @return google_StyleSettingList
+     * @return Google_StyleSettingList
      */
     public function listStyle($tableId, $optParams = array()) {
       $params = array('tableId' => $tableId);
       $params = array_merge($params, $optParams);
       $data = $this->__call('list', array($params));
       if ($this->useObjects()) {
-        return new google_StyleSettingList($data);
+        return new Google_StyleSettingList($data);
       } else {
         return $data;
       }
@@ -275,16 +275,16 @@
      *
      * @param string $tableId Table whose style is being updated.
      * @param int $styleId Identifier (within a table) for the style being updated.
-     * @param google_StyleSetting $postBody
+     * @param Google_StyleSetting $postBody
      * @param array $optParams Optional parameters.
-     * @return google_StyleSetting
+     * @return Google_StyleSetting
      */
-    public function patch($tableId, $styleId, google_StyleSetting $postBody, $optParams = array()) {
+    public function patch($tableId, $styleId, Google_StyleSetting $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'styleId' => $styleId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('patch', array($params));
       if ($this->useObjects()) {
-        return new google_StyleSetting($data);
+        return new Google_StyleSetting($data);
       } else {
         return $data;
       }
@@ -294,16 +294,16 @@
      *
      * @param string $tableId Table whose style is being updated.
      * @param int $styleId Identifier (within a table) for the style being updated.
-     * @param google_StyleSetting $postBody
+     * @param Google_StyleSetting $postBody
      * @param array $optParams Optional parameters.
-     * @return google_StyleSetting
+     * @return Google_StyleSetting
      */
-    public function update($tableId, $styleId, google_StyleSetting $postBody, $optParams = array()) {
+    public function update($tableId, $styleId, Google_StyleSetting $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'styleId' => $styleId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('update', array($params));
       if ($this->useObjects()) {
-        return new google_StyleSetting($data);
+        return new Google_StyleSetting($data);
       } else {
         return $data;
       }
@@ -314,11 +314,11 @@
    * The "table" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $fusiontablesService = new google_FusiontablesService(...);
+   *   $fusiontablesService = new Google_FusiontablesService(...);
    *   $table = $fusiontablesService->table;
    *  </code>
    */
-  class google_TableServiceResource extends Google_ServiceResource {
+  class Google_TableServiceResource extends Google_ServiceResource {
 
 
     /**
@@ -328,14 +328,14 @@
      * @param array $optParams Optional parameters.
      *
      * @opt_param bool copyPresentation Whether to also copy tabs, styles, and templates. Default is false.
-     * @return google_Table
+     * @return Google_Table
      */
     public function copy($tableId, $optParams = array()) {
       $params = array('tableId' => $tableId);
       $params = array_merge($params, $optParams);
       $data = $this->__call('copy', array($params));
       if ($this->useObjects()) {
-        return new google_Table($data);
+        return new Google_Table($data);
       } else {
         return $data;
       }
@@ -357,14 +357,14 @@
      *
      * @param string $tableId Identifier(ID) for the table being requested.
      * @param array $optParams Optional parameters.
-     * @return google_Table
+     * @return Google_Table
      */
     public function get($tableId, $optParams = array()) {
       $params = array('tableId' => $tableId);
       $params = array_merge($params, $optParams);
       $data = $this->__call('get', array($params));
       if ($this->useObjects()) {
-        return new google_Table($data);
+        return new Google_Table($data);
       } else {
         return $data;
       }
@@ -380,14 +380,14 @@
      * @opt_param string encoding The encoding of the content. Default is UTF-8. Use 'auto-detect' if you are unsure of the encoding.
      * @opt_param string delimiter The delimiter used to separate cell values. This can only consist of a single character. Default is ','.
      * @opt_param int endLine The index of the last line from which to start importing, exclusive. Thus, the number of imported lines is endLine - startLine. If this parameter is not provided, the file will be imported until the last line of the file. If endLine is negative, then the imported content will exclude the last endLine lines. That is, if endline is negative, no line will be imported whose index is greater than N + endLine where N is the number of lines in the file, and the number of imported lines will be N + endLine - startLine.
-     * @return google_Import
+     * @return Google_Import
      */
     public function importRows($tableId, $optParams = array()) {
       $params = array('tableId' => $tableId);
       $params = array_merge($params, $optParams);
       $data = $this->__call('importRows', array($params));
       if ($this->useObjects()) {
-        return new google_Import($data);
+        return new Google_Import($data);
       } else {
         return $data;
       }
@@ -395,16 +395,16 @@
     /**
      * Creates a new table. (table.insert)
      *
-     * @param google_Table $postBody
+     * @param Google_Table $postBody
      * @param array $optParams Optional parameters.
-     * @return google_Table
+     * @return Google_Table
      */
-    public function insert(google_Table $postBody, $optParams = array()) {
+    public function insert(Google_Table $postBody, $optParams = array()) {
       $params = array('postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('insert', array($params));
       if ($this->useObjects()) {
-        return new google_Table($data);
+        return new Google_Table($data);
       } else {
         return $data;
       }
@@ -416,14 +416,14 @@
      *
      * @opt_param string pageToken Continuation token specifying which result page to return. Optional.
      * @opt_param string maxResults Maximum number of styles to return. Optional. Default is 5.
-     * @return google_TableList
+     * @return Google_TableList
      */
     public function listTable($optParams = array()) {
       $params = array();
       $params = array_merge($params, $optParams);
       $data = $this->__call('list', array($params));
       if ($this->useObjects()) {
-        return new google_TableList($data);
+        return new Google_TableList($data);
       } else {
         return $data;
       }
@@ -433,18 +433,18 @@
      * attribution will be updated. This method supports patch semantics. (table.patch)
      *
      * @param string $tableId ID of the table that is being updated.
-     * @param google_Table $postBody
+     * @param Google_Table $postBody
      * @param array $optParams Optional parameters.
      *
      * @opt_param bool replaceViewDefinition Should the view definition also be updated? The specified view definition replaces the existing one. Only a view can be updated with a new definition.
-     * @return google_Table
+     * @return Google_Table
      */
-    public function patch($tableId, google_Table $postBody, $optParams = array()) {
+    public function patch($tableId, Google_Table $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('patch', array($params));
       if ($this->useObjects()) {
-        return new google_Table($data);
+        return new Google_Table($data);
       } else {
         return $data;
       }
@@ -454,18 +454,18 @@
      * attribution will be updated. (table.update)
      *
      * @param string $tableId ID of the table that is being updated.
-     * @param google_Table $postBody
+     * @param Google_Table $postBody
      * @param array $optParams Optional parameters.
      *
      * @opt_param bool replaceViewDefinition Should the view definition also be updated? The specified view definition replaces the existing one. Only a view can be updated with a new definition.
-     * @return google_Table
+     * @return Google_Table
      */
-    public function update($tableId, google_Table $postBody, $optParams = array()) {
+    public function update($tableId, Google_Table $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('update', array($params));
       if ($this->useObjects()) {
-        return new google_Table($data);
+        return new Google_Table($data);
       } else {
         return $data;
       }
@@ -476,11 +476,11 @@
    * The "template" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $fusiontablesService = new google_FusiontablesService(...);
+   *   $fusiontablesService = new Google_FusiontablesService(...);
    *   $template = $fusiontablesService->template;
    *  </code>
    */
-  class google_TemplateServiceResource extends Google_ServiceResource {
+  class Google_TemplateServiceResource extends Google_ServiceResource {
 
 
     /**
@@ -502,14 +502,14 @@
      * @param string $tableId Table to which the template belongs
      * @param int $templateId Identifier for the template that is being requested
      * @param array $optParams Optional parameters.
-     * @return google_Template
+     * @return Google_Template
      */
     public function get($tableId, $templateId, $optParams = array()) {
       $params = array('tableId' => $tableId, 'templateId' => $templateId);
       $params = array_merge($params, $optParams);
       $data = $this->__call('get', array($params));
       if ($this->useObjects()) {
-        return new google_Template($data);
+        return new Google_Template($data);
       } else {
         return $data;
       }
@@ -518,16 +518,16 @@
      * Creates a new template for the table. (template.insert)
      *
      * @param string $tableId Table for which a new template is being created
-     * @param google_Template $postBody
+     * @param Google_Template $postBody
      * @param array $optParams Optional parameters.
-     * @return google_Template
+     * @return Google_Template
      */
-    public function insert($tableId, google_Template $postBody, $optParams = array()) {
+    public function insert($tableId, Google_Template $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('insert', array($params));
       if ($this->useObjects()) {
-        return new google_Template($data);
+        return new Google_Template($data);
       } else {
         return $data;
       }
@@ -540,14 +540,14 @@
      *
      * @opt_param string pageToken Continuation token specifying which results page to return. Optional.
      * @opt_param string maxResults Maximum number of templates to return. Optional. Default is 5.
-     * @return google_TemplateList
+     * @return Google_TemplateList
      */
     public function listTemplate($tableId, $optParams = array()) {
       $params = array('tableId' => $tableId);
       $params = array_merge($params, $optParams);
       $data = $this->__call('list', array($params));
       if ($this->useObjects()) {
-        return new google_TemplateList($data);
+        return new Google_TemplateList($data);
       } else {
         return $data;
       }
@@ -557,16 +557,16 @@
      *
      * @param string $tableId Table to which the updated template belongs
      * @param int $templateId Identifier for the template that is being updated
-     * @param google_Template $postBody
+     * @param Google_Template $postBody
      * @param array $optParams Optional parameters.
-     * @return google_Template
+     * @return Google_Template
      */
-    public function patch($tableId, $templateId, google_Template $postBody, $optParams = array()) {
+    public function patch($tableId, $templateId, Google_Template $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'templateId' => $templateId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('patch', array($params));
       if ($this->useObjects()) {
-        return new google_Template($data);
+        return new Google_Template($data);
       } else {
         return $data;
       }
@@ -576,16 +576,16 @@
      *
      * @param string $tableId Table to which the updated template belongs
      * @param int $templateId Identifier for the template that is being updated
-     * @param google_Template $postBody
+     * @param Google_Template $postBody
      * @param array $optParams Optional parameters.
-     * @return google_Template
+     * @return Google_Template
      */
-    public function update($tableId, $templateId, google_Template $postBody, $optParams = array()) {
+    public function update($tableId, $templateId, Google_Template $postBody, $optParams = array()) {
       $params = array('tableId' => $tableId, 'templateId' => $templateId, 'postBody' => $postBody);
       $params = array_merge($params, $optParams);
       $data = $this->__call('update', array($params));
       if ($this->useObjects()) {
-        return new google_Template($data);
+        return new Google_Template($data);
       } else {
         return $data;
       }
@@ -593,7 +593,7 @@
   }
 
 /**
- * Service definition for google_Fusiontables (v1).
+ * Service definition for Google_Fusiontables (v1).
  *
  * <p>
  * API for working with Fusion Tables data.
@@ -606,7 +606,7 @@
  *
  * @author Google, Inc.
  */
-class google_FusiontablesService extends Google_Service {
+class Google_FusiontablesService extends Google_Service {
   public $column;
   public $query;
   public $style;
@@ -623,16 +623,16 @@ class google_FusiontablesService extends Google_Service {
     $this->serviceName = 'fusiontables';
 
     $client->addService($this->serviceName, $this->version);
-    $this->column = new google_ColumnServiceResource($this, $this->serviceName, 'column', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Column"}, "response": {"$ref": "Column"}, "httpMethod": "POST", "path": "tables/{tableId}/columns", "id": "fusiontables.column.insert"}, "get": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "columnId": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "Column"}, "httpMethod": "GET", "path": "tables/{tableId}/columns/{columnId}", "id": "fusiontables.column.get"}, "list": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"location": "query", "minimum": "0", "type": "integer", "format": "uint32"}}, "response": {"$ref": "ColumnList"}, "httpMethod": "GET", "path": "tables/{tableId}/columns", "id": "fusiontables.column.list"}, "update": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "columnId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Column"}, "response": {"$ref": "Column"}, "httpMethod": "PUT", "path": "tables/{tableId}/columns/{columnId}", "id": "fusiontables.column.update"}, "patch": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "columnId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Column"}, "response": {"$ref": "Column"}, "httpMethod": "PATCH", "path": "tables/{tableId}/columns/{columnId}", "id": "fusiontables.column.patch"}, "delete": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "columnId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "tables/{tableId}/columns/{columnId}", "id": "fusiontables.column.delete"}}}', true));
-    $this->query = new google_QueryServiceResource($this, $this->serviceName, 'query', json_decode('{"methods": {"sqlGet": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"typed": {"type": "boolean", "location": "query"}, "hdrs": {"type": "boolean", "location": "query"}, "sql": {"required": true, "type": "string", "location": "query"}}, "response": {"$ref": "Sqlresponse"}, "httpMethod": "GET", "path": "query", "id": "fusiontables.query.sqlGet"}, "sql": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"typed": {"type": "boolean", "location": "query"}, "hdrs": {"type": "boolean", "location": "query"}, "sql": {"required": true, "type": "string", "location": "query"}}, "response": {"$ref": "Sqlresponse"}, "httpMethod": "POST", "path": "query", "id": "fusiontables.query.sql"}}}', true));
-    $this->style = new google_StyleServiceResource($this, $this->serviceName, 'style', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "StyleSetting"}, "response": {"$ref": "StyleSetting"}, "httpMethod": "POST", "path": "tables/{tableId}/styles", "id": "fusiontables.style.insert"}, "get": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "styleId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "response": {"$ref": "StyleSetting"}, "httpMethod": "GET", "path": "tables/{tableId}/styles/{styleId}", "id": "fusiontables.style.get"}, "list": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"location": "query", "minimum": "0", "type": "integer", "format": "uint32"}}, "response": {"$ref": "StyleSettingList"}, "httpMethod": "GET", "path": "tables/{tableId}/styles", "id": "fusiontables.style.list"}, "update": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "styleId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "request": {"$ref": "StyleSetting"}, "response": {"$ref": "StyleSetting"}, "httpMethod": "PUT", "path": "tables/{tableId}/styles/{styleId}", "id": "fusiontables.style.update"}, "patch": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "styleId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "request": {"$ref": "StyleSetting"}, "response": {"$ref": "StyleSetting"}, "httpMethod": "PATCH", "path": "tables/{tableId}/styles/{styleId}", "id": "fusiontables.style.patch"}, "delete": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "styleId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "httpMethod": "DELETE", "path": "tables/{tableId}/styles/{styleId}", "id": "fusiontables.style.delete"}}}', true));
-    $this->table = new google_TableServiceResource($this, $this->serviceName, 'table', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "request": {"$ref": "Table"}, "id": "fusiontables.table.insert", "httpMethod": "POST", "path": "tables", "response": {"$ref": "Table"}}, "get": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "Table"}, "httpMethod": "GET", "path": "tables/{tableId}", "id": "fusiontables.table.get"}, "importRows": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"startLine": {"location": "query", "type": "integer", "format": "int32"}, "isStrict": {"type": "boolean", "location": "query"}, "encoding": {"type": "string", "location": "query"}, "delimiter": {"type": "string", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}, "endLine": {"location": "query", "type": "integer", "format": "int32"}}, "supportsMediaUpload": true, "mediaUpload": {"maxSize": "100MB", "protocols": {"simple": {"path": "/upload/fusiontables/v1/tables/{tableId}/import", "multipart": true}, "resumable": {"path": "/resumable/upload/fusiontables/v1/tables/{tableId}/import", "multipart": true}}, "accept": ["application/octet-stream"]}, "response": {"$ref": "Import"}, "httpMethod": "POST", "path": "tables/{tableId}/import", "id": "fusiontables.table.importRows"}, "list": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "maxResults": {"location": "query", "minimum": "0", "type": "integer", "format": "uint32"}}, "id": "fusiontables.table.list", "httpMethod": "GET", "path": "tables", "response": {"$ref": "TableList"}}, "update": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"replaceViewDefinition": {"type": "boolean", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "response": {"$ref": "Table"}, "httpMethod": "PUT", "path": "tables/{tableId}", "id": "fusiontables.table.update"}, "patch": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"replaceViewDefinition": {"type": "boolean", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "response": {"$ref": "Table"}, "httpMethod": "PATCH", "path": "tables/{tableId}", "id": "fusiontables.table.patch"}, "copy": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"copyPresentation": {"type": "boolean", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "Table"}, "httpMethod": "POST", "path": "tables/{tableId}/copy", "id": "fusiontables.table.copy"}, "delete": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "tables/{tableId}", "id": "fusiontables.table.delete"}}}', true));
-    $this->template = new google_TemplateServiceResource($this, $this->serviceName, 'template', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Template"}, "response": {"$ref": "Template"}, "httpMethod": "POST", "path": "tables/{tableId}/templates", "id": "fusiontables.template.insert"}, "get": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "templateId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "response": {"$ref": "Template"}, "httpMethod": "GET", "path": "tables/{tableId}/templates/{templateId}", "id": "fusiontables.template.get"}, "list": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"location": "query", "minimum": "0", "type": "integer", "format": "uint32"}}, "response": {"$ref": "TemplateList"}, "httpMethod": "GET", "path": "tables/{tableId}/templates", "id": "fusiontables.template.list"}, "update": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "templateId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "request": {"$ref": "Template"}, "response": {"$ref": "Template"}, "httpMethod": "PUT", "path": "tables/{tableId}/templates/{templateId}", "id": "fusiontables.template.update"}, "patch": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "templateId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "request": {"$ref": "Template"}, "response": {"$ref": "Template"}, "httpMethod": "PATCH", "path": "tables/{tableId}/templates/{templateId}", "id": "fusiontables.template.patch"}, "delete": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "templateId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "httpMethod": "DELETE", "path": "tables/{tableId}/templates/{templateId}", "id": "fusiontables.template.delete"}}}', true));
+    $this->column = new Google_ColumnServiceResource($this, $this->serviceName, 'column', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Column"}, "response": {"$ref": "Column"}, "httpMethod": "POST", "path": "tables/{tableId}/columns", "id": "fusiontables.column.insert"}, "get": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "columnId": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "Column"}, "httpMethod": "GET", "path": "tables/{tableId}/columns/{columnId}", "id": "fusiontables.column.get"}, "list": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"location": "query", "minimum": "0", "type": "integer", "format": "uint32"}}, "response": {"$ref": "ColumnList"}, "httpMethod": "GET", "path": "tables/{tableId}/columns", "id": "fusiontables.column.list"}, "update": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "columnId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Column"}, "response": {"$ref": "Column"}, "httpMethod": "PUT", "path": "tables/{tableId}/columns/{columnId}", "id": "fusiontables.column.update"}, "patch": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "columnId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Column"}, "response": {"$ref": "Column"}, "httpMethod": "PATCH", "path": "tables/{tableId}/columns/{columnId}", "id": "fusiontables.column.patch"}, "delete": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "columnId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "tables/{tableId}/columns/{columnId}", "id": "fusiontables.column.delete"}}}', true));
+    $this->query = new Google_QueryServiceResource($this, $this->serviceName, 'query', json_decode('{"methods": {"sqlGet": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"typed": {"type": "boolean", "location": "query"}, "hdrs": {"type": "boolean", "location": "query"}, "sql": {"required": true, "type": "string", "location": "query"}}, "response": {"$ref": "Sqlresponse"}, "httpMethod": "GET", "path": "query", "id": "fusiontables.query.sqlGet"}, "sql": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"typed": {"type": "boolean", "location": "query"}, "hdrs": {"type": "boolean", "location": "query"}, "sql": {"required": true, "type": "string", "location": "query"}}, "response": {"$ref": "Sqlresponse"}, "httpMethod": "POST", "path": "query", "id": "fusiontables.query.sql"}}}', true));
+    $this->style = new Google_StyleServiceResource($this, $this->serviceName, 'style', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "StyleSetting"}, "response": {"$ref": "StyleSetting"}, "httpMethod": "POST", "path": "tables/{tableId}/styles", "id": "fusiontables.style.insert"}, "get": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "styleId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "response": {"$ref": "StyleSetting"}, "httpMethod": "GET", "path": "tables/{tableId}/styles/{styleId}", "id": "fusiontables.style.get"}, "list": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"location": "query", "minimum": "0", "type": "integer", "format": "uint32"}}, "response": {"$ref": "StyleSettingList"}, "httpMethod": "GET", "path": "tables/{tableId}/styles", "id": "fusiontables.style.list"}, "update": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "styleId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "request": {"$ref": "StyleSetting"}, "response": {"$ref": "StyleSetting"}, "httpMethod": "PUT", "path": "tables/{tableId}/styles/{styleId}", "id": "fusiontables.style.update"}, "patch": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "styleId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "request": {"$ref": "StyleSetting"}, "response": {"$ref": "StyleSetting"}, "httpMethod": "PATCH", "path": "tables/{tableId}/styles/{styleId}", "id": "fusiontables.style.patch"}, "delete": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "styleId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "httpMethod": "DELETE", "path": "tables/{tableId}/styles/{styleId}", "id": "fusiontables.style.delete"}}}', true));
+    $this->table = new Google_TableServiceResource($this, $this->serviceName, 'table', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "request": {"$ref": "Table"}, "id": "fusiontables.table.insert", "httpMethod": "POST", "path": "tables", "response": {"$ref": "Table"}}, "get": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "Table"}, "httpMethod": "GET", "path": "tables/{tableId}", "id": "fusiontables.table.get"}, "importRows": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"startLine": {"location": "query", "type": "integer", "format": "int32"}, "isStrict": {"type": "boolean", "location": "query"}, "encoding": {"type": "string", "location": "query"}, "delimiter": {"type": "string", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}, "endLine": {"location": "query", "type": "integer", "format": "int32"}}, "supportsMediaUpload": true, "mediaUpload": {"maxSize": "100MB", "protocols": {"simple": {"path": "/upload/fusiontables/v1/tables/{tableId}/import", "multipart": true}, "resumable": {"path": "/resumable/upload/fusiontables/v1/tables/{tableId}/import", "multipart": true}}, "accept": ["application/octet-stream"]}, "response": {"$ref": "Import"}, "httpMethod": "POST", "path": "tables/{tableId}/import", "id": "fusiontables.table.importRows"}, "list": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "maxResults": {"location": "query", "minimum": "0", "type": "integer", "format": "uint32"}}, "id": "fusiontables.table.list", "httpMethod": "GET", "path": "tables", "response": {"$ref": "TableList"}}, "update": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"replaceViewDefinition": {"type": "boolean", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "response": {"$ref": "Table"}, "httpMethod": "PUT", "path": "tables/{tableId}", "id": "fusiontables.table.update"}, "patch": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"replaceViewDefinition": {"type": "boolean", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Table"}, "response": {"$ref": "Table"}, "httpMethod": "PATCH", "path": "tables/{tableId}", "id": "fusiontables.table.patch"}, "copy": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"copyPresentation": {"type": "boolean", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "Table"}, "httpMethod": "POST", "path": "tables/{tableId}/copy", "id": "fusiontables.table.copy"}, "delete": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "DELETE", "path": "tables/{tableId}", "id": "fusiontables.table.delete"}}}', true));
+    $this->template = new Google_TemplateServiceResource($this, $this->serviceName, 'template', json_decode('{"methods": {"insert": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}}, "request": {"$ref": "Template"}, "response": {"$ref": "Template"}, "httpMethod": "POST", "path": "tables/{tableId}/templates", "id": "fusiontables.template.insert"}, "get": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "templateId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "response": {"$ref": "Template"}, "httpMethod": "GET", "path": "tables/{tableId}/templates/{templateId}", "id": "fusiontables.template.get"}, "list": {"scopes": ["https://www.googleapis.com/auth/fusiontables", "https://www.googleapis.com/auth/fusiontables.readonly"], "parameters": {"pageToken": {"type": "string", "location": "query"}, "tableId": {"required": true, "type": "string", "location": "path"}, "maxResults": {"location": "query", "minimum": "0", "type": "integer", "format": "uint32"}}, "response": {"$ref": "TemplateList"}, "httpMethod": "GET", "path": "tables/{tableId}/templates", "id": "fusiontables.template.list"}, "update": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "templateId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "request": {"$ref": "Template"}, "response": {"$ref": "Template"}, "httpMethod": "PUT", "path": "tables/{tableId}/templates/{templateId}", "id": "fusiontables.template.update"}, "patch": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "templateId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "request": {"$ref": "Template"}, "response": {"$ref": "Template"}, "httpMethod": "PATCH", "path": "tables/{tableId}/templates/{templateId}", "id": "fusiontables.template.patch"}, "delete": {"scopes": ["https://www.googleapis.com/auth/fusiontables"], "parameters": {"tableId": {"required": true, "type": "string", "location": "path"}, "templateId": {"location": "path", "required": true, "type": "integer", "format": "int32"}}, "httpMethod": "DELETE", "path": "tables/{tableId}/templates/{templateId}", "id": "fusiontables.template.delete"}}}', true));
 
   }
 }
 
-class google_Bucket extends Google_Model {
+class Google_Bucket extends Google_Model {
   public $color;
   public $icon;
   public $max;
@@ -677,15 +677,15 @@ class google_Bucket extends Google_Model {
   }
 }
 
-class google_Column extends Google_Model {
-  protected $__baseColumnType = 'google_ColumnBaseColumn';
+class Google_Column extends Google_Model {
+  protected $__baseColumnType = 'Google_ColumnBaseColumn';
   protected $__baseColumnDataType = '';
   public $baseColumn;
   public $columnId;
   public $kind;
   public $name;
   public $type;
-  public function setBaseColumn(google_ColumnBaseColumn $baseColumn) {
+  public function setBaseColumn(Google_ColumnBaseColumn $baseColumn) {
     $this->baseColumn = $baseColumn;
   }
   public function getBaseColumn() {
@@ -717,7 +717,7 @@ class google_Column extends Google_Model {
   }
 }
 
-class google_ColumnBaseColumn extends Google_Model {
+class Google_ColumnBaseColumn extends Google_Model {
   public $columnId;
   public $tableIndex;
   public function setColumnId($columnId) {
@@ -734,15 +734,15 @@ class google_ColumnBaseColumn extends Google_Model {
   }
 }
 
-class google_ColumnList extends Google_Model {
-  protected $__itemsType = 'google_Column';
+class Google_ColumnList extends Google_Model {
+  protected $__itemsType = 'Google_Column';
   protected $__itemsDataType = 'array';
   public $items;
   public $kind;
   public $nextPageToken;
   public $totalItems;
-  public function setItems(/* array(google_Column) */ $items) {
-    $this->assertIsArray($items, 'google_Column', __METHOD__);
+  public function setItems(/* array(Google_Column) */ $items) {
+    $this->assertIsArray($items, 'Google_Column', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -768,12 +768,12 @@ class google_ColumnList extends Google_Model {
   }
 }
 
-class google_Geometry extends Google_Model {
+class Google_Geometry extends Google_Model {
   public $geometries;
   public $geometry;
   public $type;
-  public function setGeometries(/* array(google_object) */ $geometries) {
-    $this->assertIsArray($geometries, 'google_object', __METHOD__);
+  public function setGeometries(/* array(Google_object) */ $geometries) {
+    $this->assertIsArray($geometries, 'Google_object', __METHOD__);
     $this->geometries = $geometries;
   }
   public function getGeometries() {
@@ -793,7 +793,7 @@ class google_Geometry extends Google_Model {
   }
 }
 
-class google_Import extends Google_Model {
+class Google_Import extends Google_Model {
   public $kind;
   public $numRowsReceived;
   public function setKind($kind) {
@@ -810,11 +810,11 @@ class google_Import extends Google_Model {
   }
 }
 
-class google_Line extends Google_Model {
+class Google_Line extends Google_Model {
   public $coordinates;
   public $type;
-  public function setCoordinates(/* array(google_double) */ $coordinates) {
-    $this->assertIsArray($coordinates, 'google_double', __METHOD__);
+  public function setCoordinates(/* array(Google_double) */ $coordinates) {
+    $this->assertIsArray($coordinates, 'Google_double', __METHOD__);
     $this->coordinates = $coordinates;
   }
   public function getCoordinates() {
@@ -828,14 +828,14 @@ class google_Line extends Google_Model {
   }
 }
 
-class google_LineStyle extends Google_Model {
+class Google_LineStyle extends Google_Model {
   public $strokeColor;
-  protected $__strokeColorStylerType = 'google_StyleFunction';
+  protected $__strokeColorStylerType = 'Google_StyleFunction';
   protected $__strokeColorStylerDataType = '';
   public $strokeColorStyler;
   public $strokeOpacity;
   public $strokeWeight;
-  protected $__strokeWeightStylerType = 'google_StyleFunction';
+  protected $__strokeWeightStylerType = 'Google_StyleFunction';
   protected $__strokeWeightStylerDataType = '';
   public $strokeWeightStyler;
   public function setStrokeColor($strokeColor) {
@@ -844,7 +844,7 @@ class google_LineStyle extends Google_Model {
   public function getStrokeColor() {
     return $this->strokeColor;
   }
-  public function setStrokeColorStyler(google_StyleFunction $strokeColorStyler) {
+  public function setStrokeColorStyler(Google_StyleFunction $strokeColorStyler) {
     $this->strokeColorStyler = $strokeColorStyler;
   }
   public function getStrokeColorStyler() {
@@ -862,7 +862,7 @@ class google_LineStyle extends Google_Model {
   public function getStrokeWeight() {
     return $this->strokeWeight;
   }
-  public function setStrokeWeightStyler(google_StyleFunction $strokeWeightStyler) {
+  public function setStrokeWeightStyler(Google_StyleFunction $strokeWeightStyler) {
     $this->strokeWeightStyler = $strokeWeightStyler;
   }
   public function getStrokeWeightStyler() {
@@ -870,11 +870,11 @@ class google_LineStyle extends Google_Model {
   }
 }
 
-class google_Point extends Google_Model {
+class Google_Point extends Google_Model {
   public $coordinates;
   public $type;
-  public function setCoordinates(/* array(google_double) */ $coordinates) {
-    $this->assertIsArray($coordinates, 'google_double', __METHOD__);
+  public function setCoordinates(/* array(Google_double) */ $coordinates) {
+    $this->assertIsArray($coordinates, 'Google_double', __METHOD__);
     $this->coordinates = $coordinates;
   }
   public function getCoordinates() {
@@ -888,9 +888,9 @@ class google_Point extends Google_Model {
   }
 }
 
-class google_PointStyle extends Google_Model {
+class Google_PointStyle extends Google_Model {
   public $iconName;
-  protected $__iconStylerType = 'google_StyleFunction';
+  protected $__iconStylerType = 'Google_StyleFunction';
   protected $__iconStylerDataType = '';
   public $iconStyler;
   public function setIconName($iconName) {
@@ -899,7 +899,7 @@ class google_PointStyle extends Google_Model {
   public function getIconName() {
     return $this->iconName;
   }
-  public function setIconStyler(google_StyleFunction $iconStyler) {
+  public function setIconStyler(Google_StyleFunction $iconStyler) {
     $this->iconStyler = $iconStyler;
   }
   public function getIconStyler() {
@@ -907,11 +907,11 @@ class google_PointStyle extends Google_Model {
   }
 }
 
-class google_Polygon extends Google_Model {
+class Google_Polygon extends Google_Model {
   public $coordinates;
   public $type;
-  public function setCoordinates(/* array(google_double) */ $coordinates) {
-    $this->assertIsArray($coordinates, 'google_double', __METHOD__);
+  public function setCoordinates(/* array(Google_double) */ $coordinates) {
+    $this->assertIsArray($coordinates, 'Google_double', __METHOD__);
     $this->coordinates = $coordinates;
   }
   public function getCoordinates() {
@@ -925,19 +925,19 @@ class google_Polygon extends Google_Model {
   }
 }
 
-class google_PolygonStyle extends Google_Model {
+class Google_PolygonStyle extends Google_Model {
   public $fillColor;
-  protected $__fillColorStylerType = 'google_StyleFunction';
+  protected $__fillColorStylerType = 'Google_StyleFunction';
   protected $__fillColorStylerDataType = '';
   public $fillColorStyler;
   public $fillOpacity;
   public $strokeColor;
-  protected $__strokeColorStylerType = 'google_StyleFunction';
+  protected $__strokeColorStylerType = 'Google_StyleFunction';
   protected $__strokeColorStylerDataType = '';
   public $strokeColorStyler;
   public $strokeOpacity;
   public $strokeWeight;
-  protected $__strokeWeightStylerType = 'google_StyleFunction';
+  protected $__strokeWeightStylerType = 'Google_StyleFunction';
   protected $__strokeWeightStylerDataType = '';
   public $strokeWeightStyler;
   public function setFillColor($fillColor) {
@@ -946,7 +946,7 @@ class google_PolygonStyle extends Google_Model {
   public function getFillColor() {
     return $this->fillColor;
   }
-  public function setFillColorStyler(google_StyleFunction $fillColorStyler) {
+  public function setFillColorStyler(Google_StyleFunction $fillColorStyler) {
     $this->fillColorStyler = $fillColorStyler;
   }
   public function getFillColorStyler() {
@@ -964,7 +964,7 @@ class google_PolygonStyle extends Google_Model {
   public function getStrokeColor() {
     return $this->strokeColor;
   }
-  public function setStrokeColorStyler(google_StyleFunction $strokeColorStyler) {
+  public function setStrokeColorStyler(Google_StyleFunction $strokeColorStyler) {
     $this->strokeColorStyler = $strokeColorStyler;
   }
   public function getStrokeColorStyler() {
@@ -982,7 +982,7 @@ class google_PolygonStyle extends Google_Model {
   public function getStrokeWeight() {
     return $this->strokeWeight;
   }
-  public function setStrokeWeightStyler(google_StyleFunction $strokeWeightStyler) {
+  public function setStrokeWeightStyler(Google_StyleFunction $strokeWeightStyler) {
     $this->strokeWeightStyler = $strokeWeightStyler;
   }
   public function getStrokeWeightStyler() {
@@ -990,12 +990,12 @@ class google_PolygonStyle extends Google_Model {
   }
 }
 
-class google_Sqlresponse extends Google_Model {
+class Google_Sqlresponse extends Google_Model {
   public $columns;
   public $kind;
   public $rows;
-  public function setColumns(/* array(google_string) */ $columns) {
-    $this->assertIsArray($columns, 'google_string', __METHOD__);
+  public function setColumns(/* array(Google_string) */ $columns) {
+    $this->assertIsArray($columns, 'Google_string', __METHOD__);
     $this->columns = $columns;
   }
   public function getColumns() {
@@ -1007,8 +1007,8 @@ class google_Sqlresponse extends Google_Model {
   public function getKind() {
     return $this->kind;
   }
-  public function setRows(/* array(google_object) */ $rows) {
-    $this->assertIsArray($rows, 'google_object', __METHOD__);
+  public function setRows(/* array(Google_object) */ $rows) {
+    $this->assertIsArray($rows, 'Google_object', __METHOD__);
     $this->rows = $rows;
   }
   public function getRows() {
@@ -1016,17 +1016,17 @@ class google_Sqlresponse extends Google_Model {
   }
 }
 
-class google_StyleFunction extends Google_Model {
-  protected $__bucketsType = 'google_Bucket';
+class Google_StyleFunction extends Google_Model {
+  protected $__bucketsType = 'Google_Bucket';
   protected $__bucketsDataType = 'array';
   public $buckets;
   public $columnName;
-  protected $__gradientType = 'google_StyleFunctionGradient';
+  protected $__gradientType = 'Google_StyleFunctionGradient';
   protected $__gradientDataType = '';
   public $gradient;
   public $kind;
-  public function setBuckets(/* array(google_Bucket) */ $buckets) {
-    $this->assertIsArray($buckets, 'google_Bucket', __METHOD__);
+  public function setBuckets(/* array(Google_Bucket) */ $buckets) {
+    $this->assertIsArray($buckets, 'Google_Bucket', __METHOD__);
     $this->buckets = $buckets;
   }
   public function getBuckets() {
@@ -1038,7 +1038,7 @@ class google_StyleFunction extends Google_Model {
   public function getColumnName() {
     return $this->columnName;
   }
-  public function setGradient(google_StyleFunctionGradient $gradient) {
+  public function setGradient(Google_StyleFunctionGradient $gradient) {
     $this->gradient = $gradient;
   }
   public function getGradient() {
@@ -1052,14 +1052,14 @@ class google_StyleFunction extends Google_Model {
   }
 }
 
-class google_StyleFunctionGradient extends Google_Model {
-  protected $__colorsType = 'google_StyleFunctionGradientColors';
+class Google_StyleFunctionGradient extends Google_Model {
+  protected $__colorsType = 'Google_StyleFunctionGradientColors';
   protected $__colorsDataType = 'array';
   public $colors;
   public $max;
   public $min;
-  public function setColors(/* array(google_StyleFunctionGradientColors) */ $colors) {
-    $this->assertIsArray($colors, 'google_StyleFunctionGradientColors', __METHOD__);
+  public function setColors(/* array(Google_StyleFunctionGradientColors) */ $colors) {
+    $this->assertIsArray($colors, 'Google_StyleFunctionGradientColors', __METHOD__);
     $this->colors = $colors;
   }
   public function getColors() {
@@ -1079,7 +1079,7 @@ class google_StyleFunctionGradient extends Google_Model {
   }
 }
 
-class google_StyleFunctionGradientColors extends Google_Model {
+class Google_StyleFunctionGradientColors extends Google_Model {
   public $color;
   public $opacity;
   public function setColor($color) {
@@ -1096,16 +1096,16 @@ class google_StyleFunctionGradientColors extends Google_Model {
   }
 }
 
-class google_StyleSetting extends Google_Model {
+class Google_StyleSetting extends Google_Model {
   public $kind;
-  protected $__markerOptionsType = 'google_PointStyle';
+  protected $__markerOptionsType = 'Google_PointStyle';
   protected $__markerOptionsDataType = '';
   public $markerOptions;
   public $name;
-  protected $__polygonOptionsType = 'google_PolygonStyle';
+  protected $__polygonOptionsType = 'Google_PolygonStyle';
   protected $__polygonOptionsDataType = '';
   public $polygonOptions;
-  protected $__polylineOptionsType = 'google_LineStyle';
+  protected $__polylineOptionsType = 'Google_LineStyle';
   protected $__polylineOptionsDataType = '';
   public $polylineOptions;
   public $styleId;
@@ -1116,7 +1116,7 @@ class google_StyleSetting extends Google_Model {
   public function getKind() {
     return $this->kind;
   }
-  public function setMarkerOptions(google_PointStyle $markerOptions) {
+  public function setMarkerOptions(Google_PointStyle $markerOptions) {
     $this->markerOptions = $markerOptions;
   }
   public function getMarkerOptions() {
@@ -1128,13 +1128,13 @@ class google_StyleSetting extends Google_Model {
   public function getName() {
     return $this->name;
   }
-  public function setPolygonOptions(google_PolygonStyle $polygonOptions) {
+  public function setPolygonOptions(Google_PolygonStyle $polygonOptions) {
     $this->polygonOptions = $polygonOptions;
   }
   public function getPolygonOptions() {
     return $this->polygonOptions;
   }
-  public function setPolylineOptions(google_LineStyle $polylineOptions) {
+  public function setPolylineOptions(Google_LineStyle $polylineOptions) {
     $this->polylineOptions = $polylineOptions;
   }
   public function getPolylineOptions() {
@@ -1154,15 +1154,15 @@ class google_StyleSetting extends Google_Model {
   }
 }
 
-class google_StyleSettingList extends Google_Model {
-  protected $__itemsType = 'google_StyleSetting';
+class Google_StyleSettingList extends Google_Model {
+  protected $__itemsType = 'Google_StyleSetting';
   protected $__itemsDataType = 'array';
   public $items;
   public $kind;
   public $nextPageToken;
   public $totalItems;
-  public function setItems(/* array(google_StyleSetting) */ $items) {
-    $this->assertIsArray($items, 'google_StyleSetting', __METHOD__);
+  public function setItems(/* array(Google_StyleSetting) */ $items) {
+    $this->assertIsArray($items, 'Google_StyleSetting', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1188,11 +1188,11 @@ class google_StyleSettingList extends Google_Model {
   }
 }
 
-class google_Table extends Google_Model {
+class Google_Table extends Google_Model {
   public $attribution;
   public $attributionLink;
   public $baseTableIds;
-  protected $__columnsType = 'google_Column';
+  protected $__columnsType = 'Google_Column';
   protected $__columnsDataType = 'array';
   public $columns;
   public $description;
@@ -1213,15 +1213,15 @@ class google_Table extends Google_Model {
   public function getAttributionLink() {
     return $this->attributionLink;
   }
-  public function setBaseTableIds(/* array(google_string) */ $baseTableIds) {
-    $this->assertIsArray($baseTableIds, 'google_string', __METHOD__);
+  public function setBaseTableIds(/* array(Google_string) */ $baseTableIds) {
+    $this->assertIsArray($baseTableIds, 'Google_string', __METHOD__);
     $this->baseTableIds = $baseTableIds;
   }
   public function getBaseTableIds() {
     return $this->baseTableIds;
   }
-  public function setColumns(/* array(google_Column) */ $columns) {
-    $this->assertIsArray($columns, 'google_Column', __METHOD__);
+  public function setColumns(/* array(Google_Column) */ $columns) {
+    $this->assertIsArray($columns, 'Google_Column', __METHOD__);
     $this->columns = $columns;
   }
   public function getColumns() {
@@ -1265,14 +1265,14 @@ class google_Table extends Google_Model {
   }
 }
 
-class google_TableList extends Google_Model {
-  protected $__itemsType = 'google_Table';
+class Google_TableList extends Google_Model {
+  protected $__itemsType = 'Google_Table';
   protected $__itemsDataType = 'array';
   public $items;
   public $kind;
   public $nextPageToken;
-  public function setItems(/* array(google_Table) */ $items) {
-    $this->assertIsArray($items, 'google_Table', __METHOD__);
+  public function setItems(/* array(Google_Table) */ $items) {
+    $this->assertIsArray($items, 'Google_Table', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {
@@ -1292,15 +1292,15 @@ class google_TableList extends Google_Model {
   }
 }
 
-class google_Template extends Google_Model {
+class Google_Template extends Google_Model {
   public $automaticColumnNames;
   public $body;
   public $kind;
   public $name;
   public $tableId;
   public $templateId;
-  public function setAutomaticColumnNames(/* array(google_string) */ $automaticColumnNames) {
-    $this->assertIsArray($automaticColumnNames, 'google_string', __METHOD__);
+  public function setAutomaticColumnNames(/* array(Google_string) */ $automaticColumnNames) {
+    $this->assertIsArray($automaticColumnNames, 'Google_string', __METHOD__);
     $this->automaticColumnNames = $automaticColumnNames;
   }
   public function getAutomaticColumnNames() {
@@ -1338,15 +1338,15 @@ class google_Template extends Google_Model {
   }
 }
 
-class google_TemplateList extends Google_Model {
-  protected $__itemsType = 'google_Template';
+class Google_TemplateList extends Google_Model {
+  protected $__itemsType = 'Google_Template';
   protected $__itemsDataType = 'array';
   public $items;
   public $kind;
   public $nextPageToken;
   public $totalItems;
-  public function setItems(/* array(google_Template) */ $items) {
-    $this->assertIsArray($items, 'google_Template', __METHOD__);
+  public function setItems(/* array(Google_Template) */ $items) {
+    $this->assertIsArray($items, 'Google_Template', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {

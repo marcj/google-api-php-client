@@ -97,9 +97,11 @@
      *
      * @opt_param string categoryId The categoryId parameter specifies a YouTube guide category, thereby requesting YouTube channels associated with that category.
      * @opt_param string id The id parameter specifies a comma-separated list of the YouTube channel ID(s) for the resource(s) that are being retrieved. In a channel resource, the id property specifies the channel's YouTube channel ID.
+     * @opt_param bool managedByMe Set this parameter's value to true to instruct the API to only return channels managed by the content owner that the onBehalfOfContentOwner parameter specifies. The user must be authenticated as a CMS account linked to the specified content owner and onBehalfOfContentOwner must be provided.
      * @opt_param string maxResults The maxResults parameter specifies the maximum number of items that should be returned in the result set.
      * @opt_param bool mine Set this parameter's value to true to instruct the API to only return channels owned by the authenticated user.
      * @opt_param string mySubscribers Set this parameter's value to true to retrieve a list of channels that subscribed to the authenticated user's channel.
+     * @opt_param string onBehalfOfContentOwner The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
      * @opt_param string pageToken The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved.
      * @return Google_ChannelListResponse
      */
@@ -162,13 +164,14 @@
 
 
     /**
-     * Bind a YouTube live broadcast to a stream. (liveBroadcasts.bind)
+     * Binds a YouTube broadcast to a stream or removes an existing binding between a broadcast and a
+     * stream. A broadcast can only be bound to one video stream. (liveBroadcasts.bind)
      *
-     * @param string $id ID of the broadcast to which the stream will be bound
-     * @param string $part Live broadcast parts to be returned in the response. Valid values are: id, snippet, status, slateSettings, contentDetails.
+     * @param string $id The id parameter specifies the unique ID of the broadcast that is being bound to a video stream.
+     * @param string $part The part parameter specifies a comma-separated list of one or more liveBroadcast resource properties that the API response will include. The part names that you can include in the parameter value are id, snippet, contentDetails, and status.
      * @param array $optParams Optional parameters.
      *
-     * @opt_param string streamId ID of the stream to bind to the broadcast
+     * @opt_param string streamId The streamId parameter specifies the unique ID of the video stream that is being bound to a broadcast. If this parameter is omitted, the API will remove any existing binding between the broadcast and a video stream.
      * @return Google_LiveBroadcast
      */
     public function bind($id, $part, $optParams = array()) {
@@ -182,7 +185,7 @@
       }
     }
     /**
-     * Delete a YouTube live broadcast. (liveBroadcasts.delete)
+     * Deletes a broadcast. (liveBroadcasts.delete)
      *
      * @param string $id The id parameter specifies the YouTube live broadcast ID for the resource that is being deleted.
      * @param array $optParams Optional parameters.
@@ -194,9 +197,10 @@
       return $data;
     }
     /**
-     * Insert a YouTube live broadcast. (liveBroadcasts.insert)
+     * Creates a broadcast. (liveBroadcasts.insert)
      *
-     * @param string $part Live broadcast parts to be set for the broadcast as well as included in the returned response. Valid values are: snippet, status, slateSettings, contentDetails.
+     * @param string $part The part parameter serves two purposes in this operation. It identifies the properties that the write operation will set as well as the properties that the API response will include.
+    The part properties that you can include in the parameter value are id, snippet, contentDetails, and status.
      * @param Google_LiveBroadcast $postBody
      * @param array $optParams Optional parameters.
      * @return Google_LiveBroadcast
@@ -212,17 +216,16 @@
       }
     }
     /**
-     * Browse the YouTube broadcast collection. (liveBroadcasts.list)
+     * Returns a list of YouTube broadcasts that match the API request parameters. (liveBroadcasts.list)
      *
-     * @param string $part Live broadcast parts to include in the returned response. Valid values are: id, snippet, status, slateSettings, contentDetails.
+     * @param string $part The part parameter specifies a comma-separated list of one or more liveBroadcast resource properties that the API response will include. The part names that you can include in the parameter value are id, snippet, contentDetails, and status.
      * @param array $optParams Optional parameters.
      *
-     * @opt_param string broadcastStatus Filter to only return broadcasts with the given status by the authenticated user.
-     * @opt_param string id IDs of the live broadcasts to be returned.
-     * @opt_param string maxResults Maximum number of results to return
-     * @opt_param bool mine Filter to only return broadcasts owned by authenticated user.
-     * @opt_param string onBehalfOf ID of the Google+ Page for the channel that the request is be on behalf of
-     * @opt_param string pageToken Token for the page selection.
+     * @opt_param string broadcastStatus The broadcastStatus parameter filters the API response to only include broadcasts with the specified status.
+     * @opt_param string id The id parameter specifies a comma-separated list of YouTube broadcast IDs that identify the broadcasts being retrieved. In a liveBroadcast resource, the id property specifies the broadcast's ID.
+     * @opt_param string maxResults The maxResults parameter specifies the maximum number of items that should be returned in the result set. Acceptable values are 0 to 50, inclusive. The default value is 5.
+     * @opt_param bool mine The mine parameter can be used to instruct the API to only return broadcasts owned by the authenticated user. Set the parameter value to true to only retrieve your own broadcasts.
+     * @opt_param string pageToken The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved.
      * @return Google_LiveBroadcastList
      */
     public function listLiveBroadcasts($part, $optParams = array()) {
@@ -236,12 +239,13 @@
       }
     }
     /**
-     * Change the broadcasting status of a YouTube live broadcast and start all the processes associated
-     * with it. (liveBroadcasts.transition)
+     * Changes the status of a YouTube live broadcast and initiates any processes associated with the
+     * new status. For example, when you transition a broadcast's status to testing, YouTube starts to
+     * transmit video to that broadcast's monitor stream. (liveBroadcasts.transition)
      *
-     * @param string $broadcastStatus Desired broadcast status.
-     * @param string $id ID of the broadcast to change status
-     * @param string $part Live broadcast parts to be returned in the response. Valid values are: id, snippet, status, slateSettings, contentDetails.
+     * @param string $broadcastStatus The broadcastStatus parameter identifies the state to which the broadcast is changing.
+     * @param string $id The id parameter specifies the unique ID of the broadcast that is transitioning to another status.
+     * @param string $part The part parameter specifies a comma-separated list of one or more liveBroadcast resource properties that the API response will include. The part names that you can include in the parameter value are id, snippet, contentDetails, and status.
      * @param array $optParams Optional parameters.
      * @return Google_LiveBroadcast
      */
@@ -256,10 +260,12 @@
       }
     }
     /**
-     * Update a YouTube live broadcast. (liveBroadcasts.update)
+     * Updates a broadcast. For example, you could modify the broadcast settings defined in the
+     * liveBroadcast resource's contentDetails object. (liveBroadcasts.update)
      *
      * @param string $part The part parameter serves two purposes in this operation. It identifies the properties that the write operation will set as well as the properties that the API response will include.
-    The part names that you can include in the parameter value are id, snippet, status, slateSettings, contentDetails.
+    The part properties that you can include in the parameter value are id, snippet, contentDetails, and status.
+    Note that this method will override the existing values for all of the mutable properties that are contained in any parts that the parameter value specifies. For example, a broadcast's privacy status is defined in the status part. As such, if your request is updating a private or unlisted broadcast, and the request's part parameter value includes the status part, the broadcast's privacy setting will be updated to whatever value the request body specifies. If the request body does not specify a value, the existing privacy setting will be removed and the broadcast will revert to the default privacy setting.
      * @param Google_LiveBroadcast $postBody
      * @param array $optParams Optional parameters.
      * @return Google_LiveBroadcast
@@ -288,7 +294,7 @@
 
 
     /**
-     * Delete a live stream. (liveStreams.delete)
+     * Deletes a video stream. (liveStreams.delete)
      *
      * @param string $id The id parameter specifies the YouTube live stream ID for the resource that is being deleted.
      * @param array $optParams Optional parameters.
@@ -300,9 +306,11 @@
       return $data;
     }
     /**
-     * Insert a YouTube live stream. (liveStreams.insert)
+     * Creates a video stream. The stream enables you to send your video to YouTube, which can then
+     * broadcast the video to your audience. (liveStreams.insert)
      *
-     * @param string $part Live stream parts to include in the returned response. Valid values are: id, snippet, cdn, status.
+     * @param string $part The part parameter serves two purposes in this operation. It identifies the properties that the write operation will set as well as the properties that the API response will include.
+    The part properties that you can include in the parameter value are id, snippet, cdn, and status.
      * @param Google_LiveStream $postBody
      * @param array $optParams Optional parameters.
      * @return Google_LiveStream
@@ -318,16 +326,16 @@
       }
     }
     /**
-     * Browse the YouTube live stream collection. (liveStreams.list)
+     * Returns a list of video streams that match the API request parameters. (liveStreams.list)
      *
-     * @param string $part Live stream parts to include in the returned response. Valid values are: id, snippet, cdn, status.
+     * @param string $part The part parameter specifies a comma-separated list of one or more liveStream resource properties that the API response will include. The part names that you can include in the parameter value are id, snippet, cdn, and status.
      * @param array $optParams Optional parameters.
      *
-     * @opt_param string id IDs of the live streams to be returned.
-     * @opt_param string maxResults Maximum number of results to return
-     * @opt_param bool mine Filter to only live streams owned by authenticated user.
-     * @opt_param string onBehalfOf ID of the Google+ Page for the channel that the request is to be on behalf of
-     * @opt_param string pageToken Token for the page selection.
+     * @opt_param string id The id parameter specifies a comma-separated list of YouTube stream IDs that identify the streams being retrieved. In a liveStream resource, the id property specifies the stream's ID.
+     * @opt_param string maxResults The maxResults parameter specifies the maximum number of items that should be returned in the result set. Acceptable values are 0 to 50, inclusive. The default value is 5.
+     * @opt_param bool mine The mine parameter can be used to instruct the API to only return streams owned by the authenticated user. Set the parameter value to true to only retrieve your own streams.
+     * @opt_param string onBehalfOf ID of the Google+ Page for the channel on whose behalf this request is made
+     * @opt_param string pageToken The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved.
      * @return Google_LiveStreamList
      */
     public function listLiveStreams($part, $optParams = array()) {
@@ -341,10 +349,12 @@
       }
     }
     /**
-     * Update a YouTube live stream. (liveStreams.update)
+     * Updates a video stream. If the properties that you want to change cannot be updated, then you
+     * need to create a new stream with the proper settings. (liveStreams.update)
      *
      * @param string $part The part parameter serves two purposes in this operation. It identifies the properties that the write operation will set as well as the properties that the API response will include.
-    The part names that you can include in the parameter value are id, snippet, cdn, status.
+    The part properties that you can include in the parameter value are id, snippet, cdn, and status.
+    Note that this method will override the existing values for all of the mutable properties that are contained in any parts that the parameter value specifies. If the request body does not specify a value for a mutable property, the existing value for that property will be removed.
      * @param Google_LiveStream $postBody
      * @param array $optParams Optional parameters.
      * @return Google_LiveStream
@@ -355,6 +365,40 @@
       $data = $this->__call('update', array($params));
       if ($this->useObjects()) {
         return new Google_LiveStream($data);
+      } else {
+        return $data;
+      }
+    }
+  }
+
+  /**
+   * The "players" collection of methods.
+   * Typical usage is:
+   *  <code>
+   *   $youtubeService = new Google_YouTubeService(...);
+   *   $players = $youtubeService->players;
+   *  </code>
+   */
+  class Google_PlayersServiceResource extends Google_ServiceResource {
+
+
+    /**
+     * Returns the data required to play the videos specified on the request, or restriction information
+     * explaining why it can't be played. (players.list)
+     *
+     * @param string $part The part parameter specifies a comma-separated list of one or more player resource properties that the API response will include.
+     * @param array $optParams Optional parameters.
+     *
+     * @opt_param string itag If specified, the itag parameter specifies a comma-separated list of itags video formats the client is interested in. The returned formats will be a subset of those itags.
+     * @opt_param string videoId The videoId parameter specifies a comma-separated list of the YouTube video ID(s) for the resource(s) that are being retrieved.
+     * @return Google_PlayerListResponse
+     */
+    public function listPlayers($part, $optParams = array()) {
+      $params = array('part' => $part);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('list', array($params));
+      if ($this->useObjects()) {
+        return new Google_PlayerListResponse($data);
       } else {
         return $data;
       }
@@ -565,7 +609,11 @@
      * @param array $optParams Optional parameters.
      *
      * @opt_param string channelId The channelId parameter indicates that the API response should only contain resources created by the channel
+     * @opt_param string channelType The channelType parameter lets you restrict a search to a particular type of channel.
+     * @opt_param bool forContentOwner The forContentOwner parameter restricts the search to only retrieve resources owned by the content owner specified by the onBehalfOfContentOwner parameter. The user must be authenticated as a CMS account linked to the specified content owner and onBehalfOfContentOwner must be provided.
+     * @opt_param bool forMine The forMine parameter restricts the search to only retrieve videos owned by the authenticated user.
      * @opt_param string maxResults USE_DESCRIPTION --- channels:list:maxResults
+     * @opt_param string onBehalfOfContentOwner The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
      * @opt_param string order The order parameter specifies the method that will be used to order resources in the API response.
      * @opt_param string pageToken USE_DESCRIPTION --- channels:list:pageToken
      * @opt_param string publishedAfter The publishedAfter parameter indicates that the API response should only contain resources created after the specified time. The value is an RFC 3339 formatted date-time value (1970-01-01T00:00:00Z).
@@ -573,6 +621,7 @@
      * @opt_param string q The q parameter specifies the query term to search for.
      * @opt_param string regionCode The regionCode parameter instructs the API to return search results for the specified country. The parameter value is an ISO 3166-1 alpha-2 country code.
      * @opt_param string relatedToVideoId The relatedToVideoId parameter retrieves a list of videos that are related to the video that the parameter value identifies. The parameter value must be set to a YouTube video ID and, if you are using this parameter, the type parameter must be set to video.
+     * @opt_param string safeSearch The safeSearch parameter indicates whether the search results should include restricted content as well as standard content.
      * @opt_param string topicId The topicId parameter indicates that the API response should only contain resources associated with the specified topic. The value identifies a Freebase topic ID.
      * @opt_param string type The type parameter restricts a search query to only retrieve a particular type of resource.
      * @opt_param string videoCaption The videoCaption parameter indicates whether the API should filter video search results based on whether they have captions.
@@ -583,6 +632,7 @@
      * @opt_param string videoEmbeddable The videoEmbeddable parameter lets you to restrict a search to only videos that can be embedded into a webpage.
      * @opt_param string videoLicense The videoLicense parameter filters search results to only include videos with a particular license. YouTube lets video uploaders choose to attach either the Creative Commons license or the standard YouTube license to each of their videos.
      * @opt_param string videoSyndicated The videoSyndicated parameter lets you to restrict a search to only videos that can be played outside youtube.com.
+     * @opt_param string videoType The videoType parameter lets you restrict a search to a particular type of videos.
      * @return Google_SearchListResponse
      */
     public function listSearch($part, $optParams = array()) {
@@ -750,6 +800,8 @@
      * @param string $part The part parameter specifies a comma-separated list of one or more video resource properties that the API response will include. The part names that you can include in the parameter value are id, snippet, contentDetails, player, statistics, status, and topicDetails.
     If the parameter identifies a property that contains child properties, the child properties will be included in the response. For example, in a video resource, the snippet property contains the channelId, title, description, tags, and categoryId properties. As such, if you set part=snippet, the API response will contain all of those properties.
      * @param array $optParams Optional parameters.
+     *
+     * @opt_param string onBehalfOfContentOwner The onBehalfOfContentOwner parameter indicates that the authenticated user is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The actual CMS account that the user authenticates with needs to be linked to the specified YouTube content owner.
      * @return Google_VideoListResponse
      */
     public function listVideos($id, $part, $optParams = array()) {
@@ -761,6 +813,19 @@
       } else {
         return $data;
       }
+    }
+    /**
+     * Like, dislike, or remove rating from a video. (videos.rate)
+     *
+     * @param string $id The id parameter specifies the YouTube video ID.
+     * @param string $rating Specifies the rating to record.
+     * @param array $optParams Optional parameters.
+     */
+    public function rate($id, $rating, $optParams = array()) {
+      $params = array('id' => $id, 'rating' => $rating);
+      $params = array_merge($params, $optParams);
+      $data = $this->__call('rate', array($params));
+      return $data;
     }
     /**
      * Updates a video's metadata. (videos.update)
@@ -805,6 +870,7 @@ class Google_YouTubeService extends Google_Service {
   public $guideCategories;
   public $liveBroadcasts;
   public $liveStreams;
+  public $players;
   public $playlistItems;
   public $playlists;
   public $search;
@@ -823,19 +889,22 @@ class Google_YouTubeService extends Google_Service {
 
     $client->addService($this->serviceName, $this->version);
     $this->activities = new Google_ActivitiesServiceResource($this, $this->serviceName, 'activities', json_decode('{"methods": {"insert": {"id": "youtube.activities.insert", "path": "activities", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "Activity"}, "response": {"$ref": "Activity"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "list": {"id": "youtube.activities.list", "path": "activities", "httpMethod": "GET", "parameters": {"channelId": {"type": "string", "location": "query"}, "home": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "mine": {"type": "boolean", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}, "publishedAfter": {"type": "string", "format": "date-time", "location": "query"}, "publishedBefore": {"type": "string", "format": "date-time", "location": "query"}}, "response": {"$ref": "ActivityListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly"]}}}', true));
-    $this->channels = new Google_ChannelsServiceResource($this, $this->serviceName, 'channels', json_decode('{"methods": {"list": {"id": "youtube.channels.list", "path": "channels", "httpMethod": "GET", "parameters": {"categoryId": {"type": "string", "location": "query"}, "id": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "mine": {"type": "boolean", "location": "query"}, "mySubscribers": {"type": "string", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "ChannelListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
+    $this->channels = new Google_ChannelsServiceResource($this, $this->serviceName, 'channels', json_decode('{"methods": {"list": {"id": "youtube.channels.list", "path": "channels", "httpMethod": "GET", "parameters": {"categoryId": {"type": "string", "location": "query"}, "id": {"type": "string", "location": "query"}, "managedByMe": {"type": "boolean", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "mine": {"type": "boolean", "location": "query"}, "mySubscribers": {"type": "string", "location": "query"}, "onBehalfOfContentOwner": {"type": "string", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "ChannelListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
     $this->guideCategories = new Google_GuideCategoriesServiceResource($this, $this->serviceName, 'guideCategories', json_decode('{"methods": {"list": {"id": "youtube.guideCategories.list", "path": "guideCategories", "httpMethod": "GET", "parameters": {"hl": {"type": "string", "default": "en-US", "location": "query"}, "id": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}, "regionCode": {"type": "string", "location": "query"}}, "response": {"$ref": "GuideCategoryListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
-    $this->liveBroadcasts = new Google_LiveBroadcastsServiceResource($this, $this->serviceName, 'liveBroadcasts', json_decode('{"methods": {"bind": {"id": "youtube.liveBroadcasts.bind", "path": "liveBroadcasts/bind", "httpMethod": "POST", "parameters": {"id": {"type": "string", "required": true, "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}, "streamId": {"type": "string", "location": "query"}}, "response": {"$ref": "LiveBroadcast"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "delete": {"id": "youtube.liveBroadcasts.delete", "path": "liveBroadcasts", "httpMethod": "DELETE", "parameters": {"id": {"type": "string", "required": true, "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "insert": {"id": "youtube.liveBroadcasts.insert", "path": "liveBroadcasts", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "LiveBroadcast"}, "response": {"$ref": "LiveBroadcast"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "list": {"id": "youtube.liveBroadcasts.list", "path": "liveBroadcasts", "httpMethod": "GET", "parameters": {"broadcastStatus": {"type": "string", "enum": ["active", "all", "completed", "upcoming"], "location": "query"}, "id": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "mine": {"type": "boolean", "location": "query"}, "onBehalfOf": {"type": "string", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "LiveBroadcastList"}, "scopes": ["https://www.googleapis.com/auth/youtube.readonly"]}, "transition": {"id": "youtube.liveBroadcasts.transition", "path": "liveBroadcasts/transition", "httpMethod": "POST", "parameters": {"broadcastStatus": {"type": "string", "required": true, "enum": ["complete", "live", "testing"], "location": "query"}, "id": {"type": "string", "required": true, "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "LiveBroadcast"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "update": {"id": "youtube.liveBroadcasts.update", "path": "liveBroadcasts", "httpMethod": "PUT", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "LiveBroadcast"}, "response": {"$ref": "LiveBroadcast"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}}}', true));
-    $this->liveStreams = new Google_LiveStreamsServiceResource($this, $this->serviceName, 'liveStreams', json_decode('{"methods": {"delete": {"id": "youtube.liveStreams.delete", "path": "liveStreams", "httpMethod": "DELETE", "parameters": {"id": {"type": "string", "required": true, "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "insert": {"id": "youtube.liveStreams.insert", "path": "liveStreams", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "LiveStream"}, "response": {"$ref": "LiveStream"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "list": {"id": "youtube.liveStreams.list", "path": "liveStreams", "httpMethod": "GET", "parameters": {"id": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "mine": {"type": "boolean", "location": "query"}, "onBehalfOf": {"type": "string", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "LiveStreamList"}, "scopes": ["https://www.googleapis.com/auth/youtube.readonly"]}, "update": {"id": "youtube.liveStreams.update", "path": "liveStreams", "httpMethod": "PUT", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "LiveStream"}, "response": {"$ref": "LiveStream"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}}}', true));
+    $this->liveBroadcasts = new Google_LiveBroadcastsServiceResource($this, $this->serviceName, 'liveBroadcasts', json_decode('{"methods": {"bind": {"id": "youtube.liveBroadcasts.bind", "path": "liveBroadcasts/bind", "httpMethod": "POST", "parameters": {"id": {"type": "string", "required": true, "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}, "streamId": {"type": "string", "location": "query"}}, "response": {"$ref": "LiveBroadcast"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "delete": {"id": "youtube.liveBroadcasts.delete", "path": "liveBroadcasts", "httpMethod": "DELETE", "parameters": {"id": {"type": "string", "required": true, "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "insert": {"id": "youtube.liveBroadcasts.insert", "path": "liveBroadcasts", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "LiveBroadcast"}, "response": {"$ref": "LiveBroadcast"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "list": {"id": "youtube.liveBroadcasts.list", "path": "liveBroadcasts", "httpMethod": "GET", "parameters": {"broadcastStatus": {"type": "string", "enum": ["active", "all", "completed", "upcoming"], "location": "query"}, "id": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "mine": {"type": "boolean", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "LiveBroadcastList"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly"]}, "transition": {"id": "youtube.liveBroadcasts.transition", "path": "liveBroadcasts/transition", "httpMethod": "POST", "parameters": {"broadcastStatus": {"type": "string", "required": true, "enum": ["complete", "live", "testing"], "location": "query"}, "id": {"type": "string", "required": true, "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "LiveBroadcast"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "update": {"id": "youtube.liveBroadcasts.update", "path": "liveBroadcasts", "httpMethod": "PUT", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "LiveBroadcast"}, "response": {"$ref": "LiveBroadcast"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}}}', true));
+    $this->liveStreams = new Google_LiveStreamsServiceResource($this, $this->serviceName, 'liveStreams', json_decode('{"methods": {"delete": {"id": "youtube.liveStreams.delete", "path": "liveStreams", "httpMethod": "DELETE", "parameters": {"id": {"type": "string", "required": true, "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "insert": {"id": "youtube.liveStreams.insert", "path": "liveStreams", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "LiveStream"}, "response": {"$ref": "LiveStream"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}, "list": {"id": "youtube.liveStreams.list", "path": "liveStreams", "httpMethod": "GET", "parameters": {"id": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "mine": {"type": "boolean", "location": "query"}, "onBehalfOf": {"type": "string", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "LiveStreamList"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly"]}, "update": {"id": "youtube.liveStreams.update", "path": "liveStreams", "httpMethod": "PUT", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "LiveStream"}, "response": {"$ref": "LiveStream"}, "scopes": ["https://www.googleapis.com/auth/youtube"]}}}', true));
+    $this->players = new Google_PlayersServiceResource($this, $this->serviceName, 'players', json_decode('{"methods": {"list": {"id": "youtube.players.list", "path": "players", "httpMethod": "GET", "parameters": {"itag": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}, "videoId": {"type": "string", "location": "query"}}, "response": {"$ref": "PlayerListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
     $this->playlistItems = new Google_PlaylistItemsServiceResource($this, $this->serviceName, 'playlistItems', json_decode('{"methods": {"delete": {"id": "youtube.playlistItems.delete", "path": "playlistItems", "httpMethod": "DELETE", "parameters": {"id": {"type": "string", "required": true, "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}, "insert": {"id": "youtube.playlistItems.insert", "path": "playlistItems", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "PlaylistItem"}, "response": {"$ref": "PlaylistItem"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}, "list": {"id": "youtube.playlistItems.list", "path": "playlistItems", "httpMethod": "GET", "parameters": {"id": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}, "playlistId": {"type": "string", "location": "query"}, "videoId": {"type": "string", "location": "query"}}, "response": {"$ref": "PlaylistItemListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}, "update": {"id": "youtube.playlistItems.update", "path": "playlistItems", "httpMethod": "PUT", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "PlaylistItem"}, "response": {"$ref": "PlaylistItem"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
     $this->playlists = new Google_PlaylistsServiceResource($this, $this->serviceName, 'playlists', json_decode('{"methods": {"delete": {"id": "youtube.playlists.delete", "path": "playlists", "httpMethod": "DELETE", "parameters": {"id": {"type": "string", "required": true, "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}, "insert": {"id": "youtube.playlists.insert", "path": "playlists", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "Playlist"}, "response": {"$ref": "Playlist"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}, "list": {"id": "youtube.playlists.list", "path": "playlists", "httpMethod": "GET", "parameters": {"channelId": {"type": "string", "location": "query"}, "id": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "mine": {"type": "boolean", "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "PlaylistListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}, "update": {"id": "youtube.playlists.update", "path": "playlists", "httpMethod": "PUT", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "Playlist"}, "response": {"$ref": "Playlist"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
-    $this->search = new Google_SearchServiceResource($this, $this->serviceName, 'search', json_decode('{"methods": {"list": {"id": "youtube.search.list", "path": "search", "httpMethod": "GET", "parameters": {"channelId": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "order": {"type": "string", "default": "SEARCH_SORT_RELEVANCE", "enum": ["date", "rating", "relevance", "viewCount"], "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}, "publishedAfter": {"type": "string", "format": "date-time", "location": "query"}, "publishedBefore": {"type": "string", "format": "date-time", "location": "query"}, "q": {"type": "string", "location": "query"}, "regionCode": {"type": "string", "location": "query"}, "relatedToVideoId": {"type": "string", "location": "query"}, "topicId": {"type": "string", "location": "query"}, "type": {"type": "string", "default": "video,channel,playlist", "location": "query"}, "videoCaption": {"type": "string", "enum": ["any", "closedCaption", "none"], "location": "query"}, "videoCategoryId": {"type": "string", "location": "query"}, "videoDefinition": {"type": "string", "enum": ["any", "high", "standard"], "location": "query"}, "videoDimension": {"type": "string", "enum": ["2d", "3d", "any"], "location": "query"}, "videoDuration": {"type": "string", "enum": ["any", "long", "medium", "short"], "location": "query"}, "videoEmbeddable": {"type": "string", "enum": ["any", "true"], "location": "query"}, "videoLicense": {"type": "string", "enum": ["any", "creativeCommon", "youtube"], "location": "query"}, "videoSyndicated": {"type": "string", "enum": ["any", "true"], "location": "query"}}, "response": {"$ref": "SearchListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
+    $this->search = new Google_SearchServiceResource($this, $this->serviceName, 'search', json_decode('{"methods": {"list": {"id": "youtube.search.list", "path": "search", "httpMethod": "GET", "parameters": {"channelId": {"type": "string", "location": "query"}, "channelType": {"type": "string", "enum": ["any", "show"], "location": "query"}, "forContentOwner": {"type": "boolean", "location": "query"}, "forMine": {"type": "boolean", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "onBehalfOfContentOwner": {"type": "string", "location": "query"}, "order": {"type": "string", "default": "SEARCH_SORT_RELEVANCE", "enum": ["date", "rating", "relevance", "title", "videoCount", "viewCount"], "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}, "publishedAfter": {"type": "string", "format": "date-time", "location": "query"}, "publishedBefore": {"type": "string", "format": "date-time", "location": "query"}, "q": {"type": "string", "location": "query"}, "regionCode": {"type": "string", "location": "query"}, "relatedToVideoId": {"type": "string", "location": "query"}, "safeSearch": {"type": "string", "enum": ["moderate", "none", "strict"], "location": "query"}, "topicId": {"type": "string", "location": "query"}, "type": {"type": "string", "default": "video,channel,playlist", "location": "query"}, "videoCaption": {"type": "string", "enum": ["any", "closedCaption", "none"], "location": "query"}, "videoCategoryId": {"type": "string", "location": "query"}, "videoDefinition": {"type": "string", "enum": ["any", "high", "standard"], "location": "query"}, "videoDimension": {"type": "string", "enum": ["2d", "3d", "any"], "location": "query"}, "videoDuration": {"type": "string", "enum": ["any", "long", "medium", "short"], "location": "query"}, "videoEmbeddable": {"type": "string", "enum": ["any", "true"], "location": "query"}, "videoLicense": {"type": "string", "enum": ["any", "creativeCommon", "youtube"], "location": "query"}, "videoSyndicated": {"type": "string", "enum": ["any", "true"], "location": "query"}, "videoType": {"type": "string", "enum": ["any", "episode", "movie"], "location": "query"}}, "response": {"$ref": "SearchListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
     $this->subscriptions = new Google_SubscriptionsServiceResource($this, $this->serviceName, 'subscriptions', json_decode('{"methods": {"delete": {"id": "youtube.subscriptions.delete", "path": "subscriptions", "httpMethod": "DELETE", "parameters": {"id": {"type": "string", "required": true, "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}, "insert": {"id": "youtube.subscriptions.insert", "path": "subscriptions", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "Subscription"}, "response": {"$ref": "Subscription"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}, "list": {"id": "youtube.subscriptions.list", "path": "subscriptions", "httpMethod": "GET", "parameters": {"channelId": {"type": "string", "location": "query"}, "forChannelId": {"type": "string", "location": "query"}, "id": {"type": "string", "location": "query"}, "maxResults": {"type": "integer", "default": "5", "format": "uint32", "minimum": "0", "maximum": "50", "location": "query"}, "mine": {"type": "boolean", "location": "query"}, "order": {"type": "string", "default": "SUBSCRIPTION_ORDER_RELEVANCE", "enum": ["alphabetical", "relevance", "unread"], "location": "query"}, "pageToken": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "SubscriptionListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
     $this->videoCategories = new Google_VideoCategoriesServiceResource($this, $this->serviceName, 'videoCategories', json_decode('{"methods": {"list": {"id": "youtube.videoCategories.list", "path": "videoCategories", "httpMethod": "GET", "parameters": {"hl": {"type": "string", "default": "en_US", "location": "query"}, "id": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}, "regionCode": {"type": "string", "location": "query"}}, "response": {"$ref": "VideoCategoryListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
-    $this->videos = new Google_VideosServiceResource($this, $this->serviceName, 'videos', json_decode('{"methods": {"delete": {"id": "youtube.videos.delete", "path": "videos", "httpMethod": "DELETE", "parameters": {"id": {"type": "string", "required": true, "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}, "insert": {"id": "youtube.videos.insert", "path": "videos", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "Video"}, "response": {"$ref": "Video"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtubepartner"], "supportsMediaUpload": true, "mediaUpload": {"accept": ["application/octet-stream", "video/*"], "maxSize": "64GB", "protocols": {"simple": {"multipart": true, "path": "/upload/youtube/v3/videos"}, "resumable": {"multipart": true, "path": "/resumable/upload/youtube/v3/videos"}}}}, "list": {"id": "youtube.videos.list", "path": "videos", "httpMethod": "GET", "parameters": {"id": {"type": "string", "required": true, "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "VideoListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}, "update": {"id": "youtube.videos.update", "path": "videos", "httpMethod": "PUT", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "Video"}, "response": {"$ref": "Video"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
+    $this->videos = new Google_VideosServiceResource($this, $this->serviceName, 'videos', json_decode('{"methods": {"delete": {"id": "youtube.videos.delete", "path": "videos", "httpMethod": "DELETE", "parameters": {"id": {"type": "string", "required": true, "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}, "insert": {"id": "youtube.videos.insert", "path": "videos", "httpMethod": "POST", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "Video"}, "response": {"$ref": "Video"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtubepartner"], "supportsMediaUpload": true, "mediaUpload": {"accept": ["application/octet-stream", "video/*"], "maxSize": "64GB", "protocols": {"simple": {"multipart": true, "path": "/upload/youtube/v3/videos"}, "resumable": {"multipart": true, "path": "/resumable/upload/youtube/v3/videos"}}}}, "list": {"id": "youtube.videos.list", "path": "videos", "httpMethod": "GET", "parameters": {"id": {"type": "string", "required": true, "location": "query"}, "onBehalfOfContentOwner": {"type": "string", "location": "query"}, "part": {"type": "string", "required": true, "location": "query"}}, "response": {"$ref": "VideoListResponse"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtubepartner"]}, "rate": {"id": "youtube.videos.rate", "path": "videos/rate", "httpMethod": "POST", "parameters": {"id": {"type": "string", "required": true, "location": "query"}, "rating": {"type": "string", "required": true, "enum": ["dislike", "like", "none"], "location": "query"}}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}, "update": {"id": "youtube.videos.update", "path": "videos", "httpMethod": "PUT", "parameters": {"part": {"type": "string", "required": true, "location": "query"}}, "request": {"$ref": "Video"}, "response": {"$ref": "Video"}, "scopes": ["https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtubepartner"]}}}', true));
 
   }
 }
+
+
 
 class Google_AccessPolicy extends Google_Model {
   public $allowed;
@@ -1218,11 +1287,12 @@ class Google_ActivityListResponse extends Google_Model {
 
 class Google_ActivitySnippet extends Google_Model {
   public $channelId;
+  public $channelTitle;
   public $description;
   public $groupId;
   public $publishedAt;
-  protected $__thumbnailsType = 'Google_Thumbnail';
-  protected $__thumbnailsDataType = 'map';
+  protected $__thumbnailsType = 'Google_ThumbnailDetails';
+  protected $__thumbnailsDataType = '';
   public $thumbnails;
   public $title;
   public $type;
@@ -1231,6 +1301,12 @@ class Google_ActivitySnippet extends Google_Model {
   }
   public function getChannelId() {
     return $this->channelId;
+  }
+  public function setChannelTitle($channelTitle) {
+    $this->channelTitle = $channelTitle;
+  }
+  public function getChannelTitle() {
+    return $this->channelTitle;
   }
   public function setDescription($description) {
     $this->description = $description;
@@ -1250,7 +1326,7 @@ class Google_ActivitySnippet extends Google_Model {
   public function getPublishedAt() {
     return $this->publishedAt;
   }
-  public function setThumbnails(Google_Thumbnail $thumbnails) {
+  public function setThumbnails(Google_ThumbnailDetails $thumbnails) {
     $this->thumbnails = $thumbnails;
   }
   public function getThumbnails() {
@@ -1271,6 +1347,9 @@ class Google_ActivitySnippet extends Google_Model {
 }
 
 class Google_Channel extends Google_Model {
+  protected $__brandingSettingsType = 'Google_ChannelBrandingSettings';
+  protected $__brandingSettingsDataType = '';
+  public $brandingSettings;
   protected $__contentDetailsType = 'Google_ChannelContentDetails';
   protected $__contentDetailsDataType = '';
   public $contentDetails;
@@ -1289,6 +1368,12 @@ class Google_Channel extends Google_Model {
   protected $__topicDetailsType = 'Google_ChannelTopicDetails';
   protected $__topicDetailsDataType = '';
   public $topicDetails;
+  public function setBrandingSettings(Google_ChannelBrandingSettings $brandingSettings) {
+    $this->brandingSettings = $brandingSettings;
+  }
+  public function getBrandingSettings() {
+    return $this->brandingSettings;
+  }
   public function setContentDetails(Google_ChannelContentDetails $contentDetails) {
     $this->contentDetails = $contentDetails;
   }
@@ -1336,6 +1421,46 @@ class Google_Channel extends Google_Model {
   }
   public function getTopicDetails() {
     return $this->topicDetails;
+  }
+}
+
+class Google_ChannelBrandingSettings extends Google_Model {
+  protected $__channelType = 'Google_ChannelSettings';
+  protected $__channelDataType = '';
+  public $channel;
+  protected $__hintsType = 'Google_PropertyValue';
+  protected $__hintsDataType = 'array';
+  public $hints;
+  protected $__imageType = 'Google_ImageSettings';
+  protected $__imageDataType = '';
+  public $image;
+  protected $__watchType = 'Google_WatchSettings';
+  protected $__watchDataType = '';
+  public $watch;
+  public function setChannel(Google_ChannelSettings $channel) {
+    $this->channel = $channel;
+  }
+  public function getChannel() {
+    return $this->channel;
+  }
+  public function setHints(/* array(Google_PropertyValue) */ $hints) {
+    $this->assertIsArray($hints, 'Google_PropertyValue', __METHOD__);
+    $this->hints = $hints;
+  }
+  public function getHints() {
+    return $this->hints;
+  }
+  public function setImage(Google_ImageSettings $image) {
+    $this->image = $image;
+  }
+  public function getImage() {
+    return $this->image;
+  }
+  public function setWatch(Google_WatchSettings $watch) {
+    $this->watch = $watch;
+  }
+  public function getWatch() {
+    return $this->watch;
   }
 }
 
@@ -1446,11 +1571,92 @@ class Google_ChannelListResponse extends Google_Model {
   }
 }
 
+class Google_ChannelSettings extends Google_Model {
+  public $defaultTab;
+  public $description;
+  public $featuredChannelsTitle;
+  public $featuredChannelsUrls;
+  public $keywords;
+  public $moderateComments;
+  public $showBrowseView;
+  public $showRelatedChannels;
+  public $title;
+  public $trackingAnalyticsAccountId;
+  public $unsubscribedTrailer;
+  public function setDefaultTab($defaultTab) {
+    $this->defaultTab = $defaultTab;
+  }
+  public function getDefaultTab() {
+    return $this->defaultTab;
+  }
+  public function setDescription($description) {
+    $this->description = $description;
+  }
+  public function getDescription() {
+    return $this->description;
+  }
+  public function setFeaturedChannelsTitle($featuredChannelsTitle) {
+    $this->featuredChannelsTitle = $featuredChannelsTitle;
+  }
+  public function getFeaturedChannelsTitle() {
+    return $this->featuredChannelsTitle;
+  }
+  public function setFeaturedChannelsUrls(/* array(Google_string) */ $featuredChannelsUrls) {
+    $this->assertIsArray($featuredChannelsUrls, 'Google_string', __METHOD__);
+    $this->featuredChannelsUrls = $featuredChannelsUrls;
+  }
+  public function getFeaturedChannelsUrls() {
+    return $this->featuredChannelsUrls;
+  }
+  public function setKeywords($keywords) {
+    $this->keywords = $keywords;
+  }
+  public function getKeywords() {
+    return $this->keywords;
+  }
+  public function setModerateComments($moderateComments) {
+    $this->moderateComments = $moderateComments;
+  }
+  public function getModerateComments() {
+    return $this->moderateComments;
+  }
+  public function setShowBrowseView($showBrowseView) {
+    $this->showBrowseView = $showBrowseView;
+  }
+  public function getShowBrowseView() {
+    return $this->showBrowseView;
+  }
+  public function setShowRelatedChannels($showRelatedChannels) {
+    $this->showRelatedChannels = $showRelatedChannels;
+  }
+  public function getShowRelatedChannels() {
+    return $this->showRelatedChannels;
+  }
+  public function setTitle($title) {
+    $this->title = $title;
+  }
+  public function getTitle() {
+    return $this->title;
+  }
+  public function setTrackingAnalyticsAccountId($trackingAnalyticsAccountId) {
+    $this->trackingAnalyticsAccountId = $trackingAnalyticsAccountId;
+  }
+  public function getTrackingAnalyticsAccountId() {
+    return $this->trackingAnalyticsAccountId;
+  }
+  public function setUnsubscribedTrailer($unsubscribedTrailer) {
+    $this->unsubscribedTrailer = $unsubscribedTrailer;
+  }
+  public function getUnsubscribedTrailer() {
+    return $this->unsubscribedTrailer;
+  }
+}
+
 class Google_ChannelSnippet extends Google_Model {
   public $description;
   public $publishedAt;
-  protected $__thumbnailsType = 'Google_Thumbnail';
-  protected $__thumbnailsDataType = 'map';
+  protected $__thumbnailsType = 'Google_ThumbnailDetails';
+  protected $__thumbnailsDataType = '';
   public $thumbnails;
   public $title;
   public function setDescription($description) {
@@ -1465,7 +1671,7 @@ class Google_ChannelSnippet extends Google_Model {
   public function getPublishedAt() {
     return $this->publishedAt;
   }
-  public function setThumbnails(Google_Thumbnail $thumbnails) {
+  public function setThumbnails(Google_ThumbnailDetails $thumbnails) {
     $this->thumbnails = $thumbnails;
   }
   public function getThumbnails() {
@@ -1528,6 +1734,201 @@ class Google_ChannelTopicDetails extends Google_Model {
   }
   public function getTopicIds() {
     return $this->topicIds;
+  }
+}
+
+class Google_ContentRating extends Google_Model {
+  public $acbRating;
+  public $bbfcRating;
+  public $cbfcRating;
+  public $chvrsRating;
+  public $djctqRating;
+  public $eirinRating;
+  public $fmocRating;
+  public $fskRating;
+  public $icaaRating;
+  public $kmrbRating;
+  public $mpaaRating;
+  public $oflcRating;
+  public $rtcRating;
+  public $russiaRating;
+  public $tvpgRating;
+  public function setAcbRating($acbRating) {
+    $this->acbRating = $acbRating;
+  }
+  public function getAcbRating() {
+    return $this->acbRating;
+  }
+  public function setBbfcRating($bbfcRating) {
+    $this->bbfcRating = $bbfcRating;
+  }
+  public function getBbfcRating() {
+    return $this->bbfcRating;
+  }
+  public function setCbfcRating($cbfcRating) {
+    $this->cbfcRating = $cbfcRating;
+  }
+  public function getCbfcRating() {
+    return $this->cbfcRating;
+  }
+  public function setChvrsRating($chvrsRating) {
+    $this->chvrsRating = $chvrsRating;
+  }
+  public function getChvrsRating() {
+    return $this->chvrsRating;
+  }
+  public function setDjctqRating($djctqRating) {
+    $this->djctqRating = $djctqRating;
+  }
+  public function getDjctqRating() {
+    return $this->djctqRating;
+  }
+  public function setEirinRating($eirinRating) {
+    $this->eirinRating = $eirinRating;
+  }
+  public function getEirinRating() {
+    return $this->eirinRating;
+  }
+  public function setFmocRating($fmocRating) {
+    $this->fmocRating = $fmocRating;
+  }
+  public function getFmocRating() {
+    return $this->fmocRating;
+  }
+  public function setFskRating($fskRating) {
+    $this->fskRating = $fskRating;
+  }
+  public function getFskRating() {
+    return $this->fskRating;
+  }
+  public function setIcaaRating($icaaRating) {
+    $this->icaaRating = $icaaRating;
+  }
+  public function getIcaaRating() {
+    return $this->icaaRating;
+  }
+  public function setKmrbRating($kmrbRating) {
+    $this->kmrbRating = $kmrbRating;
+  }
+  public function getKmrbRating() {
+    return $this->kmrbRating;
+  }
+  public function setMpaaRating($mpaaRating) {
+    $this->mpaaRating = $mpaaRating;
+  }
+  public function getMpaaRating() {
+    return $this->mpaaRating;
+  }
+  public function setOflcRating($oflcRating) {
+    $this->oflcRating = $oflcRating;
+  }
+  public function getOflcRating() {
+    return $this->oflcRating;
+  }
+  public function setRtcRating($rtcRating) {
+    $this->rtcRating = $rtcRating;
+  }
+  public function getRtcRating() {
+    return $this->rtcRating;
+  }
+  public function setRussiaRating($russiaRating) {
+    $this->russiaRating = $russiaRating;
+  }
+  public function getRussiaRating() {
+    return $this->russiaRating;
+  }
+  public function setTvpgRating($tvpgRating) {
+    $this->tvpgRating = $tvpgRating;
+  }
+  public function getTvpgRating() {
+    return $this->tvpgRating;
+  }
+}
+
+class Google_FeaturedChannel extends Google_Model {
+  public $channelId;
+  protected $__channelSnippetType = 'Google_ChannelSnippet';
+  protected $__channelSnippetDataType = '';
+  public $channelSnippet;
+  public $endTimeMs;
+  public $featureId;
+  public $startTimeMs;
+  public $watermarkUrl;
+  public function setChannelId($channelId) {
+    $this->channelId = $channelId;
+  }
+  public function getChannelId() {
+    return $this->channelId;
+  }
+  public function setChannelSnippet(Google_ChannelSnippet $channelSnippet) {
+    $this->channelSnippet = $channelSnippet;
+  }
+  public function getChannelSnippet() {
+    return $this->channelSnippet;
+  }
+  public function setEndTimeMs($endTimeMs) {
+    $this->endTimeMs = $endTimeMs;
+  }
+  public function getEndTimeMs() {
+    return $this->endTimeMs;
+  }
+  public function setFeatureId($featureId) {
+    $this->featureId = $featureId;
+  }
+  public function getFeatureId() {
+    return $this->featureId;
+  }
+  public function setStartTimeMs($startTimeMs) {
+    $this->startTimeMs = $startTimeMs;
+  }
+  public function getStartTimeMs() {
+    return $this->startTimeMs;
+  }
+  public function setWatermarkUrl($watermarkUrl) {
+    $this->watermarkUrl = $watermarkUrl;
+  }
+  public function getWatermarkUrl() {
+    return $this->watermarkUrl;
+  }
+}
+
+class Google_FeaturedVideo extends Google_Model {
+  public $endTimeMs;
+  public $featureId;
+  public $startTimeMs;
+  public $videoId;
+  protected $__videoSnippetType = 'Google_VideoSnippet';
+  protected $__videoSnippetDataType = '';
+  public $videoSnippet;
+  public function setEndTimeMs($endTimeMs) {
+    $this->endTimeMs = $endTimeMs;
+  }
+  public function getEndTimeMs() {
+    return $this->endTimeMs;
+  }
+  public function setFeatureId($featureId) {
+    $this->featureId = $featureId;
+  }
+  public function getFeatureId() {
+    return $this->featureId;
+  }
+  public function setStartTimeMs($startTimeMs) {
+    $this->startTimeMs = $startTimeMs;
+  }
+  public function getStartTimeMs() {
+    return $this->startTimeMs;
+  }
+  public function setVideoId($videoId) {
+    $this->videoId = $videoId;
+  }
+  public function getVideoId() {
+    return $this->videoId;
+  }
+  public function setVideoSnippet(Google_VideoSnippet $videoSnippet) {
+    $this->videoSnippet = $videoSnippet;
+  }
+  public function getVideoSnippet() {
+    return $this->videoSnippet;
   }
 }
 
@@ -1632,6 +2033,166 @@ class Google_GuideCategorySnippet extends Google_Model {
   }
 }
 
+class Google_ImageSettings extends Google_Model {
+  protected $__backgroundImageUrlType = 'Google_LocalizedProperty';
+  protected $__backgroundImageUrlDataType = '';
+  public $backgroundImageUrl;
+  public $bannerImageUrl;
+  public $bannerMobileExtraHdImageUrl;
+  public $bannerMobileHdImageUrl;
+  public $bannerMobileImageUrl;
+  public $bannerMobileLowImageUrl;
+  public $bannerMobileMediumHdImageUrl;
+  public $bannerTabletExtraHdImageUrl;
+  public $bannerTabletHdImageUrl;
+  public $bannerTabletImageUrl;
+  public $bannerTabletLowImageUrl;
+  public $bannerTvImageUrl;
+  protected $__largeBrandedBannerImageImapScriptType = 'Google_LocalizedProperty';
+  protected $__largeBrandedBannerImageImapScriptDataType = '';
+  public $largeBrandedBannerImageImapScript;
+  protected $__largeBrandedBannerImageUrlType = 'Google_LocalizedProperty';
+  protected $__largeBrandedBannerImageUrlDataType = '';
+  public $largeBrandedBannerImageUrl;
+  protected $__smallBrandedBannerImageImapScriptType = 'Google_LocalizedProperty';
+  protected $__smallBrandedBannerImageImapScriptDataType = '';
+  public $smallBrandedBannerImageImapScript;
+  protected $__smallBrandedBannerImageUrlType = 'Google_LocalizedProperty';
+  protected $__smallBrandedBannerImageUrlDataType = '';
+  public $smallBrandedBannerImageUrl;
+  public $trackingImageUrl;
+  public $watchIconImageUrl;
+  public function setBackgroundImageUrl(Google_LocalizedProperty $backgroundImageUrl) {
+    $this->backgroundImageUrl = $backgroundImageUrl;
+  }
+  public function getBackgroundImageUrl() {
+    return $this->backgroundImageUrl;
+  }
+  public function setBannerImageUrl($bannerImageUrl) {
+    $this->bannerImageUrl = $bannerImageUrl;
+  }
+  public function getBannerImageUrl() {
+    return $this->bannerImageUrl;
+  }
+  public function setBannerMobileExtraHdImageUrl($bannerMobileExtraHdImageUrl) {
+    $this->bannerMobileExtraHdImageUrl = $bannerMobileExtraHdImageUrl;
+  }
+  public function getBannerMobileExtraHdImageUrl() {
+    return $this->bannerMobileExtraHdImageUrl;
+  }
+  public function setBannerMobileHdImageUrl($bannerMobileHdImageUrl) {
+    $this->bannerMobileHdImageUrl = $bannerMobileHdImageUrl;
+  }
+  public function getBannerMobileHdImageUrl() {
+    return $this->bannerMobileHdImageUrl;
+  }
+  public function setBannerMobileImageUrl($bannerMobileImageUrl) {
+    $this->bannerMobileImageUrl = $bannerMobileImageUrl;
+  }
+  public function getBannerMobileImageUrl() {
+    return $this->bannerMobileImageUrl;
+  }
+  public function setBannerMobileLowImageUrl($bannerMobileLowImageUrl) {
+    $this->bannerMobileLowImageUrl = $bannerMobileLowImageUrl;
+  }
+  public function getBannerMobileLowImageUrl() {
+    return $this->bannerMobileLowImageUrl;
+  }
+  public function setBannerMobileMediumHdImageUrl($bannerMobileMediumHdImageUrl) {
+    $this->bannerMobileMediumHdImageUrl = $bannerMobileMediumHdImageUrl;
+  }
+  public function getBannerMobileMediumHdImageUrl() {
+    return $this->bannerMobileMediumHdImageUrl;
+  }
+  public function setBannerTabletExtraHdImageUrl($bannerTabletExtraHdImageUrl) {
+    $this->bannerTabletExtraHdImageUrl = $bannerTabletExtraHdImageUrl;
+  }
+  public function getBannerTabletExtraHdImageUrl() {
+    return $this->bannerTabletExtraHdImageUrl;
+  }
+  public function setBannerTabletHdImageUrl($bannerTabletHdImageUrl) {
+    $this->bannerTabletHdImageUrl = $bannerTabletHdImageUrl;
+  }
+  public function getBannerTabletHdImageUrl() {
+    return $this->bannerTabletHdImageUrl;
+  }
+  public function setBannerTabletImageUrl($bannerTabletImageUrl) {
+    $this->bannerTabletImageUrl = $bannerTabletImageUrl;
+  }
+  public function getBannerTabletImageUrl() {
+    return $this->bannerTabletImageUrl;
+  }
+  public function setBannerTabletLowImageUrl($bannerTabletLowImageUrl) {
+    $this->bannerTabletLowImageUrl = $bannerTabletLowImageUrl;
+  }
+  public function getBannerTabletLowImageUrl() {
+    return $this->bannerTabletLowImageUrl;
+  }
+  public function setBannerTvImageUrl($bannerTvImageUrl) {
+    $this->bannerTvImageUrl = $bannerTvImageUrl;
+  }
+  public function getBannerTvImageUrl() {
+    return $this->bannerTvImageUrl;
+  }
+  public function setLargeBrandedBannerImageImapScript(Google_LocalizedProperty $largeBrandedBannerImageImapScript) {
+    $this->largeBrandedBannerImageImapScript = $largeBrandedBannerImageImapScript;
+  }
+  public function getLargeBrandedBannerImageImapScript() {
+    return $this->largeBrandedBannerImageImapScript;
+  }
+  public function setLargeBrandedBannerImageUrl(Google_LocalizedProperty $largeBrandedBannerImageUrl) {
+    $this->largeBrandedBannerImageUrl = $largeBrandedBannerImageUrl;
+  }
+  public function getLargeBrandedBannerImageUrl() {
+    return $this->largeBrandedBannerImageUrl;
+  }
+  public function setSmallBrandedBannerImageImapScript(Google_LocalizedProperty $smallBrandedBannerImageImapScript) {
+    $this->smallBrandedBannerImageImapScript = $smallBrandedBannerImageImapScript;
+  }
+  public function getSmallBrandedBannerImageImapScript() {
+    return $this->smallBrandedBannerImageImapScript;
+  }
+  public function setSmallBrandedBannerImageUrl(Google_LocalizedProperty $smallBrandedBannerImageUrl) {
+    $this->smallBrandedBannerImageUrl = $smallBrandedBannerImageUrl;
+  }
+  public function getSmallBrandedBannerImageUrl() {
+    return $this->smallBrandedBannerImageUrl;
+  }
+  public function setTrackingImageUrl($trackingImageUrl) {
+    $this->trackingImageUrl = $trackingImageUrl;
+  }
+  public function getTrackingImageUrl() {
+    return $this->trackingImageUrl;
+  }
+  public function setWatchIconImageUrl($watchIconImageUrl) {
+    $this->watchIconImageUrl = $watchIconImageUrl;
+  }
+  public function getWatchIconImageUrl() {
+    return $this->watchIconImageUrl;
+  }
+}
+
+class Google_InvideoFeature extends Google_Model {
+  protected $__featuredChannelType = 'Google_FeaturedChannel';
+  protected $__featuredChannelDataType = '';
+  public $featuredChannel;
+  protected $__featuredVideoType = 'Google_FeaturedVideo';
+  protected $__featuredVideoDataType = '';
+  public $featuredVideo;
+  public function setFeaturedChannel(Google_FeaturedChannel $featuredChannel) {
+    $this->featuredChannel = $featuredChannel;
+  }
+  public function getFeaturedChannel() {
+    return $this->featuredChannel;
+  }
+  public function setFeaturedVideo(Google_FeaturedVideo $featuredVideo) {
+    $this->featuredVideo = $featuredVideo;
+  }
+  public function getFeaturedVideo() {
+    return $this->featuredVideo;
+  }
+}
+
 class Google_LiveBroadcast extends Google_Model {
   protected $__contentDetailsType = 'Google_LiveBroadcastContentDetails';
   protected $__contentDetailsDataType = '';
@@ -1694,6 +2255,8 @@ class Google_LiveBroadcast extends Google_Model {
 
 class Google_LiveBroadcastContentDetails extends Google_Model {
   public $boundStreamId;
+  protected $__enableArchiveType = 'Google_LiveBroadcastContentDetailsEnableArchive';
+  protected $__enableArchiveDataType = '';
   public $enableArchive;
   public $enableContentEncryption;
   public $enableDvr;
@@ -1701,6 +2264,10 @@ class Google_LiveBroadcastContentDetails extends Google_Model {
   protected $__monitorStreamType = 'Google_LiveBroadcastContentDetailsMonitorStream';
   protected $__monitorStreamDataType = '';
   public $monitorStream;
+  public $recordFromStart;
+  public $startWithSlate;
+  protected $__startWithSlateCuepointType = 'Google_LiveBroadcastContentDetailsStartWithSlateCuepoint';
+  protected $__startWithSlateCuepointDataType = '';
   public $startWithSlateCuepoint;
   public function setBoundStreamId($boundStreamId) {
     $this->boundStreamId = $boundStreamId;
@@ -1708,7 +2275,7 @@ class Google_LiveBroadcastContentDetails extends Google_Model {
   public function getBoundStreamId() {
     return $this->boundStreamId;
   }
-  public function setEnableArchive($enableArchive) {
+  public function setEnableArchive(Google_LiveBroadcastContentDetailsEnableArchive $enableArchive) {
     $this->enableArchive = $enableArchive;
   }
   public function getEnableArchive() {
@@ -1738,12 +2305,27 @@ class Google_LiveBroadcastContentDetails extends Google_Model {
   public function getMonitorStream() {
     return $this->monitorStream;
   }
-  public function setStartWithSlateCuepoint($startWithSlateCuepoint) {
+  public function setRecordFromStart($recordFromStart) {
+    $this->recordFromStart = $recordFromStart;
+  }
+  public function getRecordFromStart() {
+    return $this->recordFromStart;
+  }
+  public function setStartWithSlate($startWithSlate) {
+    $this->startWithSlate = $startWithSlate;
+  }
+  public function getStartWithSlate() {
+    return $this->startWithSlate;
+  }
+  public function setStartWithSlateCuepoint(Google_LiveBroadcastContentDetailsStartWithSlateCuepoint $startWithSlateCuepoint) {
     $this->startWithSlateCuepoint = $startWithSlateCuepoint;
   }
   public function getStartWithSlateCuepoint() {
     return $this->startWithSlateCuepoint;
   }
+}
+
+class Google_LiveBroadcastContentDetailsEnableArchive extends Google_Model {
 }
 
 class Google_LiveBroadcastContentDetailsMonitorStream extends Google_Model {
@@ -1768,6 +2350,9 @@ class Google_LiveBroadcastContentDetailsMonitorStream extends Google_Model {
   public function getEnableMonitorStream() {
     return $this->enableMonitorStream;
   }
+}
+
+class Google_LiveBroadcastContentDetailsStartWithSlateCuepoint extends Google_Model {
 }
 
 class Google_LiveBroadcastList extends Google_Model {
@@ -1821,40 +2406,6 @@ class Google_LiveBroadcastList extends Google_Model {
 }
 
 class Google_LiveBroadcastSlateSettings extends Google_Model {
-  public $enableSlates;
-  protected $__slatesType = 'Google_LiveBroadcastSlateSettingsSlates';
-  protected $__slatesDataType = 'map';
-  public $slates;
-  public function setEnableSlates($enableSlates) {
-    $this->enableSlates = $enableSlates;
-  }
-  public function getEnableSlates() {
-    return $this->enableSlates;
-  }
-  public function setSlates(Google_LiveBroadcastSlateSettingsSlates $slates) {
-    $this->slates = $slates;
-  }
-  public function getSlates() {
-    return $this->slates;
-  }
-}
-
-class Google_LiveBroadcastSlateSettingsSlates extends Google_Model {
-  public $backgroundUrl;
-  public $textLines;
-  public function setBackgroundUrl($backgroundUrl) {
-    $this->backgroundUrl = $backgroundUrl;
-  }
-  public function getBackgroundUrl() {
-    return $this->backgroundUrl;
-  }
-  public function setTextLines(/* array(Google_string) */ $textLines) {
-    $this->assertIsArray($textLines, 'Google_string', __METHOD__);
-    $this->textLines = $textLines;
-  }
-  public function getTextLines() {
-    return $this->textLines;
-  }
 }
 
 class Google_LiveBroadcastSnippet extends Google_Model {
@@ -1865,8 +2416,8 @@ class Google_LiveBroadcastSnippet extends Google_Model {
   public $publishedAt;
   public $scheduledEndTime;
   public $scheduledStartTime;
-  protected $__thumbnailsType = 'Google_Thumbnail';
-  protected $__thumbnailsDataType = 'map';
+  protected $__thumbnailsType = 'Google_ThumbnailDetails';
+  protected $__thumbnailsDataType = '';
   public $thumbnails;
   public $title;
   public function setActualEndTime($actualEndTime) {
@@ -1911,7 +2462,7 @@ class Google_LiveBroadcastSnippet extends Google_Model {
   public function getScheduledStartTime() {
     return $this->scheduledStartTime;
   }
-  public function setThumbnails(Google_Thumbnail $thumbnails) {
+  public function setThumbnails(Google_ThumbnailDetails $thumbnails) {
     $this->thumbnails = $thumbnails;
   }
   public function getThumbnails() {
@@ -1999,9 +2550,6 @@ class Google_LiveStreamCdn extends Google_Model {
   protected $__ingestionInfoDataType = '';
   public $ingestionInfo;
   public $ingestionType;
-  protected $__multicastIngestionInfoType = 'Google_LiveStreamCdnMulticastIngestionInfo';
-  protected $__multicastIngestionInfoDataType = '';
-  public $multicastIngestionInfo;
   public function setFormat($format) {
     $this->format = $format;
   }
@@ -2019,12 +2567,6 @@ class Google_LiveStreamCdn extends Google_Model {
   }
   public function getIngestionType() {
     return $this->ingestionType;
-  }
-  public function setMulticastIngestionInfo(Google_LiveStreamCdnMulticastIngestionInfo $multicastIngestionInfo) {
-    $this->multicastIngestionInfo = $multicastIngestionInfo;
-  }
-  public function getMulticastIngestionInfo() {
-    return $this->multicastIngestionInfo;
   }
 }
 
@@ -2049,16 +2591,6 @@ class Google_LiveStreamCdnIngestionInfo extends Google_Model {
   }
   public function getStreamName() {
     return $this->streamName;
-  }
-}
-
-class Google_LiveStreamCdnMulticastIngestionInfo extends Google_Model {
-  public $multicastAddress;
-  public function setMulticastAddress($multicastAddress) {
-    $this->multicastAddress = $multicastAddress;
-  }
-  public function getMulticastAddress() {
-    return $this->multicastAddress;
   }
 }
 
@@ -2153,6 +2685,43 @@ class Google_LiveStreamStatus extends Google_Model {
   }
 }
 
+class Google_LocalizedProperty extends Google_Model {
+  public $default;
+  protected $__localizedType = 'Google_LocalizedString';
+  protected $__localizedDataType = 'array';
+  public $localized;
+  public function setDefault($default) {
+    $this->default = $default;
+  }
+  public function getDefault() {
+    return $this->default;
+  }
+  public function setLocalized(/* array(Google_LocalizedString) */ $localized) {
+    $this->assertIsArray($localized, 'Google_LocalizedString', __METHOD__);
+    $this->localized = $localized;
+  }
+  public function getLocalized() {
+    return $this->localized;
+  }
+}
+
+class Google_LocalizedString extends Google_Model {
+  public $language;
+  public $value;
+  public function setLanguage($language) {
+    $this->language = $language;
+  }
+  public function getLanguage() {
+    return $this->language;
+  }
+  public function setValue($value) {
+    $this->value = $value;
+  }
+  public function getValue() {
+    return $this->value;
+  }
+}
+
 class Google_PageInfo extends Google_Model {
   public $resultsPerPage;
   public $totalResults;
@@ -2167,6 +2736,159 @@ class Google_PageInfo extends Google_Model {
   }
   public function getTotalResults() {
     return $this->totalResults;
+  }
+}
+
+class Google_Player extends Google_Model {
+  protected $__adsPlaylistType = 'Google_PlayerAdsPlaylist';
+  protected $__adsPlaylistDataType = '';
+  public $adsPlaylist;
+  public $etag;
+  protected $__idType = 'Google_ResourceId';
+  protected $__idDataType = '';
+  public $id;
+  protected $__invideoFeatureType = 'Google_InvideoFeature';
+  protected $__invideoFeatureDataType = '';
+  public $invideoFeature;
+  public $kind;
+  protected $__videoUrlsType = 'Google_PlayerVideoUrls';
+  protected $__videoUrlsDataType = '';
+  public $videoUrls;
+  public function setAdsPlaylist(Google_PlayerAdsPlaylist $adsPlaylist) {
+    $this->adsPlaylist = $adsPlaylist;
+  }
+  public function getAdsPlaylist() {
+    return $this->adsPlaylist;
+  }
+  public function setEtag($etag) {
+    $this->etag = $etag;
+  }
+  public function getEtag() {
+    return $this->etag;
+  }
+  public function setId(Google_ResourceId $id) {
+    $this->id = $id;
+  }
+  public function getId() {
+    return $this->id;
+  }
+  public function setInvideoFeature(Google_InvideoFeature $invideoFeature) {
+    $this->invideoFeature = $invideoFeature;
+  }
+  public function getInvideoFeature() {
+    return $this->invideoFeature;
+  }
+  public function setKind($kind) {
+    $this->kind = $kind;
+  }
+  public function getKind() {
+    return $this->kind;
+  }
+  public function setVideoUrls(Google_PlayerVideoUrls $videoUrls) {
+    $this->videoUrls = $videoUrls;
+  }
+  public function getVideoUrls() {
+    return $this->videoUrls;
+  }
+}
+
+class Google_PlayerAdsPlaylist extends Google_Model {
+  public $vmap_xml;
+  public function setVmap_xml($vmap_xml) {
+    $this->vmap_xml = $vmap_xml;
+  }
+  public function getVmap_xml() {
+    return $this->vmap_xml;
+  }
+}
+
+class Google_PlayerListResponse extends Google_Model {
+  public $etag;
+  public $kind;
+  protected $__playersType = 'Google_Player';
+  protected $__playersDataType = 'array';
+  public $players;
+  public function setEtag($etag) {
+    $this->etag = $etag;
+  }
+  public function getEtag() {
+    return $this->etag;
+  }
+  public function setKind($kind) {
+    $this->kind = $kind;
+  }
+  public function getKind() {
+    return $this->kind;
+  }
+  public function setPlayers(/* array(Google_Player) */ $players) {
+    $this->assertIsArray($players, 'Google_Player', __METHOD__);
+    $this->players = $players;
+  }
+  public function getPlayers() {
+    return $this->players;
+  }
+}
+
+class Google_PlayerRestrictionDetails extends Google_Model {
+  public $reason;
+  public $restricted;
+  public $restriction;
+  public function setReason($reason) {
+    $this->reason = $reason;
+  }
+  public function getReason() {
+    return $this->reason;
+  }
+  public function setRestricted($restricted) {
+    $this->restricted = $restricted;
+  }
+  public function getRestricted() {
+    return $this->restricted;
+  }
+  public function setRestriction($restriction) {
+    $this->restriction = $restriction;
+  }
+  public function getRestriction() {
+    return $this->restriction;
+  }
+}
+
+class Google_PlayerVideoUrl extends Google_Model {
+  public $itag;
+  public $url;
+  public function setItag($itag) {
+    $this->itag = $itag;
+  }
+  public function getItag() {
+    return $this->itag;
+  }
+  public function setUrl($url) {
+    $this->url = $url;
+  }
+  public function getUrl() {
+    return $this->url;
+  }
+}
+
+class Google_PlayerVideoUrls extends Google_Model {
+  protected $__restrictionType = 'Google_PlayerRestrictionDetails';
+  protected $__restrictionDataType = '';
+  public $restriction;
+  protected $__urlType = 'Google_PlayerVideoUrl';
+  protected $__urlDataType = 'array';
+  public $url;
+  public function setRestriction(Google_PlayerRestrictionDetails $restriction) {
+    $this->restriction = $restriction;
+  }
+  public function getRestriction() {
+    return $this->restriction;
+  }
+  public function setUrl(/* array(Google_PlayerVideoUrl) */ $url) {
+    $this->assertIsArray($url, 'Google_PlayerVideoUrl', __METHOD__);
+    $this->url = $url;
+  }
+  public function getUrl() {
+    return $this->url;
   }
 }
 
@@ -2250,6 +2972,9 @@ class Google_PlaylistItem extends Google_Model {
   protected $__snippetType = 'Google_PlaylistItemSnippet';
   protected $__snippetDataType = '';
   public $snippet;
+  protected $__statusType = 'Google_PlaylistItemStatus';
+  protected $__statusDataType = '';
+  public $status;
   public function setContentDetails(Google_PlaylistItemContentDetails $contentDetails) {
     $this->contentDetails = $contentDetails;
   }
@@ -2279,6 +3004,12 @@ class Google_PlaylistItem extends Google_Model {
   }
   public function getSnippet() {
     return $this->snippet;
+  }
+  public function setStatus(Google_PlaylistItemStatus $status) {
+    $this->status = $status;
+  }
+  public function getStatus() {
+    return $this->status;
   }
 }
 
@@ -2372,8 +3103,8 @@ class Google_PlaylistItemSnippet extends Google_Model {
   protected $__resourceIdType = 'Google_ResourceId';
   protected $__resourceIdDataType = '';
   public $resourceId;
-  protected $__thumbnailsType = 'Google_Thumbnail';
-  protected $__thumbnailsDataType = 'map';
+  protected $__thumbnailsType = 'Google_ThumbnailDetails';
+  protected $__thumbnailsDataType = '';
   public $thumbnails;
   public $title;
   public function setChannelId($channelId) {
@@ -2412,7 +3143,7 @@ class Google_PlaylistItemSnippet extends Google_Model {
   public function getResourceId() {
     return $this->resourceId;
   }
-  public function setThumbnails(Google_Thumbnail $thumbnails) {
+  public function setThumbnails(Google_ThumbnailDetails $thumbnails) {
     $this->thumbnails = $thumbnails;
   }
   public function getThumbnails() {
@@ -2423,6 +3154,16 @@ class Google_PlaylistItemSnippet extends Google_Model {
   }
   public function getTitle() {
     return $this->title;
+  }
+}
+
+class Google_PlaylistItemStatus extends Google_Model {
+  public $privacyStatus;
+  public function setPrivacyStatus($privacyStatus) {
+    $this->privacyStatus = $privacyStatus;
+  }
+  public function getPrivacyStatus() {
+    return $this->privacyStatus;
   }
 }
 
@@ -2490,8 +3231,8 @@ class Google_PlaylistSnippet extends Google_Model {
   public $channelId;
   public $description;
   public $publishedAt;
-  protected $__thumbnailsType = 'Google_Thumbnail';
-  protected $__thumbnailsDataType = 'map';
+  protected $__thumbnailsType = 'Google_ThumbnailDetails';
+  protected $__thumbnailsDataType = '';
   public $thumbnails;
   public $title;
   public function setChannelId($channelId) {
@@ -2512,7 +3253,7 @@ class Google_PlaylistSnippet extends Google_Model {
   public function getPublishedAt() {
     return $this->publishedAt;
   }
-  public function setThumbnails(Google_Thumbnail $thumbnails) {
+  public function setThumbnails(Google_ThumbnailDetails $thumbnails) {
     $this->thumbnails = $thumbnails;
   }
   public function getThumbnails() {
@@ -2533,6 +3274,23 @@ class Google_PlaylistStatus extends Google_Model {
   }
   public function getPrivacyStatus() {
     return $this->privacyStatus;
+  }
+}
+
+class Google_PropertyValue extends Google_Model {
+  public $property;
+  public $value;
+  public function setProperty($property) {
+    $this->property = $property;
+  }
+  public function getProperty() {
+    return $this->property;
+  }
+  public function setValue($value) {
+    $this->value = $value;
+  }
+  public function getValue() {
+    return $this->value;
   }
 }
 
@@ -2654,10 +3412,11 @@ class Google_SearchResult extends Google_Model {
 
 class Google_SearchResultSnippet extends Google_Model {
   public $channelId;
+  public $channelTitle;
   public $description;
   public $publishedAt;
-  protected $__thumbnailsType = 'Google_Thumbnail';
-  protected $__thumbnailsDataType = 'map';
+  protected $__thumbnailsType = 'Google_ThumbnailDetails';
+  protected $__thumbnailsDataType = '';
   public $thumbnails;
   public $title;
   public function setChannelId($channelId) {
@@ -2665,6 +3424,12 @@ class Google_SearchResultSnippet extends Google_Model {
   }
   public function getChannelId() {
     return $this->channelId;
+  }
+  public function setChannelTitle($channelTitle) {
+    $this->channelTitle = $channelTitle;
+  }
+  public function getChannelTitle() {
+    return $this->channelTitle;
   }
   public function setDescription($description) {
     $this->description = $description;
@@ -2678,7 +3443,7 @@ class Google_SearchResultSnippet extends Google_Model {
   public function getPublishedAt() {
     return $this->publishedAt;
   }
-  public function setThumbnails(Google_Thumbnail $thumbnails) {
+  public function setThumbnails(Google_ThumbnailDetails $thumbnails) {
     $this->thumbnails = $thumbnails;
   }
   public function getThumbnails() {
@@ -2808,8 +3573,8 @@ class Google_SubscriptionSnippet extends Google_Model {
   protected $__resourceIdType = 'Google_ResourceId';
   protected $__resourceIdDataType = '';
   public $resourceId;
-  protected $__thumbnailsType = 'Google_Thumbnail';
-  protected $__thumbnailsDataType = 'map';
+  protected $__thumbnailsType = 'Google_ThumbnailDetails';
+  protected $__thumbnailsDataType = '';
   public $thumbnails;
   public $title;
   public function setChannelId($channelId) {
@@ -2836,7 +3601,7 @@ class Google_SubscriptionSnippet extends Google_Model {
   public function getResourceId() {
     return $this->resourceId;
   }
-  public function setThumbnails(Google_Thumbnail $thumbnails) {
+  public function setThumbnails(Google_ThumbnailDetails $thumbnails) {
     $this->thumbnails = $thumbnails;
   }
   public function getThumbnails() {
@@ -2874,7 +3639,58 @@ class Google_Thumbnail extends Google_Model {
   }
 }
 
+class Google_ThumbnailDetails extends Google_Model {
+  protected $__defaultType = 'Google_Thumbnail';
+  protected $__defaultDataType = '';
+  public $default;
+  protected $__highType = 'Google_Thumbnail';
+  protected $__highDataType = '';
+  public $high;
+  protected $__maxresType = 'Google_Thumbnail';
+  protected $__maxresDataType = '';
+  public $maxres;
+  protected $__mediumType = 'Google_Thumbnail';
+  protected $__mediumDataType = '';
+  public $medium;
+  protected $__standardType = 'Google_Thumbnail';
+  protected $__standardDataType = '';
+  public $standard;
+  public function setDefault(Google_Thumbnail $default) {
+    $this->default = $default;
+  }
+  public function getDefault() {
+    return $this->default;
+  }
+  public function setHigh(Google_Thumbnail $high) {
+    $this->high = $high;
+  }
+  public function getHigh() {
+    return $this->high;
+  }
+  public function setMaxres(Google_Thumbnail $maxres) {
+    $this->maxres = $maxres;
+  }
+  public function getMaxres() {
+    return $this->maxres;
+  }
+  public function setMedium(Google_Thumbnail $medium) {
+    $this->medium = $medium;
+  }
+  public function getMedium() {
+    return $this->medium;
+  }
+  public function setStandard(Google_Thumbnail $standard) {
+    $this->standard = $standard;
+  }
+  public function getStandard() {
+    return $this->standard;
+  }
+}
+
 class Google_Video extends Google_Model {
+  protected $__ageGatingDetailsType = 'Google_VideoAgeGating';
+  protected $__ageGatingDetailsDataType = '';
+  public $ageGatingDetails;
   protected $__contentDetailsType = 'Google_VideoContentDetails';
   protected $__contentDetailsDataType = '';
   public $contentDetails;
@@ -2893,6 +3709,9 @@ class Google_Video extends Google_Model {
   protected $__processingDetailsType = 'Google_VideoProcessingDetails';
   protected $__processingDetailsDataType = '';
   public $processingDetails;
+  protected $__projectDetailsType = 'Google_VideoProjectDetails';
+  protected $__projectDetailsDataType = '';
+  public $projectDetails;
   protected $__recordingDetailsType = 'Google_VideoRecordingDetails';
   protected $__recordingDetailsDataType = '';
   public $recordingDetails;
@@ -2911,6 +3730,12 @@ class Google_Video extends Google_Model {
   protected $__topicDetailsType = 'Google_VideoTopicDetails';
   protected $__topicDetailsDataType = '';
   public $topicDetails;
+  public function setAgeGatingDetails(Google_VideoAgeGating $ageGatingDetails) {
+    $this->ageGatingDetails = $ageGatingDetails;
+  }
+  public function getAgeGatingDetails() {
+    return $this->ageGatingDetails;
+  }
   public function setContentDetails(Google_VideoContentDetails $contentDetails) {
     $this->contentDetails = $contentDetails;
   }
@@ -2959,6 +3784,12 @@ class Google_Video extends Google_Model {
   public function getProcessingDetails() {
     return $this->processingDetails;
   }
+  public function setProjectDetails(Google_VideoProjectDetails $projectDetails) {
+    $this->projectDetails = $projectDetails;
+  }
+  public function getProjectDetails() {
+    return $this->projectDetails;
+  }
   public function setRecordingDetails(Google_VideoRecordingDetails $recordingDetails) {
     $this->recordingDetails = $recordingDetails;
   }
@@ -2994,6 +3825,30 @@ class Google_Video extends Google_Model {
   }
   public function getTopicDetails() {
     return $this->topicDetails;
+  }
+}
+
+class Google_VideoAgeGating extends Google_Model {
+  public $alcoholContent;
+  public $restricted;
+  public $videoGameRating;
+  public function setAlcoholContent($alcoholContent) {
+    $this->alcoholContent = $alcoholContent;
+  }
+  public function getAlcoholContent() {
+    return $this->alcoholContent;
+  }
+  public function setRestricted($restricted) {
+    $this->restricted = $restricted;
+  }
+  public function getRestricted() {
+    return $this->restricted;
+  }
+  public function setVideoGameRating($videoGameRating) {
+    $this->videoGameRating = $videoGameRating;
+  }
+  public function getVideoGameRating() {
+    return $this->videoGameRating;
   }
 }
 
@@ -3076,6 +3931,12 @@ class Google_VideoCategorySnippet extends Google_Model {
 
 class Google_VideoContentDetails extends Google_Model {
   public $caption;
+  protected $__contentRatingType = 'Google_ContentRating';
+  protected $__contentRatingDataType = '';
+  public $contentRating;
+  protected $__countryRestrictionType = 'Google_AccessPolicy';
+  protected $__countryRestrictionDataType = '';
+  public $countryRestriction;
   public $definition;
   public $dimension;
   public $duration;
@@ -3088,6 +3949,18 @@ class Google_VideoContentDetails extends Google_Model {
   }
   public function getCaption() {
     return $this->caption;
+  }
+  public function setContentRating(Google_ContentRating $contentRating) {
+    $this->contentRating = $contentRating;
+  }
+  public function getContentRating() {
+    return $this->contentRating;
+  }
+  public function setCountryRestriction(Google_AccessPolicy $countryRestriction) {
+    $this->countryRestriction = $countryRestriction;
+  }
+  public function getCountryRestriction() {
+    return $this->countryRestriction;
   }
   public function setDefinition($definition) {
     $this->definition = $definition;
@@ -3445,6 +4318,17 @@ class Google_VideoProcessingDetailsProcessingProgress extends Google_Model {
   }
 }
 
+class Google_VideoProjectDetails extends Google_Model {
+  public $tags;
+  public function setTags(/* array(Google_string) */ $tags) {
+    $this->assertIsArray($tags, 'Google_string', __METHOD__);
+    $this->tags = $tags;
+  }
+  public function getTags() {
+    return $this->tags;
+  }
+}
+
 class Google_VideoRecordingDetails extends Google_Model {
   protected $__locationType = 'Google_GeoPoint';
   protected $__locationDataType = '';
@@ -3474,11 +4358,12 @@ class Google_VideoRecordingDetails extends Google_Model {
 class Google_VideoSnippet extends Google_Model {
   public $categoryId;
   public $channelId;
+  public $channelTitle;
   public $description;
   public $publishedAt;
   public $tags;
-  protected $__thumbnailsType = 'Google_Thumbnail';
-  protected $__thumbnailsDataType = 'map';
+  protected $__thumbnailsType = 'Google_ThumbnailDetails';
+  protected $__thumbnailsDataType = '';
   public $thumbnails;
   public $title;
   public function setCategoryId($categoryId) {
@@ -3492,6 +4377,12 @@ class Google_VideoSnippet extends Google_Model {
   }
   public function getChannelId() {
     return $this->channelId;
+  }
+  public function setChannelTitle($channelTitle) {
+    $this->channelTitle = $channelTitle;
+  }
+  public function getChannelTitle() {
+    return $this->channelTitle;
   }
   public function setDescription($description) {
     $this->description = $description;
@@ -3512,7 +4403,7 @@ class Google_VideoSnippet extends Google_Model {
   public function getTags() {
     return $this->tags;
   }
-  public function setThumbnails(Google_Thumbnail $thumbnails) {
+  public function setThumbnails(Google_ThumbnailDetails $thumbnails) {
     $this->thumbnails = $thumbnails;
   }
   public function getThumbnails() {
@@ -3569,6 +4460,7 @@ class Google_VideoStatus extends Google_Model {
   public $failureReason;
   public $license;
   public $privacyStatus;
+  public $publicStatsViewable;
   public $rejectionReason;
   public $uploadStatus;
   public function setEmbeddable($embeddable) {
@@ -3594,6 +4486,12 @@ class Google_VideoStatus extends Google_Model {
   }
   public function getPrivacyStatus() {
     return $this->privacyStatus;
+  }
+  public function setPublicStatsViewable($publicStatsViewable) {
+    $this->publicStatsViewable = $publicStatsViewable;
+  }
+  public function getPublicStatsViewable() {
+    return $this->publicStatsViewable;
   }
   public function setRejectionReason($rejectionReason) {
     $this->rejectionReason = $rejectionReason;
@@ -3680,5 +4578,29 @@ class Google_VideoTopicDetails extends Google_Model {
   }
   public function getTopicIds() {
     return $this->topicIds;
+  }
+}
+
+class Google_WatchSettings extends Google_Model {
+  public $backgroundColor;
+  public $featuredPlaylistId;
+  public $textColor;
+  public function setBackgroundColor($backgroundColor) {
+    $this->backgroundColor = $backgroundColor;
+  }
+  public function getBackgroundColor() {
+    return $this->backgroundColor;
+  }
+  public function setFeaturedPlaylistId($featuredPlaylistId) {
+    $this->featuredPlaylistId = $featuredPlaylistId;
+  }
+  public function getFeaturedPlaylistId() {
+    return $this->featuredPlaylistId;
+  }
+  public function setTextColor($textColor) {
+    $this->textColor = $textColor;
+  }
+  public function getTextColor() {
+    return $this->textColor;
   }
 }

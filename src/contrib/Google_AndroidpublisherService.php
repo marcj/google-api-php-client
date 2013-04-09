@@ -20,11 +20,11 @@
    * The "purchases" collection of methods.
    * Typical usage is:
    *  <code>
-   *   $androidpublisherService = new google_AndroidpublisherService(...);
+   *   $androidpublisherService = new Google_AndroidpublisherService(...);
    *   $purchases = $androidpublisherService->purchases;
    *  </code>
    */
-  class google_PurchasesServiceResource extends Google_ServiceResource {
+  class Google_PurchasesServiceResource extends Google_ServiceResource {
 
 
     /**
@@ -50,14 +50,14 @@
      * @param string $subscriptionId The purchased subscription ID (for example, 'monthly001').
      * @param string $token The token provided to the user's device when the subscription was purchased.
      * @param array $optParams Optional parameters.
-     * @return google_SubscriptionPurchase
+     * @return Google_SubscriptionPurchase
      */
     public function get($packageName, $subscriptionId, $token, $optParams = array()) {
       $params = array('packageName' => $packageName, 'subscriptionId' => $subscriptionId, 'token' => $token);
       $params = array_merge($params, $optParams);
       $data = $this->__call('get', array($params));
       if ($this->useObjects()) {
-        return new google_SubscriptionPurchase($data);
+        return new Google_SubscriptionPurchase($data);
       } else {
         return $data;
       }
@@ -65,7 +65,7 @@
   }
 
 /**
- * Service definition for google_Androidpublisher (v1).
+ * Service definition for Google_Androidpublisher (v1).
  *
  * <p>
  * Lets Android application developers access their Google Play accounts.
@@ -78,7 +78,7 @@
  *
  * @author Google, Inc.
  */
-class google_AndroidpublisherService extends Google_Service {
+class Google_AndroidpublisherService extends Google_Service {
   public $purchases;
   /**
    * Constructs the internal representation of the Androidpublisher service.
@@ -91,12 +91,12 @@ class google_AndroidpublisherService extends Google_Service {
     $this->serviceName = 'androidpublisher';
 
     $client->addService($this->serviceName, $this->version);
-    $this->purchases = new google_PurchasesServiceResource($this, $this->serviceName, 'purchases', json_decode('{"methods": {"cancel": {"parameters": {"packageName": {"required": true, "type": "string", "location": "path"}, "subscriptionId": {"required": true, "type": "string", "location": "path"}, "token": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "POST", "path": "{packageName}/subscriptions/{subscriptionId}/purchases/{token}/cancel", "id": "androidpublisher.purchases.cancel"}, "get": {"parameters": {"packageName": {"required": true, "type": "string", "location": "path"}, "subscriptionId": {"required": true, "type": "string", "location": "path"}, "token": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "SubscriptionPurchase"}, "httpMethod": "GET", "path": "{packageName}/subscriptions/{subscriptionId}/purchases/{token}", "id": "androidpublisher.purchases.get"}}}', true));
+    $this->purchases = new Google_PurchasesServiceResource($this, $this->serviceName, 'purchases', json_decode('{"methods": {"cancel": {"parameters": {"packageName": {"required": true, "type": "string", "location": "path"}, "subscriptionId": {"required": true, "type": "string", "location": "path"}, "token": {"required": true, "type": "string", "location": "path"}}, "httpMethod": "POST", "path": "{packageName}/subscriptions/{subscriptionId}/purchases/{token}/cancel", "id": "androidpublisher.purchases.cancel"}, "get": {"parameters": {"packageName": {"required": true, "type": "string", "location": "path"}, "subscriptionId": {"required": true, "type": "string", "location": "path"}, "token": {"required": true, "type": "string", "location": "path"}}, "response": {"$ref": "SubscriptionPurchase"}, "httpMethod": "GET", "path": "{packageName}/subscriptions/{subscriptionId}/purchases/{token}", "id": "androidpublisher.purchases.get"}}}', true));
 
   }
 }
 
-class google_SubscriptionPurchase extends Google_Model {
+class Google_SubscriptionPurchase extends Google_Model {
   public $autoRenewing;
   public $initiationTimestampMsec;
   public $kind;
